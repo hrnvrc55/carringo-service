@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react";
 import {AppProviderContext} from "../providers/AppProvider";
 import GoogleMapReact from 'google-map-react';
 import RoomIcon from '@material-ui/icons/Room';
-import CloseIcon from '@material-ui/icons/Close';
 
 
 type MarkerProps = {
@@ -55,30 +54,27 @@ const Marker = ({ text, lat, lng,  className, data } : MarkerProps) => {
 
 function MapArea({garages} : ComponentProps){
     const provider = React.useContext(AppProviderContext);
-    let [zoom, setZoom] = useState<number>(5);
-    let [active, setActive] = useState<boolean>(false);
-    let [defaultCenter, setDefaultCenter] = useState<any>({lat: 38.977973, lng: 34.878986});
 
     useEffect(() => {
         if(provider?.form?.garage !== undefined){
-            setActive(true);
+
         }
     },[provider?.form?.garage])
 
     function change({ zoom } : any){
-        console.log('change', zoom);
     }
 
     return (
         <div className="map-area position-relative">
             <GoogleMapReact
                 bootstrapURLKeys={{ key: "AIzaSyBoLwOKgI7cHr-uVnNuAZRuQvnaVkElZpo"}}
-                defaultCenter={defaultCenter}
-                defaultZoom={zoom}
+                defaultCenter={{lat: 38.977973, lng: 34.878986}}
+                defaultZoom={5}
                 onChange={change}
             >
-                {garages?.map((item: any) => (
+                {garages?.map((item: any, idx: number) => (
                     <Marker
+                        key={"marker" + idx}
                         className="marker text-danger"
                         lat={item.lat}
                         lng={item.lng}

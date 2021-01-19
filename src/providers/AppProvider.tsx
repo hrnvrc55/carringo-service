@@ -1,7 +1,6 @@
 import React, {useContext, useState, useEffect, createContext} from "react";
 import {useHistory} from 'react-router-dom';
 import moment from "moment";
-import {appointmentValidate, garageValidate, homeValidate, serviceValidate} from "../utils/validation";
 import AlertDialog from "../components/dialogs/AlertDialog";
 
 interface AppContextData {
@@ -49,7 +48,11 @@ function AppProvider(props: AppProviderProps){
 
     function changePage(path : string){
          let found  = stepCodes.find(x => x.value === path)!;
-         return found.sort;
+         if(Boolean(found) === true){
+             return found.sort;
+         }else{
+             return -1
+         }
     }
 
     function onChange(key: string, value: any) {

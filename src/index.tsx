@@ -2,14 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import Home from './pages/Home';
-import Customer from "./pages/Customer";
 import './style/index.scss';
-import Services from "./pages/Services";
-import Garages from "./pages/Garages";
-import Appointment from "./pages/Appointment";
-import AppProvider from "./providers/AppProvider";
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import {themeData} from './utils/theme';

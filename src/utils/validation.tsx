@@ -81,21 +81,16 @@ export function appointmentValidate(form: any){
     }else if(form?.phone){
         let str = form?.phone;
         let replaced = str.replace("(", '').replace(")", '').replace(" ", '');
-        const ch = /\s*(?:;|$)\s*/
-        let last = replaced.split(ch);
-        if(last[0].length < 12){
+        let arrayStr = replaced.split('').filter((e : any) => e.trim().length).join('');
+
+
+        if(Number(arrayStr.length) < 11){
+
             errors.push({
                 name: 'phone-error',
                 message: 'Geçerli bir telefon numarası giriniz'
             })
         }
-    }
-
-    if(!form?.description){
-        errors.push({
-            name: 'description-error',
-            message: 'Açıklama boş geçilemez'
-        })
     }
 
     return errors;

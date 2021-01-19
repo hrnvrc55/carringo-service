@@ -1,10 +1,14 @@
 .header {
   width: 100%;
-  height: auto;
+  height: 75px;
   border-bottom: 3px solid $orange;
   background: $primary;
   //background: #c1c9d5;
   box-shadow: 0 0 10px rgba(0,0,0,.3);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
 
 .nav-list-item{
@@ -12,6 +16,10 @@
   &:hover{
     color: $orange;
   }
+}
+
+.orange-button{
+  background-color: $orange;
 }
 
 .mobile-menu{

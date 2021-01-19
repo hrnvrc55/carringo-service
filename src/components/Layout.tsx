@@ -6,6 +6,7 @@ import {AppProviderContext} from "../providers/AppProvider";
 import MobileStepperComponent from "./MobileStepperComponent";
 import FullLoader from "./FullLoader";
 import Footer from "./Footer";
+import {appointmentValidate, garageValidate, homeValidate, serviceValidate} from "../utils/validation";
 
 type LayoutProps = {title: string, children: React.ReactNode};
 
@@ -23,6 +24,8 @@ function Layout({title, children}: LayoutProps,){
             setTimeout(() => {
                 provider?.isLoading(false);
             },1000)
+
+
         })
 
     }, [history])

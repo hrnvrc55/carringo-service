@@ -5,11 +5,15 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Collapse from '@material-ui/core/Collapse';
 import List from '@material-ui/core/List';
 import {Divider, ListItem} from "@material-ui/core";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 
 const menuList = [
-    {name: 'Anasayfa', route: '/'},
-    {name: 'İletişim', route: '#'}
+    {name: 'Anasayfa', route: '/', icon: "", className:""},
+    {name: 'Randevu Sorgula', route: '', icon: <FontAwesomeIcon icon={faSearch}/>, className: "btn btn-secondary"},
+    // {name: 'İletişim', route: '/iletisim'},
+
 ]
 
 function TopBar(){
@@ -26,10 +30,10 @@ function TopBar(){
                         <a href="/"><img src="/carringo-logo-new.png" height={60}/></a>
                     </div>
                     <div className="flex-fill">
-                        <div className="justify-content-end d-none d-md-flex">
+                        <div className="justify-content-end d-none d-md-flex align-items-center">
                             {menuList.map((item: any, idx: number) => (
                                 <div key={"menu-" + idx} className="ml-4 ">
-                                    <a href={item.route} className="nav-list-item text-decoration-none">{item.name}</a>
+                                    <a  href={item.route} className={"nav-list-item text-decoration-none " + item.className}>{item.name} {item.icon}</a>
                                 </div>
                             ))}
                         </div>

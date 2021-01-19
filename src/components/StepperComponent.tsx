@@ -175,7 +175,7 @@ export default function CustomizedSteppers({active} : StepperProps) {
 
     return (
         <>
-        <div className="d-none d-md-block">
+        <div className="d-none d-md-block stepper">
             {(activeStep >= 0 && activeStep <= 3) && (
                 <div className={classes.root}>
                     <Stepper alternativeLabel activeStep={activeStep} className="" connector={<ColorlibConnector/>}>

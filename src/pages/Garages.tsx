@@ -125,7 +125,7 @@ function Garages(){
                                 <FormControl component="fieldset" className="list-items">
                                     <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
                                         {garages.map((item: any, idx: number) => (
-                                            <div className={"mb-2 pl-2 pt-2 list-card custom-shadow" + (value === item.id ? " active": " ")}>
+                                            <div key={"garage-list-item" + idx} className={"mb-2 pl-2 pt-2 list-card custom-shadow" + (value === item.id ? " active": " ")}>
                                                 <FormControlLabel
                                                     value={item.id}
                                                     control={<CustomRadio />}
