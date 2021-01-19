@@ -1,0 +1,33 @@
+
+.service-card{
+  width: 180px;
+  height: auto;
+  //background-color: red;
+  cursor: pointer;
+  border: 2px solid transparent;
+  position: relative;
+
+  &:hover{
+    border: 2px solid $primary-light;
+
+
+  }
+
+  &.active{
+    border: 2px solid $success;
+    color: $success
+  }
+
+  .icon{
+    font-size: 50px;
+  }
+
+  .selected-icon{
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+
+

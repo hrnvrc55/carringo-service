@@ -1,0 +1,51 @@
+.custom-button{
+  height: 50px;
+  background-color: #007bff;
+}
+
+.custom-card{
+  border-radius: 5px;
+  position: relative;
+  border: 1px solid $success;
+
+  .done-icon{
+    position: absolute;
+    color: $success;
+    right: 2%;
+    top: 5%;
+    font-size: 30px;
+  }
+}
+
+.bottom-shadow{
+  box-shadow: 0 0 4px rgba(0,0,0,.3);
+}
+
+.custom-shadow{
+  box-shadow: 0 0 4px rgba(0,0,0,.3);
+}
+
+.custom-disable-color{
+  color: $disabled;
+}
+
+.list-area{
+  overflow: auto;
+  height: 400px;
+
+  .list-items{
+    width: 100%;
+    .list-card{
+      background-color: white;
+      border: 2px solid $secondary-light;
+
+      &.active{
+        border: 2px solid $success;
+        border-radius: 7px;
+
+      }
+    }
+  }
+}
+
+

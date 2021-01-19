@@ -1,0 +1,19 @@
+.header {
+  width: 100%;
+  height: auto;
+  border-bottom: 3px solid $orange;
+  background: $primary;
+  //background: #c1c9d5;
+  box-shadow: 0 0 10px rgba(0,0,0,.3);
+}
+
+.nav-list-item{
+  color: white;
+  &:hover{
+    color: $orange;
+  }
+}
+
+.mobile-menu{
+
+}

@@ -1,0 +1,35 @@
+
+
+$enable-grid-classes:false;
+$primary: #19358A;
+$primary-light: rgba(0, 123, 255, 0.5);
+$secondary:#868e96;
+$secondary-light: #efefef;
+$success:#28a745;
+$danger:#dc3545;
+$info:#17a2b8;
+$warning:#ffc107;
+$light:#f8f9fa;
+$dark:#343a40;
+$active: $primary;
+$orange: #FE8C04;
+$disabled: rgba(0, 0, 0, 0.3);
+
+
+main{
+  min-height: calc(100vh - 100px);
+}
+
+@import "success-page";
+@import "full-loader";
+@import "custom-scroll";
+@import "~animate.css";
+@import "custom-styles";
+@import "stepper";
+@import "map-area";
+@import 'services';
+@import 'form-wrapper';
+@import 'header';
+@import 'footer';
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/dist/css/bootstrap.min.css';
