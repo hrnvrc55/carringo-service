@@ -7,6 +7,10 @@ import MobileStepperComponent from "./MobileStepperComponent";
 import FullLoader from "./FullLoader";
 import Footer from "./Footer";
 import {appointmentValidate, garageValidate, homeValidate, serviceValidate} from "../utils/validation";
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
+import Typography from '@material-ui/core/Typography';
+
 
 type LayoutProps = {title: string, children: React.ReactNode};
 
@@ -36,13 +40,30 @@ function Layout({title, children}: LayoutProps,){
                 <title>{title} - Carringo Servis</title>
                 <MobileStepperComponent active={stepCount}/>
                 <FullLoader show={provider?.loading}/>
-                <main className="h-100">
-                    <div className="bg-white container card shadow shadow-sm my-4" >
+                <div className="container px-0">
+                    <div className="d-flex justify-content-between my-3 align-items-center">
+                        <div>
+                            <Typography variant={"h5"} >{title}</Typography>
+
+                        </div>
+                        <div>
+                            <Breadcrumbs aria-label="breadcrumb">
+                                <Link color="inherit" href="/" onClick={() => {}}>
+                                    Anasayfa
+                                </Link>
+
+                                <Typography color="textPrimary">{title}</Typography>
+                            </Breadcrumbs>
+                        </div>
+                    </div>
+                </div>
+                <main className="">
+                    <div className="bg-white container card shadow shadow-sm mb-4" >
                         <StepperComponent active={stepCount}/>
                         {children}
                     </div>
                 </main>
-                <Footer/>
+                {/*<Footer/>*/}
             </>
     )
 }

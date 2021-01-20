@@ -12,6 +12,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 const menuList = [
     {name: 'Anasayfa', route: '/', icon: "", className:""},
     {name: 'Randevu Sorgula', route: '', icon: <FontAwesomeIcon icon={faSearch}/>, className: "btn btn-secondary"},
+
     // {name: 'İletişim', route: '/iletisim'},
 
 ]
@@ -33,9 +34,15 @@ function TopBar(){
                         <div className="justify-content-end d-none d-md-flex align-items-center">
                             {menuList.map((item: any, idx: number) => (
                                 <div key={"menu-" + idx} className="ml-4 ">
-                                    <a  href={item.route} className={"nav-list-item text-decoration-none " + item.className}>{item.name} {item.icon}</a>
+                                    <a  href={item.route} className={"nav-list-item text-decoration-none "}>{item.name} {item.icon}</a>
                                 </div>
                             ))}
+                            <div key={"menu-register"} className="ml-4 ">
+                                <a  href={"/register"} className={"nav-list-item text-decoration-none "}>Yeni Üyelik</a>
+                            </div>
+                            <div key={"menu-login"} className="ml-4 ">
+                                <a  href={"/login"} className={"nav-list-item text-decoration-none "}>Giriş Yap</a>
+                            </div>
                         </div>
                         <MenuIcon onClick={() => setOpenMenu(!openMenu)} className="text-white float-right d-md-none d-block" fontSize={"large"} />
                     </div>

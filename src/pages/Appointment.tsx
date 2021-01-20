@@ -45,6 +45,7 @@ function Appointment(){
                 provider?.openGlobalAlert(true, "Uyarı", "Lütfen servis noktası seçiniz", "warning");
 
             }else {
+                provider?.saveAppointment();
                 history.push("/success");
             }
         }

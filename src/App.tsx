@@ -8,6 +8,8 @@ import Garages from "./pages/Garages";
 import Appointment from "./pages/Appointment";
 import SuccessPage from "./pages/SuccessPage";
 import Contact from "./pages/Contact";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
 
@@ -22,6 +24,8 @@ function App() {
               <Route exact path="/appointment" component={Appointment} />
               <Route exact path="/success" component={SuccessPage} />
               <Route exact path="/iletisim" component={Contact} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/register" component={Register} />
 
             </Switch>
           </BrowserRouter>

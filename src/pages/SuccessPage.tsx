@@ -20,23 +20,24 @@ function SuccessPage(){
 
     useEffect(() => {
         console.log(provider?.form)
+        let form = provider?.recordedForm;
         let newInfo = {
-            name: provider?.form?.first_name + " " + provider?.form?.last_name,
-            phone: provider?.form?.phone,
-            email: provider?.form?.email,
-            description: provider?.form?.description,
-            vehicle: provider?.form?.brand?.name + "-" +provider?.form?.model?.name + "-" + provider?.form?.gear?.name+ "-" + provider?.form?.engine?.name,
-            km: provider?.form?.kilometer,
-            date: moment(provider?.form?.date).format("DD/MM/YYYY"),
-            time: moment(provider?.form?.time).format("HH:mm"),
-            garage: provider?.form?.garage,
-            services: provider?.form?.services
+            name: form?.first_name + " " + form?.last_name,
+            phone: form?.phone,
+            email: form?.email,
+            description: form?.description,
+            vehicle: form?.brand?.name + "-" +form?.model?.name + "-" + form?.gear?.name+ "-" + form?.engine?.name,
+            km: form?.kilometer,
+            date: moment(form?.date).format("DD/MM/YYYY"),
+            time: moment(form?.time).format("HH:mm"),
+            garage: form?.garage,
+            services: form?.services
         }
         setInfo(newInfo);
     },[provider?.form])
 
     return (
-        <Layout title={"Başarılı"}>
+        <Layout title={"Randevu Bilgileri"}>
             <div className="success-page">
                 <div className="d-flex justify-content-center">
                     <CheckCircleIcon className="text-success icon"/>

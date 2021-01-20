@@ -8,9 +8,10 @@ type InputProps = {
     name: string,
     defaultValue?: any | undefined,
     errors?: any
+    type?: string
 }
 
-function TextInput({label, name, onChange, defaultValue, errors} : InputProps){
+function TextInput({label, name, onChange, defaultValue, errors, type} : InputProps){
     let [error, setError] = useState<any>({message: "", status: false});
 
     useEffect(() => {
@@ -39,6 +40,8 @@ function TextInput({label, name, onChange, defaultValue, errors} : InputProps){
             defaultValue={defaultValue}
             error={error.status}
             helperText={error.message}
+            type={type}
+
         />
     )
 }
