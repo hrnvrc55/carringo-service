@@ -40,18 +40,16 @@ function Layout({title, children}: LayoutProps,){
                 <title>{title} - Carringo Servis</title>
                 <MobileStepperComponent active={stepCount}/>
                 <FullLoader show={provider?.loading}/>
-                <div className="container px-0">
-                    <div className="d-flex justify-content-between my-3 align-items-center">
+                <div className="container px-0 d-none d-md-block">
+                    <div className="d-flex justify-content-between my-3 align-items-center px-2">
                         <div>
                             <Typography variant={"h5"} >{title}</Typography>
-
                         </div>
                         <div>
                             <Breadcrumbs aria-label="breadcrumb">
                                 <Link color="inherit" href="/" onClick={() => {}}>
                                     Anasayfa
                                 </Link>
-
                                 <Typography color="textPrimary">{title}</Typography>
                             </Breadcrumbs>
                         </div>
@@ -63,7 +61,7 @@ function Layout({title, children}: LayoutProps,){
                         {children}
                     </div>
                 </main>
-                {/*<Footer/>*/}
+                <Footer/>
             </>
     )
 }

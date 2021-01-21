@@ -48,9 +48,9 @@ function TopBar(){
                     </div>
                 </div>
             </div>
-            <div className="bg-white mobile-menu">
-                <Collapse in={openMenu}>
-                   <List component="nav" className="pb-1 pt-1">
+            <div className="bg-white ">
+                <Collapse in={openMenu} className="">
+                   <List component="nav" className="pt-1 mobile-menu">
                        {menuList.map((item: any, idx: number) => (
                            <div key={"mobile-menu" + idx}>
                            <ListItem component={"a"} href={item.route} button>
@@ -59,6 +59,18 @@ function TopBar(){
                            <Divider variant="fullWidth" component="li" />
                            </div>
                        ))}
+                       <div key={"menu-register"} className="pb-1 pt-1">
+                           <ListItem component={"a"} href={"/register"} button>
+                               Yeni Üyelik
+                           </ListItem>
+                           <Divider variant="fullWidth" component="li" />
+                       </div>
+                       <div key={"menu-register"} className="pb-1 pt-1">
+                           <ListItem component={"a"} href={"/login"} button>
+                               Giriş Yap
+                           </ListItem>
+                           <Divider variant="fullWidth" component="li" />
+                       </div>
                    </List>
                 </Collapse>
             </div>

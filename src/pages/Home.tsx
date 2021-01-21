@@ -101,7 +101,7 @@ function Home(){
                                 defaultValue={provider?.form?.engine}
                                 errors={errors}
                             />
-                            <TextInput errors={errors} label={"Kilometre"} defaultValue={provider?.form?.kilometer} name={"kilometer"} onChange={onChange}/>
+                            <TextInput type={"number"} errors={errors} label={"Kilometre"} defaultValue={provider?.form?.kilometer} name={"kilometer"} onChange={onChange}/>
                             <Button fullWidth={true} variant={"contained"} color="primary" onClick={() => submit()} className="text-white custom-button" >Devam Et <ForwardIcon/></Button>
                         </div>
                     </div>

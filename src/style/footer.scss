@@ -71,11 +71,22 @@ $padding-bottom: 1%;
 }
 
 
-
-
 .mobile-footer {
+  //position: -webkit-sticky;
+  //position: sticky;
+  //bottom:0 ;
+  //z-index: 2;
   .mobile-top-border{
     border-top: 2px solid $secondary;
+  }
+
+  .phone{
+    font-size: 19px;
+    font-weight: 500;
+
+    .icon{
+      color: $orange;
+    }
   }
 }
 

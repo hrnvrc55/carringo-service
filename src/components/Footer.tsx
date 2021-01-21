@@ -18,7 +18,7 @@ function Footer(){
 function DesktopFooter(){
 
     return (
-        <footer className="bg-dark footer d-none d-md-block">
+        <footer className="bg-dark footer d-none">
             <div className="container px-0">
                 <div className="row footer-top py-4">
                     <div className="col-8">
@@ -76,11 +76,17 @@ function MobileFooter(){
 
     return (
         <footer className="bg-dark d-md-none d-mb-block mobile-footer">
-            <div className="d-flex bg-white justify-content-center align-items-center py-3 mobile-top-border">
-                <FacebookIcon className="text-secondary" fontSize={"large"}/>
-                <InstagramIcon className="text-secondary ml-2"  fontSize={"large"}/>
-                <LinkedInIcon className="text-secondary ml-2" fontSize={"large"}/>
+            <div className="d-flex justify-content-between bg-white mobile-top-border align-items-center py-3 pl-2">
+                <div>
+                   <span className="phone"><FontAwesomeIcon className="icon" icon={faPhoneSquare}/> 0362 554 3445</span>
+                </div>
+                <div className="d-flex justify-content-center align-items-center pr-2">
+                    <FacebookIcon className="text-secondary" fontSize={"large"}/>
+                    <InstagramIcon className="text-secondary ml-2"  fontSize={"large"}/>
+                    <LinkedInIcon className="text-secondary ml-2" fontSize={"large"}/>
+                </div>
             </div>
+
             <div className="d-flex flex-column justify-content-center align-items-center py-4">
                 <small className="text-white">Site Creation & Technology by</small>
                 <a rel="nofollow" href="https://www.teksenbilisim.com/" target="_blank"><img className="" src="/teksen-logo.svg" height={35}/></a>
