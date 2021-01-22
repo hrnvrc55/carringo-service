@@ -18,10 +18,12 @@ $disabled: rgba(0, 0, 0, 0.3);
 
 
 main{
-  //min-height: calc(100vh - 100px);
-  height: auto
+  min-height: calc(100vh - 100px);
+//height: auto
 }
 
+@import "account";
+@import "not-found";
 @import "login";
 @import "success-page";
 @import "full-loader";

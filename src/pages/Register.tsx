@@ -3,11 +3,7 @@ import React, {useState} from "react";
 import TextInput from "../components/TextInput";
 import Button from "@material-ui/core/Button";
 import {useHistory} from "react-router-dom";
-import {AppProviderContext} from "../providers/AppProvider";
-import DateInput from "../components/DateInput";
-import TimeInput from "../components/TimeInput";
 import PhoneInput from "../components/PhoneInput";
-import TextArea from "../components/TextArea";
 import {registerValidate} from "../utils/validation";
 
 function Register(){
@@ -38,13 +34,13 @@ function Register(){
     }
 
     return (
-            <Layout title={"Yeni Üyelik"}>
+            <Layout title={"Yeni Üyelik"} stepper={false}>
                 <div className="d-flex justify-content-center mt-3 mt-md-2 mb-3 ">
                     <div className="login-form animate__animated animate__fadeInLeft my-4">
                         <div className="form-group p-3">
                             <div>
                                 <h4>Yeni Üyelik</h4>
-                                <small></small>
+                                <small>Üye olarak randevu oluşturabilir, bu randevular üzerinde güncelleme ve iptal işlemleri yapabilirsiniz.</small>
                                 <hr/>
                             </div>
                             <TextInput errors={errors} defaultValue={form?.first_name} label={"Adınız"} onChange={onChange} name={"first_name"}/>

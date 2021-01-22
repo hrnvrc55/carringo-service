@@ -176,17 +176,15 @@ export default function CustomizedSteppers({active} : StepperProps) {
     return (
         <>
         <div className="d-none d-md-block stepper">
-            {(activeStep >= 0 && activeStep <= 3) && (
-                <div className={classes.root}>
-                    <Stepper alternativeLabel activeStep={activeStep} className="" connector={<ColorlibConnector/>}>
-                        {steps.map((item) => (
-                            <Step style={{cursor: 'pointer'}} onClick={() => {goStep(item)}} key={item.label}>
-                                <StepLabel StepIconComponent={ColorlibStepIcon}>{item.label}</StepLabel>
-                            </Step>
-                        ))}
-                    </Stepper>
-                </div>
-            )}
+            <div className={classes.root}>
+                <Stepper alternativeLabel activeStep={activeStep} className="" connector={<ColorlibConnector/>}>
+                    {steps.map((item) => (
+                        <Step style={{cursor: 'pointer'}} onClick={() => {goStep(item)}} key={item.label}>
+                            <StepLabel StepIconComponent={ColorlibStepIcon}>{item.label}</StepLabel>
+                        </Step>
+                    ))}
+                </Stepper>
+            </div>
         </div>
         </>
     );

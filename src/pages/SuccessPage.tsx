@@ -37,8 +37,8 @@ function SuccessPage(){
     },[provider?.form])
 
     return (
-        <Layout title={"Randevu Bilgileri"}>
-            <div className="success-page">
+        <Layout title={"Randevu Bilgileri"} stepper={false}>
+            <div className="success-page my-4">
                 <div className="d-flex justify-content-center">
                     <CheckCircleIcon className="text-success icon"/>
                 </div>
@@ -97,7 +97,6 @@ function SuccessPage(){
                 </div>
 
             </div>
-
         </Layout>
     )
 }

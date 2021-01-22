@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 function Contact(){
 
     return (
-        <Layout title={"İletişim"}>
+        <Layout title={"İletişim"} stepper={false}>
             <div className="row">
                 <div className="col-6">
 

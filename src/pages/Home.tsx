@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from "react";
 import Layout from "../components/Layout";
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {Link, useHistory} from 'react-router-dom';
 import {AppProviderContext} from "../providers/AppProvider";
@@ -36,6 +34,7 @@ function Home(){
     let history = useHistory();
 
     const provider = React.useContext(AppProviderContext);
+
     let [errors, setErrors] = useState<any>([]);
 
     useEffect(() => {
@@ -57,7 +56,7 @@ function Home(){
     }
 
     return (
-        <Layout title={"Anasayfa"}>
+        <Layout title={"Anasayfa"} stepper={true}>
             <div className="d-flex justify-content-center mt-3 mt-md-2 mb-3">
                 <div className="form-wrapper animate__animated animate__fadeInLeft">
                         <div className="form-group p-3">

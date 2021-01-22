@@ -1,5 +1,4 @@
-import React, {useContext, useState, useEffect, createContext} from "react";
-import {useHistory} from 'react-router-dom';
+import React, { useState, useEffect, createContext} from "react";
 import moment from "moment";
 import AlertDialog from "../components/dialogs/AlertDialog";
 
@@ -33,7 +32,6 @@ const stepCodes = [
 
 function AppProvider(props: AppProviderProps){
 
-    const history = useHistory();
     let [form, setForm] = useState<any>(null);
     let [loading, setLoading] = useState<boolean>(false);
     let [globalAlert, setGlobalAlert] = useState<any>({open: false, title: null, message: null, type: null});

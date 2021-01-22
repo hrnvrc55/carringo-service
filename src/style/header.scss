@@ -1,6 +1,6 @@
 .header {
   width: 100%;
-  height: 75px;
+  height: auto;
   border-bottom: 3px solid $orange;
   background: $primary;
   //background: #c1c9d5;
@@ -23,5 +23,6 @@
 }
 
 .mobile-menu{
-   border-bottom: 3px solid $orange;
+   //border-bottom: 3px solid $orange;
+  width: 200px;
 }

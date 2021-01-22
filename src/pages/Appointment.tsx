@@ -52,7 +52,7 @@ function Appointment(){
     }
 
     return (
-        <Layout title={"Randevu"}>
+        <Layout title={"Randevu"} stepper={true}>
             <div className="mt-2 mb-3 px-3 pt-3">
             <div className="row">
                 <div className="col-12 col-md-6 d-none d-md-block">

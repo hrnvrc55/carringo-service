@@ -4,7 +4,6 @@ import trLocale from "date-fns/locale/tr";
 
 import {
     MuiPickersUtilsProvider,
-    DatePicker,
     TimePicker,
 } from '@material-ui/pickers';
 

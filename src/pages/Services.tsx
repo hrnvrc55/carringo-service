@@ -2,9 +2,8 @@ import React, {useEffect, useState} from "react";
 import Layout from "../components/Layout";
 import ServiceCard from "../components/ServiceCard";
 import Button from "@material-ui/core/Button";
-import {Link, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import AcUnitIcon from "@material-ui/icons/AcUnit";
-import CardContent from "@material-ui/core/CardContent";
 import BatteryCharging60Icon from '@material-ui/icons/BatteryCharging60';
 import TollIcon from '@material-ui/icons/Toll';
 import ViewCarouselIcon from '@material-ui/icons/ViewCarousel';
@@ -76,7 +75,7 @@ function Services(){
     }
 
     return (
-        <Layout title={"Hizmetler"}>
+        <Layout title={"Hizmetler"} stepper={true}>
             <AlertDialog
                 open={openAlertDialog.open}
                 title={openAlertDialog.title}

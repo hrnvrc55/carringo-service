@@ -73,18 +73,15 @@ function MobileStepperComponent({active} : MobileStepperProps){
 
     return (
         <>
-            {(active >= 0 && active <= 4) && (
-                <div className="d-flex justify-content-between align-items-center d-md-none">
-                    <IconButton disabled={(active === 1)}  onClick={() => goPage(data, "prev")}>
-                        <ChevronLeftIcon className={(active === 1 ? "custom-disable-color" : "text-primary")} fontSize={"large"}/>
-                    </IconButton>
-                    <Chip color={"secondary"} className="text-white" avatar={<Avatar className="text-white">{active}</Avatar>} label={data?.label} />
-                    <IconButton disabled={(active === 4)}  onClick={() => goPage(data, "next")}>
-                        <ChevronRightIcon className={(active === 4 ? "custom-disable-color" : "text-primary")}  fontSize={"large"}/>
-                    </IconButton>
-                </div>
-            )}
-
+            <div className="d-flex justify-content-between align-items-center d-md-none">
+                <IconButton disabled={(active === 1)}  onClick={() => goPage(data, "prev")}>
+                    <ChevronLeftIcon className={(active === 1 ? "custom-disable-color" : "text-primary")} fontSize={"large"}/>
+                </IconButton>
+                <Chip color={"secondary"} className="text-white" avatar={<Avatar className="text-white">{active}</Avatar>} label={data?.label} />
+                <IconButton disabled={(active === 4)}  onClick={() => goPage(data, "next")}>
+                    <ChevronRightIcon className={(active === 4 ? "custom-disable-color" : "text-primary")}  fontSize={"large"}/>
+                </IconButton>
+            </div>
         </>
     )
 }

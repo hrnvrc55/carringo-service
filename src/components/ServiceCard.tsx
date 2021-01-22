@@ -1,7 +1,6 @@
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import AcUnitIcon from "@material-ui/icons/AcUnit";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 type ServiceCardProps = {

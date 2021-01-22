@@ -72,10 +72,14 @@ $padding-bottom: 1%;
 
 
 .mobile-footer {
-  //position: -webkit-sticky;
-  //position: sticky;
-  //bottom:0 ;
-  //z-index: 2;
+  //border-top: 1px solid $secondary;
+  box-shadow: 10px 0 0 rgba(0,0,0,.3);
+
+  position: -webkit-sticky;
+  position: sticky;
+  bottom:0 ;
+  z-index: 2;
+  background-color: $secondary-light;
   .mobile-top-border{
     border-top: 2px solid $secondary;
   }

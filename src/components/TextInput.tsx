@@ -1,6 +1,5 @@
 import TextField from "@material-ui/core/TextField";
 import React, {useEffect, useState} from "react";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 
 type InputProps = {
     label: string,

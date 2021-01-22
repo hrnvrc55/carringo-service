@@ -4,6 +4,10 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhoneSquare, faEnvelopeSquare } from '@fortawesome/free-solid-svg-icons'
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import PhoneIcon from '@material-ui/icons/Phone';
+import HomeIcon from "@material-ui/icons/Home";
 
 function Footer(){
 
@@ -75,22 +79,34 @@ function DesktopFooter(){
 function MobileFooter(){
 
     return (
-        <footer className="bg-dark d-md-none d-mb-block mobile-footer">
-            <div className="d-flex justify-content-between bg-white mobile-top-border align-items-center py-3 pl-2">
-                <div>
-                   <span className="phone"><FontAwesomeIcon className="icon" icon={faPhoneSquare}/> 0362 554 3445</span>
-                </div>
-                <div className="d-flex justify-content-center align-items-center pr-2">
-                    <FacebookIcon className="text-secondary" fontSize={"large"}/>
-                    <InstagramIcon className="text-secondary ml-2"  fontSize={"large"}/>
-                    <LinkedInIcon className="text-secondary ml-2" fontSize={"large"}/>
-                </div>
-            </div>
+        <footer className="d-md-none d-mb-block mobile-footer">
+            <Tabs
+                value={null}
+                onChange={() => {}}
+                variant="fullWidth"
+                indicatorColor="primary"
+                textColor="primary"
+                aria-label="icon tabs example"
+            >
+                <Tab icon={<HomeIcon className="text-primary" />} component={"a"} href={"/"} aria-label="favorite" />
+                <Tab icon={<PhoneIcon className="text-primary" />} component={"a"} href={"tel:0362 554 3445"} aria-label="phone" />
+                {/*<Tab icon={<PersonPinIcon />} aria-label="person" />*/}
+            </Tabs>
+            {/*<div className="d-flex justify-content-between bg-white mobile-top-border align-items-center py-3 pl-2">*/}
+            {/*    <div>*/}
+            {/*       <span className="phone"><FontAwesomeIcon className="icon" icon={faPhoneSquare}/> 0362 554 3445</span>*/}
+            {/*    </div>*/}
+            {/*    <div className="d-flex justify-content-center align-items-center pr-2">*/}
+            {/*        <FacebookIcon className="text-secondary" fontSize={"large"}/>*/}
+            {/*        <InstagramIcon className="text-secondary ml-2"  fontSize={"large"}/>*/}
+            {/*        <LinkedInIcon className="text-secondary ml-2" fontSize={"large"}/>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
 
-            <div className="d-flex flex-column justify-content-center align-items-center py-4">
-                <small className="text-white">Site Creation & Technology by</small>
-                <a rel="nofollow" href="https://www.teksenbilisim.com/" target="_blank"><img className="" src="/teksen-logo.svg" height={35}/></a>
-            </div>
+            {/*<div className="d-flex flex-column justify-content-center align-items-center py-4">*/}
+            {/*    <small className="text-white">Site Creation & Technology by</small>*/}
+            {/*    <a rel="nofollow" href="https://www.teksenbilisim.com/" target="_blank"><img className="" src="/teksen-logo.svg" height={35}/></a>*/}
+            {/*</div>*/}
         </footer>
     )
 }

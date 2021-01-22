@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Layout from "../components/Layout";
 import MapArea from "../components/MapArea";
 import Button from "@material-ui/core/Button";
-import {Link, useHistory} from "react-router-dom";
+import { useHistory} from "react-router-dom";
 import ForwardIcon from "@material-ui/icons/Forward";
 import Radio, { RadioProps } from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -86,7 +86,7 @@ function Garages(){
     }
 
     return (
-        <Layout title={"Servisler"}>
+        <Layout title={"Servisler"} stepper={true}>
             <AlertDialog
                 open={openAlertDialog.open}
                 title={openAlertDialog.title}

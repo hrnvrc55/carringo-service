@@ -1,12 +1,10 @@
 import React from "react";
 import DateFnsUtils from '@date-io/date-fns';
 import trLocale from "date-fns/locale/tr";
-import moment from 'moment';
 
 import {
     MuiPickersUtilsProvider,
     DatePicker,
-    TimePicker,
 } from '@material-ui/pickers';
 
 const localeMap = {

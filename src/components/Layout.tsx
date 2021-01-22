@@ -6,15 +6,14 @@ import {AppProviderContext} from "../providers/AppProvider";
 import MobileStepperComponent from "./MobileStepperComponent";
 import FullLoader from "./FullLoader";
 import Footer from "./Footer";
-import {appointmentValidate, garageValidate, homeValidate, serviceValidate} from "../utils/validation";
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
+import HomeIcon from '@material-ui/icons/Home';
 
+type LayoutProps = {title: string, stepper: boolean, children: React.ReactNode};
 
-type LayoutProps = {title: string, children: React.ReactNode};
-
-function Layout({title, children}: LayoutProps,){
+function Layout({title, children, stepper}: LayoutProps,){
     let history = useHistory();
     const provider = React.useContext(AppProviderContext);
 
@@ -38,7 +37,9 @@ function Layout({title, children}: LayoutProps,){
             <>
                 <TopBar/>
                 <title>{title} - Carringo Servis</title>
-                <MobileStepperComponent active={stepCount}/>
+                {stepper === true && (
+                    <MobileStepperComponent active={stepCount}/>
+                )}
                 <FullLoader show={provider?.loading}/>
                 <div className="container px-0 d-none d-md-block">
                     <div className="d-flex justify-content-between my-3 align-items-center px-2">
@@ -48,7 +49,7 @@ function Layout({title, children}: LayoutProps,){
                         <div>
                             <Breadcrumbs aria-label="breadcrumb">
                                 <Link color="inherit" href="/" onClick={() => {}}>
-                                    Anasayfa
+                                    <HomeIcon/>
                                 </Link>
                                 <Typography color="textPrimary">{title}</Typography>
                             </Breadcrumbs>
@@ -57,7 +58,9 @@ function Layout({title, children}: LayoutProps,){
                 </div>
                 <main className="">
                     <div className="bg-white container card shadow shadow-sm mb-4" >
-                        <StepperComponent active={stepCount}/>
+                        {stepper === true && (
+                            <StepperComponent active={stepCount}/>
+                        )}
                         {children}
                     </div>
                 </main>
