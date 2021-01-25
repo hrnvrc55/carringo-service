@@ -101,8 +101,8 @@ function ColorlibStepIcon(props: StepIconProps) {
     const { active, completed } = props;
 
     const icons: { [index: string]: React.ReactElement } = {
-        1: <DriveEtaIcon />,
-        2: <RedeemIcon />,
+        1: <RedeemIcon />,
+        2: <DriveEtaIcon />,
         3: <EmojiTransportationIcon />,
         4: <DateRangeIcon/>
     };

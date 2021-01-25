@@ -62,7 +62,8 @@ function TopBar(){
                                                 <AccountCircleIcon className="text-orange"/><span className="mx-1 ">Hesabım</span><small className="">({loginProvider?.user?.username})</small>
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu alignRight={true}>
-                                                <Dropdown.Item href="/account">Profil</Dropdown.Item>
+                                                <Dropdown.Item href="/my-appointments">Randevularım</Dropdown.Item>
+                                                <Dropdown.Item href="/profile">Profil</Dropdown.Item>
                                                 <Dropdown.Item onClick={() => logout()}>Çıkış</Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
@@ -71,7 +72,7 @@ function TopBar(){
                             ) : (
                                 <>
                                     <div key={"menu-ask-appointment"} className="ml-4 ">
-                                        <a  href={"#"} className={"nav-list-item text-decoration-none "}>Randevu Sorgula</a>
+                                        <a  href={"check-appointment"} className={"nav-list-item text-decoration-none "}>Randevu Sorgula</a>
                                     </div>
                                     <div key={"menu-register"} className="ml-4 ">
                                     <a  href={"/register"} className={"nav-list-item text-decoration-none "}>Yeni Üyelik</a>
@@ -106,7 +107,7 @@ function TopBar(){
                        </div>
 
                        <div key={"menu-register"} className="pb-1 pt-1">
-                           <ListItem component={"a"} href={"#"} button>
+                           <ListItem component={"a"} href={"/check-appointment"} button>
                                 Randevu Sorgula
                            </ListItem>
                            <Divider variant="fullWidth" component="li" />
@@ -133,12 +134,12 @@ function TopBar(){
                     </div>
                     <List component="nav" className="pt-1 mobile-menu">
                         <div key={"menu-register"} className="pb-1 pt-1">
-                            <ListItem component={"a"} href={"/profile"} button>
-                                 Profilim
+                            <ListItem component={"a"} href={"/my-appointments"} button>
+                                Randevularım
                             </ListItem>
                             <Divider variant="fullWidth" component="li" />
-                            <ListItem component={"a"} href={"/my-appointments"} button>
-                                 Randevularım
+                            <ListItem component={"a"} href={"/profile"} button>
+                                Profil
                             </ListItem>
                             <Divider variant="fullWidth" component="li" />
 

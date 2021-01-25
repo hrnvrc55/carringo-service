@@ -22,8 +22,8 @@ function LoginProvider(props: LoginProviderProps){
     let [user, setUser] = useState<any>(null);
 
     useEffect(() => {
-       if(Boolean(localStorage.getItem("user"))){
-           let newUserData = JSON.parse(localStorage.getItem("user") || "");
+       if(Boolean(localStorage.getItem("user-carringo-service"))){
+           let newUserData = JSON.parse(localStorage.getItem("user-carringo-service") || "");
 
            setUser(newUserData);
            setIsLogin(true);
@@ -32,13 +32,13 @@ function LoginProvider(props: LoginProviderProps){
 
     function login(username: string, password: any){
         let userData : any = {id: 1, username: username};
-        localStorage.setItem("user", JSON.stringify(userData));
+        localStorage.setItem("user-carringo-service", JSON.stringify(userData));
         setUser(userData);
         setIsLogin(true);
     }
 
     function logout() {
-      localStorage.removeItem("user");
+      localStorage.removeItem("user-carringo-service");
       setUser(null);
       setIsLogin(false);
     }

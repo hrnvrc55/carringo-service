@@ -23,7 +23,7 @@ type AppProviderProps = {
 
 const stepCodes = [
     {sort: 1, value: "/"},
-    {sort: 2, value: "/services"},
+    {sort: 2, value: "/my-vehicle"},
     {sort: 3, value: "/garages"},
     {sort: 4, value: "/appointment"},
     {sort: 5, value: "/success"}

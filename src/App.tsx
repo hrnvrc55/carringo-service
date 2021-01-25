@@ -14,6 +14,7 @@ import {LoginProviderContext} from "./providers/LoginProvider";
 import NotFoundPage from "./components/NotFoundPage";
 import MyAppointments from "./components/account/MyAppointments";
 import Profile from "./components/account/Profile";
+import CheckAppointment from "./pages/CheckAppointment";
 function App() {
 
   const loginProvider = React.useContext(LoginProviderContext);
@@ -22,8 +23,8 @@ function App() {
         <AppProvider>
           <BrowserRouter>
             <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/services" component={Services} />
+              <Route exact path="/" component={Services} />
+              <Route exact path="/my-vehicle" component={Home} />
               <Route exact path="/garages" component={Garages} />
               <Route exact path="/appointment" component={Appointment} />
               <Route exact path="/success" component={SuccessPage} />
@@ -31,6 +32,7 @@ function App() {
                   <>
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={Register} />
+                    <Route exact path="/check-appointment" component={CheckAppointment} />
                   </>
               )}
               {loginProvider?.isLogin === true && (

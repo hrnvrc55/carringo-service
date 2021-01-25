@@ -59,7 +59,6 @@ function Login(){
                         <div className="d-flex justify-content-between mt-3">
                             <a href="#">Şifremi Unuttum</a>
                             <a className="text-orange" href="/register">Yeni Üyelik <FontAwesomeIcon icon={faChevronRight}/></a>
-
                         </div>
                     </div>
                 </div>

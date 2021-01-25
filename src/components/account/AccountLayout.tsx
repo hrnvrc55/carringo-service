@@ -9,7 +9,7 @@ function AccountLayout({children} : AccountLayoutProps){
 
     return (
         <div className="row">
-            <div className="col-3 bg-danger">
+            <div className="col-3">
                 <Collapse in={true} className="">
                     <List component="nav" className="">
                         <div key={"menu-register"} className="pb-1 pt-1">
@@ -24,7 +24,7 @@ function AccountLayout({children} : AccountLayoutProps){
                     </List>
                 </Collapse>
             </div>
-            <div className="col-9 bg-success">
+            <div className="col-9">
                 {children}
             </div>
         </div>

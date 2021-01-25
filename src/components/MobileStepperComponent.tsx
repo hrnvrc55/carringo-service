@@ -30,17 +30,17 @@ function MobileStepperComponent({active} : MobileStepperProps){
         let form = provider?.form;
         if(type === "next"){
             if(data.code === "main"){
-                let validation = homeValidate(form);
-                if(validation.length > 0){
-                    provider?.openGlobalAlert(true,"Uyarı","Gerekli bilgileri doldurunuz", "danger");
+                let validation = serviceValidate(form);
+                if(validation === false){
+                    provider?.openGlobalAlert(true,"Uyarı","Lütfen en az 1 hizmet türü seçiniz", "danger");
                     return false;
                 }else{
                     history.push(data.next);
                 }
-            }else if(data.code === "services"){
-                let validation = serviceValidate(form);
-                if(validation === false){
-                    provider?.openGlobalAlert(true,"Uyarı","Lütfen en az 1 hizmet türü seçiniz", "danger");
+            }else if(data.code === "my-vehicle"){
+                let validation = homeValidate(form);
+                if(validation.length > 0){
+                    provider?.openGlobalAlert(true,"Uyarı","Gerekli bilgileri doldurunuz", "danger");
                     return false;
                 }else{
                     history.push(data.next);

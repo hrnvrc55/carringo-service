@@ -51,7 +51,7 @@ function Home(){
             setErrors(validateError);
             return false;
         }else{
-            history.push("/services");
+            history.push("/garages");
         }
     }
 
