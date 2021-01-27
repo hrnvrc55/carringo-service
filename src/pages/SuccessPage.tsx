@@ -19,21 +19,26 @@ function SuccessPage(){
 
 
     useEffect(() => {
-        console.log(provider?.form)
         let form = provider?.recordedForm;
-        let newInfo = {
-            name: form?.first_name + " " + form?.last_name,
-            phone: form?.phone,
-            email: form?.email,
-            description: form?.description,
-            vehicle: form?.brand?.name + "-" +form?.model?.name + "-" + form?.gear?.name+ "-" + form?.engine?.name,
-            km: form?.kilometer,
-            date: moment(form?.date).format("DD/MM/YYYY"),
-            time: moment(form?.time).format("HH:mm"),
-            garage: form?.garage,
-            services: form?.services
+        console.log(form, 'success page yeahh');
+        if(form === null || form === undefined || form === ""){
+            history.push("/");
+        }else{
+            let newInfo = {
+                name: form?.first_name + " " + form?.last_name,
+                phone: form?.phone,
+                email: form?.email,
+                description: form?.description,
+                vehicle: form?.brand?.name + "-" +form?.model?.name + "-" + form?.gear?.name+ "-" + form?.engine?.name,
+                km: form?.kilometer,
+                date: moment(form?.date).format("DD/MM/YYYY"),
+                time: moment(form?.time).format("HH:mm"),
+                garage: form?.garage,
+                services: form?.services
+            }
+            setInfo(newInfo);
         }
-        setInfo(newInfo);
+
     },[provider?.form])
 
     return (

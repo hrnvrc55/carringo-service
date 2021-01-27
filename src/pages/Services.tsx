@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import Layout from "../components/Layout";
 import ServiceCard from "../components/ServiceCard";
 import Button from "@material-ui/core/Button";
@@ -38,6 +38,9 @@ type AlertDialog = {
 
 function Services(){
     let history = useHistory();
+    const servicesRef = useRef<HTMLHeadingElement>(null);
+    const contractsRef = useRef<HTMLHeadingElement>(null);
+
 
     const provider = React.useContext(AppProviderContext);
     const [services, setServices] = useState<any>([]);
@@ -45,7 +48,7 @@ function Services(){
 
     useEffect(() => {
       setServices(servicesData);
-    },[])
+    },[history])
 
     function onClick(data: any){
         let oldServices = services;
@@ -72,9 +75,9 @@ function Services(){
     }
 
     function submit(){
-        let validateStatus = serviceValidate(provider?.form);
-        if(validateStatus === false){
-            setOpenAlertDialog({open: true, title: 'Dikkat!', description: "Lütfen en az 1 hizmet türü seçiniz", alertType: "danger"});
+        let validate = serviceValidate(provider?.form);
+        if(validate && validate.status === false){
+            setOpenAlertDialog({open: true, title: 'Dikkat!', description: validate.message, alertType: "danger"});
             return false;
         }else{
             history.push('/my-vehicle');

@@ -31,8 +31,8 @@ function MobileStepperComponent({active} : MobileStepperProps){
         if(type === "next"){
             if(data.code === "main"){
                 let validation = serviceValidate(form);
-                if(validation === false){
-                    provider?.openGlobalAlert(true,"Uyarı","Lütfen en az 1 hizmet türü seçiniz", "danger");
+                if(validation && validation.status === false){
+                    provider?.openGlobalAlert(true,"Uyarı",validation.message, "danger");
                     return false;
                 }else{
                     history.push(data.next);

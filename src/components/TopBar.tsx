@@ -43,10 +43,10 @@ function TopBar(){
                     )}
 
                     <div className="d-none d-md-block">
-                        <a href="/"><img src="/carringo-logo-new.png" height={60}/></a>
+                        <a href="/"><img src="/carringo-logo-new.png" height={60} loading={"lazy"}/></a>
                     </div>
                     <div className="d-md-none d-block ml-2">
-                        <a href="/"><img src="/carringo-logo-new.png" height={40}/></a>
+                        <a href="/"><img src="/carringo-logo-new.png" height={40} loading={"lazy"}/></a>
                     </div>
                     <div className="flex-fill">
                         <div className="justify-content-end d-none d-md-flex align-items-center">
@@ -96,7 +96,7 @@ function TopBar(){
             <div className="bg-white ">
                 <Drawer open={openMenu} className="" onClose={() => setOpenMenu(false)}>
                    <div className="bg-primary py-1 pl-2">
-                       <a href="/"><img src="/carringo-logo-new.png" height={40}/></a>
+                       <a href="/"><img src="/carringo-logo-new.png" height={40} loading={"lazy"}/></a>
                    </div>
                    <List component="nav" className="pt-1 mobile-menu">
                        <div key={"menu-register"} className="pb-1 pt-1">
@@ -127,7 +127,7 @@ function TopBar(){
                 </Drawer>
                 <Drawer  anchor={"right"} open={openAccountMenu} className="" onClose={() => setOpenAccountMenu(false)}>
                     <div className="bg-primary py-1 pl-2">
-                        <a href="/"><img src="/carringo-logo-new.png" height={40}/></a>
+                        <a href="/"><img src="/carringo-logo-new.png" height={40} loading={"lazy"}/></a>
                     </div>
                     <div className="px-3 py-1">
                         <AccountCircleIcon className="text-success"/> {loginProvider?.user?.username}

@@ -1,6 +1,7 @@
 import isEmail from 'validator/lib/isEmail';
 
 let errors = [];
+let serviceError = null;
 
 export function homeValidate(form: any) {
     errors = [];
@@ -99,12 +100,27 @@ export function appointmentValidate(form: any){
 
 export function serviceValidate(form: any) {
 
+    serviceError = null;
+
     if(form?.services === undefined || form?.services?.length <= 0){
-        return false;
+        serviceError = {
+            name: "service-error",
+            status: false,
+            message: "Lütfen en az 1 hizmet türü seçiniz"
+        }
+        return serviceError;
+    }else if(!form?.data_permission || !form?.share_permission || !form?.person_data_permission){
+        serviceError = {
+            name: "contract-error",
+            status: false,
+            message: "Lütfen sözleşme metinlerini okuyup onaylayınız"
+        }
+        return serviceError;
     }else{
-        return true;
+        return serviceError;
     }
 }
+
 
 export function garageValidate(form: any){
     console.log(form?.garage, 'formm');

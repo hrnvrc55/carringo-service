@@ -36,9 +36,9 @@ function Appointment(){
             if(homeValidateData.length > 0){
                 history.push('/');
                 provider?.openGlobalAlert(true, "Uyarı", "Gerekli bilgileri doldurmadan adımı geçmemelisiniz", "warning");
-            }else if(serviceValidateData === false){
+            }else if(serviceValidateData && serviceValidateData.status === false){
                 history.push('/services');
-                provider?.openGlobalAlert(true, "Uyarı", "Lütfen hizmet seçiniz", "warning");
+                provider?.openGlobalAlert(true, "Uyarı", serviceValidateData.message, "warning");
 
             }else if(garageValidateData === false){
                 history.push('/garages');

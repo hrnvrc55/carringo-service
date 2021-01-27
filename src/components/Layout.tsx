@@ -11,6 +11,7 @@ import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import HomeIcon from '@material-ui/icons/Home';
 
+
 type LayoutProps = {title: string, stepper: boolean, children: React.ReactNode};
 
 function Layout({title, children, stepper}: LayoutProps,){
@@ -27,7 +28,6 @@ function Layout({title, children, stepper}: LayoutProps,){
             setTimeout(() => {
                 provider?.isLoading(false);
             },1000)
-
 
         })
 

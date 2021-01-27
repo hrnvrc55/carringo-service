@@ -10,7 +10,6 @@ import { trTR } from '@material-ui/core/locale';
 import App from "./App";
 import LoginProvider from "./providers/LoginProvider";
 
-
 const theme = createMuiTheme({
     palette: {
         primary: {
