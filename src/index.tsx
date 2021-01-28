@@ -9,6 +9,8 @@ import {themeData} from './utils/theme';
 import { trTR } from '@material-ui/core/locale';
 import App from "./App";
 import LoginProvider from "./providers/LoginProvider";
+import { BreakpointsProvider } from 'react-with-breakpoints';
+
 
 const theme = createMuiTheme({
     palette: {
@@ -27,7 +29,9 @@ const theme = createMuiTheme({
 const routing = (
     <ThemeProvider theme={theme}>
        <LoginProvider>
-           <App/>
+           <BreakpointsProvider>
+               <App/>
+           </BreakpointsProvider>
        </LoginProvider>
     </ThemeProvider>
 

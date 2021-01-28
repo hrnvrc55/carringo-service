@@ -10110,6 +10110,11 @@ react-transition-group@^4.0.0, react-transition-group@^4.4.0, react-transition-g
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
+react-with-breakpoints@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/react-with-breakpoints/-/react-with-breakpoints-4.0.4.tgz#3326a0b6982bd23b53d0005641fb9aef7dea83d7"
+  integrity sha512-u9t3d6W6feFoLaHWqYnw/I7GAyYqi38V/f7UFWCbKcKJ+CIERqIEUawVuhiYGLDD6ZE7kS1am0FFW0BJuNl9QQ==
+
 react@^17.0.1:
   version "17.0.1"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.1.tgz#6e0600416bd57574e3f86d92edba3d9008726127"

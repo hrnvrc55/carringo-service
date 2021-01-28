@@ -6,11 +6,10 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 type ServiceCardProps = {
     data: any,
     onClick:(item: any) => void,
-    key: string
 }
 
 
-function ServiceCard({data, onClick, key} : ServiceCardProps) {
+function ServiceCard({data, onClick} : ServiceCardProps) {
 
     function onClickCard(){
         onClick(data)

@@ -103,9 +103,7 @@ function Services(){
                 <hr/>
                <div className="d-flex flex-wrap justify-content-center">
                    {services.map((item : any, idx: number) => (
-                       <>
                        <ServiceCard onClick={onClick} key={"service-card" + idx} data={item}/>
-                       </>
                    ))}
                </div>
                <div className="my-3 animate__animated animate__backInUp">

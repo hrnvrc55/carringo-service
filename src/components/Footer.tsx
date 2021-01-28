@@ -29,15 +29,15 @@ function DesktopFooter(){
                         <div className="d-flex justify-content-between">
                             <div className="flex-fill list ">
                                 <span className="title mb-2">Menü</span>
-                                <a href="" className="item">Anasayfa</a>
-                                <a href="" className="item">Randevu Sorgula</a>
+                                <a href="!#" className="item">Anasayfa</a>
+                                <a href="!#" className="item">Randevu Sorgula</a>
                             </div>
                             <div className="flex-fill list ">
                                 <span className="title mb-2">Hizmetler</span>
-                                <a href="" className="item">Klima</a>
-                                <a href="" className="item">Frenler</a>
-                                <a href="" className="item">Akü</a>
-                                <a href="" className="item">Bakım</a>
+                                <a href="!#" className="item">Klima</a>
+                                <a href="!#" className="item">Frenler</a>
+                                <a href="!#" className="item">Akü</a>
+                                <a href="!#" className="item">Bakım</a>
                             </div>
 
 
@@ -50,9 +50,9 @@ function DesktopFooter(){
                                 <a href="tel:0362 555 5555" className="text-decoration-none"><p className="mb-2"><FontAwesomeIcon icon={faPhoneSquare}/> 0362 555 5555</p></a>
                                 <a href="mailto:info@email.com" className="text-decoration-none"><p className="mb-2"><FontAwesomeIcon icon={faEnvelopeSquare}/> info@email.com</p></a>
                                 <div className="text-center social-icons">
-                                    <a href="" target="_blank"><FacebookIcon className="" fontSize={"large"}/></a>
-                                    <a href="" target="_blank"><InstagramIcon className=" ml-2"  fontSize={"large"}/></a>
-                                    <a href="" target="_blank"><LinkedInIcon className=" ml-2" fontSize={"large"}/></a>
+                                    <a href="!#" target="_blank"><FacebookIcon className="" fontSize={"large"}/></a>
+                                    <a href="!#" target="_blank"><InstagramIcon className=" ml-2"  fontSize={"large"}/></a>
+                                    <a href="!#" target="_blank"><LinkedInIcon className=" ml-2" fontSize={"large"}/></a>
                                 </div>
                             </div>
 
@@ -68,7 +68,7 @@ function DesktopFooter(){
                     </div>
                     <div className="d-flex flex-column text-right">
                         <small className="text">Site Creation & Technology by</small>
-                        <a rel="nofollow" className="logo" href="https://www.teksenbilisim.com/" target="_blank"><img className="" src="/teksen-logo.svg" height={35}/></a>
+                        <a rel="noopener noreferrer" className="logo" href="https://www.teksenbilisim.com/" target="_blank"><img alt="teksen-logo" src="/teksen-logo.svg" height={35}/></a>
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@ function MobileFooter(){
     return (
         <footer className="d-md-none d-mb-block mobile-footer">
             <Tabs
-                value={null}
+                value={0}
                 onChange={() => {}}
                 variant="fullWidth"
                 indicatorColor="primary"

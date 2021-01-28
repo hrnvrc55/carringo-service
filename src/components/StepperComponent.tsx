@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Check from '@material-ui/icons/Check';
 import StepConnector from '@material-ui/core/StepConnector';
 import { StepIconProps } from '@material-ui/core/StepIcon';
 import DriveEtaIcon from '@material-ui/icons/DriveEta';
@@ -15,43 +14,6 @@ import {useHistory} from "react-router-dom";
 import getStepsData from "../utils/steps";
 import {themeData} from "../utils/theme";
 
-const useQontoStepIconStyles = makeStyles({
-    root: {
-        color: '#eaeaf0',
-        display: 'flex',
-        height: 22,
-        alignItems: 'center',
-    },
-    active: {
-        color: '#784af4',
-    },
-    circle: {
-        width: 8,
-        height: 8,
-        borderRadius: '50%',
-        backgroundColor: 'currentColor',
-    },
-    completed: {
-        color: '#784af4',
-        zIndex: 1,
-        fontSize: 18,
-    },
-});
-
-function QontoStepIcon(props: StepIconProps) {
-    const classes = useQontoStepIconStyles();
-    const { active, completed } = props;
-
-    return (
-        <div
-            className={clsx(classes.root, {
-                [classes.active]: active,
-            })}
-        >
-            {completed ? <Check className={classes.completed} /> : <div className={classes.circle} />}
-        </div>
-    );
-}
 
 const ColorlibConnector = withStyles({
     alternativeLabel: {
@@ -138,18 +100,6 @@ function getSteps() {
     return getStepsData();
 }
 
-function getStepContent(step: number) {
-    switch (step) {
-        case 1:
-            return 'Select campaign settings...';
-        case 2:
-            return 'What is an ad group anyways?';
-        case 3:
-            return 'This is the bit I really care about!';
-        default:
-            return 'Unknown step';
-    }
-}
 
 type StepperProps = {
     active: number
@@ -178,8 +128,8 @@ export default function CustomizedSteppers({active} : StepperProps) {
         <div className="d-none d-md-block stepper">
             <div className={classes.root}>
                 <Stepper alternativeLabel activeStep={activeStep} className="" connector={<ColorlibConnector/>}>
-                    {steps.map((item) => (
-                        <Step style={{cursor: 'pointer'}} onClick={() => {goStep(item)}} key={item.label}>
+                    {steps.map((item: any, idx: number) => (
+                        <Step style={{cursor: 'pointer'}} onClick={() => {goStep(item)}} key={"desktop-step" + idx}>
                             <StepLabel StepIconComponent={ColorlibStepIcon}>{item.label}</StepLabel>
                         </Step>
                     ))}
