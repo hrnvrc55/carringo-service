@@ -10,9 +10,10 @@ import {LoginProviderContext} from "./providers/LoginProvider";
 import MyAppointments from "./components/account/MyAppointments";
 import Profile from "./components/account/Profile";
 import CheckAppointment from "./pages/CheckAppointment";
-import MyVehicleRouter from "./custom_routes/MyVehicleRouter";
+import MyServicesRouter from "./custom_routes/MyServicesRouter";
 import MyGaragesRouter from "./custom_routes/MyGaragesRouter";
 import MyAppointmentRouter from "./custom_routes/MyAppointmentRouter";
+import Home from "./pages/Home";
 
 function App() {
 
@@ -22,9 +23,9 @@ function App() {
         <AppProvider>
           <BrowserRouter>
             <Switch>
-              <Route exact path="/" component={Services} />
-              <MyVehicleRouter path={"/my-vehicle"} exact={true}/>
+              <Route exact path="/" component={Home} />
               <MyGaragesRouter path="/garages" exact={true}/>
+              <MyServicesRouter path={"/services"} exact={true}/>
               <MyAppointmentRouter path="/appointment" exact={true}/>
               <Route exact path="/success" component={SuccessPage} />
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext} from "react";
 import moment from "moment";
 import AlertDialog from "../components/dialogs/AlertDialog";
+import getStepsData from "../utils/steps";
 
 interface AppContextData {
     changePage: (path: string) => number,
@@ -21,13 +22,7 @@ type AppProviderProps = {
     children: React.ReactNode,
 }
 
-const stepCodes = [
-    {sort: 1, value: "/"},
-    {sort: 2, value: "/my-vehicle"},
-    {sort: 3, value: "/garages"},
-    {sort: 4, value: "/appointment"},
-    {sort: 5, value: "/success"}
-]
+const stepCodes = getStepsData();
 
 
 function AppProvider(props: AppProviderProps){
@@ -47,7 +42,7 @@ function AppProvider(props: AppProviderProps){
 
 
     function changePage(path : string){
-         let found  = stepCodes.find(x => x.value === path)!;
+         let found  = stepCodes.find(x => x.route === path)!;
          if(Boolean(found) === true){
              return found.sort;
          }else{

@@ -18,14 +18,14 @@ import Tab from '@material-ui/core/Tab';
 import ListIcon from '@material-ui/icons/List';
 import RoomIcon from '@material-ui/icons/Room';
 import {garageValidate} from "../utils/validation";
+import HealingIcon from "@material-ui/icons/Healing";
+import BrushIcon from "@material-ui/icons/Brush";
+import LocalCarWashIcon from "@material-ui/icons/LocalCarWash";
+import ViewAgendaIcon from "@material-ui/icons/ViewAgenda";
+import GroupWorkIcon from "@material-ui/icons/GroupWork";
+import {garages} from "../utils/static-datas";
 
-const garagesData = [
-    {id: 1, name: "Tekşen Servis", address: "Teksen Otomotiv, Yenimahalle, 55080 Canik/Samsun",  selected: false, lat: 41.2965075, lng: 36.2389533},
-    {id: 2, name: "ÖZDERE Service", address: "Çankırı Sanayi No: 5 Çankırı/Çerkeş",  selected: false, lat: 40.912348, lng: 32.806211},
-    {id: 3, name: "Ünsal Servis Bakım", address: "Bayburt Sanayi No: 4 Bayburt/Atakum", selected: false, lat: 40.217851, lng: 40.205518},
-    {id: 4, name: "YILMAZ Service", address: "Gaziantep Sanayi No: 8 Gaziantep/Merkez", selected: false, lat: 41.279701, lng: 36.336067},
-
-]
+const garagesData = garages;
 
 const CustomRadio = withStyles({
     root: {
@@ -81,7 +81,7 @@ function Garages(){
             setOpenAlertDialog({open: true, title: 'Dikkat!', description: "Lütfen servis seçiniz", alertType: "danger"});
             return false;
         }else{
-            history.push('/appointment');
+            history.push('/services');
         }
     }
 

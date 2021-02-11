@@ -8,7 +8,14 @@ import moment from "moment";
 import EmojiTransportationIcon from '@material-ui/icons/EmojiTransportation';
 import Chip from '@material-ui/core/Chip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faPhoneSquare, faEnvelope, faCarSide, faTachometerAlt } from '@fortawesome/free-solid-svg-icons'
+import {
+    faUser,
+    faPhoneSquare,
+    faEnvelope,
+    faCarSide,
+    faTachometerAlt,
+    faFileAlt
+} from '@fortawesome/free-solid-svg-icons'
 
 
 function SuccessPage(){
@@ -58,7 +65,7 @@ function SuccessPage(){
                             <p><span className="strong-title"><FontAwesomeIcon icon={faEnvelope}/> Eposta: </span><span className="text">{info?.email}</span></p>
                             <p><span className="strong-title"><FontAwesomeIcon icon={faCarSide}/> Araç: </span><span className="text">{info?.vehicle}</span></p>
                             <p><span className="strong-title"><FontAwesomeIcon icon={faTachometerAlt}/> Km: </span><span className="text">{info?.km}</span></p>
-                            <p><span className="strong-title"><FontAwesomeIcon icon={faPhoneSquare}/> Açıklama: </span><span className="text">{info?.description}</span></p>
+                            <p><span className="strong-title"><FontAwesomeIcon icon={faFileAlt}/> Açıklama: </span><span className="text">{info?.description}</span></p>
                         </div>
                     </div>
                     <div className="col-12 col-md-6 mb-3">

@@ -1,21 +1,29 @@
 
 .service-card{
   width: 180px;
-  height: auto;
+  //height: 100px;
   //background-color: red;
   cursor: pointer;
   border: 2px solid transparent;
-  position: relative;
+
+  .title{
+    min-width: 140px;
+    width: auto;
+  }
+
+
 
   &:hover{
     border: 2px solid $primary-light;
-
-
   }
 
   &.active{
     border: 2px solid $success;
-    color: $success
+
+  }
+
+  &.have-detail{
+    width: auto;
   }
 
   .icon{
@@ -27,7 +35,20 @@
     right: 0;
     top: 0;
   }
+
+
 }
 
-
+.services-detail{
+  border: 2px solid $secondary;
+  border-radius: 7px;
+  position: absolute;
+  background-color:white;
+  width: 200px;
+  height: auto;
+  right: -104%;
+  padding: 10px;
+  top: 0;
+  z-index: 99;
+}
 

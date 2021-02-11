@@ -15,19 +15,13 @@ import ForwardIcon from "@material-ui/icons/Forward";
 import AlertDialog from "../components/dialogs/AlertDialog";
 import {serviceValidate} from "../utils/validation";
 import LocalDrinkIcon from '@material-ui/icons/LocalDrink';
+import LocalCarWashIcon from '@material-ui/icons/LocalCarWash';
+import GroupWorkIcon from '@material-ui/icons/GroupWork';
 import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
+import BrushIcon from '@material-ui/icons/Brush';
 
-const servicesData = [
-    {id: 1, name: "Klima", icon: <AcUnitIcon className="icon"/>, selected: false},
-    {id: 2, name: "Akü", icon: <BatteryCharging60Icon className="icon"/>, selected: false},
-    {id: 3, name: "Yağ", icon: <LocalDrinkIcon className="icon"/>, selected: false},
-    {id: 4, name: "Lastik & Jant", icon: <ViewAgendaIcon className="icon"/>, selected: false},
-    {id: 5, name: "Elektrik", icon: <DeviceHubIcon className="icon"/>, selected: false},
-    {id: 6, name: "Bakım", icon: <HealingIcon className="icon"/>, selected: false},
-
-]
 
 type AlertDialog = {
     open: boolean,
@@ -47,7 +41,8 @@ function Services(){
     let [openAlertDialog, setOpenAlertDialog] = useState<AlertDialog>({open: false, alertType: '', title:'', description: ''})
 
     useEffect(() => {
-      setServices(servicesData);
+      let selectedGarage = provider?.form?.garage;
+      setServices(selectedGarage?.services);
     },[history])
 
     function onClick(data: any){
@@ -80,12 +75,12 @@ function Services(){
             setOpenAlertDialog({open: true, title: 'Dikkat!', description: validate.message, alertType: "danger"});
             return false;
         }else{
-            history.push('/my-vehicle');
+            history.push('/appointment');
         }
     }
 
     return (
-        <Layout title={"Hizmetler"} stepper={true}>
+        <Layout title={"Servis Hizmetleri"} stepper={true}>
             <AlertDialog
                 open={openAlertDialog.open}
                 title={openAlertDialog.title}
@@ -96,8 +91,8 @@ function Services(){
             <div className="bg-light mt-3 mt-md-2 mb-3 mx-2 px-3 custom-shadow">
                 <div className="d-flex justify-content-center">
                     <div className="d-flex flex-column text-center mt-2">
-                        <span className="h4">Hizmetler</span>
-                        <small>Almak istediğiniz hizmetleri seçiniz</small>
+                        <span className="h4">Servis Hizmetleri</span>
+                        <small>Seçtiğiniz <strong className="text-primary">{provider?.form?.garage?.name}</strong> aşağıdaki hizmetleri vermektedir. Almak istediğiniz hizmetleri seçiniz</small>
                     </div>
                 </div>
                 <hr/>
@@ -106,23 +101,23 @@ function Services(){
                        <ServiceCard onClick={onClick} key={"service-card" + idx} data={item}/>
                    ))}
                </div>
-               <div className="my-3 animate__animated animate__backInUp">
-                   <div className="d-flex justify-content-start align-items-start">
-                       <Checkbox className="pt-0" checked={provider?.form?.data_permission} onChange={onClickContract} name="data_permission" />
-                       <span>Carringo Servis <a href="">Veri İşleme İzni</a> metnini okudum, onaylıyorum.</span>
-                   </div>
-                   <div className="d-flex justify-content-start align-items-start">
-                       <Checkbox className="pt-0" checked={provider?.form?.share_permission} onChange={onClickContract} name="share_permission" />
-                       <span>......’ya ait diğer markalar kapsamında ..... San. ve Tic. A.Ş.
-                        tarafından yukarıda yer alan iletişim bilgilerime reklam, promosyon gibi amaçlarla ticari elektronik
-                        ileti gönderilmesini, bilgilerimin bu amaçla kullanılmasını ve üçüncü kişilerle paylaşılmasını,
-                        mevzuat kapsamındaki haklarım saklı kalmak kaydı ile kabul ediyorum.</span>
-                   </div>
-                   <div className="d-flex justify-content-start align-items-start">
-                       <Checkbox className="pt-0" checked={provider?.form?.person_data_permission} onChange={onClickContract} name="person_data_permission" />
-                       <span><a href="">Kişisel verilerin korunması</a> metnini okudum, kabul ediyorum.</span>
-                   </div>
-               </div>
+               {/*<div className="my-3 animate__animated animate__backInUp">*/}
+               {/*    <div className="d-flex justify-content-start align-items-start">*/}
+               {/*        <Checkbox className="pt-0" checked={provider?.form?.data_permission} onChange={onClickContract} name="data_permission" />*/}
+               {/*        <span>Carringo Servis <a href="">Veri İşleme İzni</a> metnini okudum, onaylıyorum.</span>*/}
+               {/*    </div>*/}
+               {/*    <div className="d-flex justify-content-start align-items-start">*/}
+               {/*        <Checkbox className="pt-0" checked={provider?.form?.share_permission} onChange={onClickContract} name="share_permission" />*/}
+               {/*        <span>......’ya ait diğer markalar kapsamında ..... San. ve Tic. A.Ş.*/}
+               {/*         tarafından yukarıda yer alan iletişim bilgilerime reklam, promosyon gibi amaçlarla ticari elektronik*/}
+               {/*         ileti gönderilmesini, bilgilerimin bu amaçla kullanılmasını ve üçüncü kişilerle paylaşılmasını,*/}
+               {/*         mevzuat kapsamındaki haklarım saklı kalmak kaydı ile kabul ediyorum.</span>*/}
+               {/*    </div>*/}
+               {/*    <div className="d-flex justify-content-start align-items-start">*/}
+               {/*        <Checkbox className="pt-0" checked={provider?.form?.person_data_permission} onChange={onClickContract} name="person_data_permission" />*/}
+               {/*        <span><a href="">Kişisel verilerin korunması</a> metnini okudum, kabul ediyorum.</span>*/}
+               {/*    </div>*/}
+               {/*</div>*/}
 
                <div className="d-flex justify-content-end mt-2 mb-3">
                   <Button variant={"contained"} color={"primary"} onClick={() => submit()}  className="text-white custom-button">Devam Et <ForwardIcon/></Button>

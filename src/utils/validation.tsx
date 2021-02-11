@@ -109,21 +109,22 @@ export function serviceValidate(form: any) {
             message: "Lütfen en az 1 hizmet türü seçiniz"
         }
         return serviceError;
-    }else if(!form?.data_permission || !form?.share_permission || !form?.person_data_permission){
-        serviceError = {
-            name: "contract-error",
-            status: false,
-            message: "Lütfen sözleşme metinlerini okuyup onaylayınız"
-        }
-        return serviceError;
     }else{
         return serviceError;
     }
+
+// else if(!form?.data_permission || !form?.share_permission || !form?.person_data_permission){
+//         serviceError = {
+//             name: "contract-error",
+//             status: false,
+//             message: "Lütfen sözleşme metinlerini okuyup onaylayınız"
+//         }
+//         return serviceError;
+//     }
 }
 
 
 export function garageValidate(form: any){
-    console.log(form?.garage, 'formm');
     if(form?.garage === undefined){
         return false;
     }else{
