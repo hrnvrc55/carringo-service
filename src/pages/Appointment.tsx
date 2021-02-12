@@ -82,15 +82,20 @@ function Appointment(){
                                             color="secondary"
                                         />
                                         <div className="d-flex flex-column pl-3 pt-2">
-                                            {Object.keys(item.selectedDetails).map((detail:any, idx: number) => {
-                                                if(item.selectedDetails[detail]?.data === '' || item.selectedDetails[detail]?.data === null){
-                                                    return false;
-                                                }else{
-                                                    return (
-                                                        <small className="w-100">- {item.selectedDetails[detail]?.data?.name} </small>
-                                                    )
-                                                }
-                                            })}
+                                            {item.selectedDetails && (
+                                               <>
+                                                   {Object.keys(item.selectedDetails).map((detail:any, idx: number) => {
+                                                       if(item.selectedDetails[detail]?.data === '' || item.selectedDetails[detail]?.data === null){
+                                                           return false;
+                                                       }else{
+                                                           return (
+                                                               <small className="w-100">- {item.selectedDetails[detail]?.data?.name} </small>
+                                                           )
+                                                       }
+                                                   })}
+                                               </>
+                                            )}
+
                                         </div>
 
                                     </div>

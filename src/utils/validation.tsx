@@ -33,12 +33,6 @@ export function homeValidate(form: any) {
         })
     }
 
-    if(!form?.kilometer){
-        errors.push({
-            name: 'kilometer-error',
-            message: 'Kilometre bilgisi giriniz'
-        })
-    }
 
     return errors;
 }

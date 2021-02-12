@@ -120,15 +120,20 @@ function Services(){
                                             <strong>{item.name}:</strong>
                                         </div>
                                         <div className="d-flex justify-content-start">
-                                            {Object.keys(item.selectedDetails).map((detail:any, idx: number) => {
-                                                if(item.selectedDetails[detail]?.data === '' || item.selectedDetails[detail]?.data === null){
-                                                    return false;
-                                                }else{
-                                                    return (
-                                                        <span className="ml-2 badge badge-secondary p-2">{item.selectedDetails[detail]?.data?.name} </span>
-                                                    )
-                                                }
-                                            })}
+                                            {item.selectedDetails && (
+                                              <>
+                                                  {Object.keys(item.selectedDetails).map((detail:any, idx: number) => {
+                                                      if(item.selectedDetails[detail]?.data === '' || item.selectedDetails[detail]?.data === null){
+                                                          return false;
+                                                      }else{
+                                                          return (
+                                                              <span className="ml-2 badge badge-secondary p-2">{item.selectedDetails[detail]?.data?.name} </span>
+                                                          )
+                                                      }
+                                                  })}
+                                              </>
+                                            )}
+
                                         </div>
                                     </div>
                                 ))

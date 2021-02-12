@@ -12,10 +12,12 @@
   }
 
   .info-card{
-    border: 2px solid $secondary;
+    border: 1px solid $border-color;
     border-radius: 7px;
     height: 100%;
     padding: 4%;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+
 
     .strong-title{
       font-weight: 600;

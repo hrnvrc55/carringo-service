@@ -30,7 +30,21 @@ function ServiceCard({data, onClick} : ServiceCardProps) {
 
     function onClickCard(){
         //onClick(data)
-        setOpen(!open);
+        console.log(data, 'dataa');
+        if(data.details.length > 0){
+            setOpen(!open);
+        }else{
+            let newData = {
+                id: data.id,
+                name: data.name,
+                selected: !data.selected,
+                icon: data.icon,
+                details: data.details,
+                selectedDetails: null
+            }
+            onClick(newData);
+        }
+
     }
 
     function onSubmit(checkedList: any){
@@ -65,7 +79,7 @@ function ServiceCard({data, onClick} : ServiceCardProps) {
         <>
         <div className="d-none d-md-block position-relative">
             <Card onClick={() => onClickCard()}
-                  className={"service-card m-2 animate__animated animate__backInLeft" + (data.selectedDetails ? " active" : " ")}>
+                  className={"service-card m-2 animate__animated animate__backInLeft" + (data.selectedDetails || data.selected ? " active" : " ")}>
                 <CardContent>
                     <div className={"d-flex justify-content-center"}>
                         <div className="d-flex flex-column justify-content-center align-items-center  title">
