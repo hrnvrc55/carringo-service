@@ -95,23 +95,25 @@ function Services(){
                 <div className="d-flex justify-content-center">
                     <div className="d-flex flex-column text-center mt-2">
                         <span className="h4">Servis Hizmetleri</span>
-                        <p><small>Seçtiğiniz</small> <strong className="text-primary">{provider?.form?.garage?.name}</strong> <small>aşağıdaki hizmetleri vermektedir. Almak istediğiniz hizmetleri seçiniz</small></p>
+                        <p><small>Seçtiğiniz</small> <strong
+                            className="text-primary">{provider?.form?.garage?.name}</strong> <small>aşağıdaki hizmetleri
+                            vermektedir. Almak istediğiniz hizmetleri seçiniz</small></p>
                     </div>
                 </div>
                 <hr/>
-               <div className="d-flex flex-wrap justify-content-center">
-                   {services.map((item : any, idx: number) => (
-                       <ServiceCard onClick={onClick} key={"service-card" + idx} data={item}/>
-                   ))}
-               </div>
+                <div className="d-flex flex-wrap justify-content-center">
+                    {services.map((item: any, idx: number) => (
+                        <ServiceCard onClick={onClick} key={"service-card" + idx} data={item}/>
+                    ))}
+                </div>
 
                 {provider?.form?.services?.length > 0 && (
 
                     <div className="mt-4 mb-3 px-3">
-                    <div className="">
-                        <span>Seçilen Hizmetler</span>
-                    </div>
-                    <hr className="my-1"/>
+                        <div className="">
+                            <span>Seçilen Hizmetler</span>
+                        </div>
+                        <hr className="my-1"/>
                         <>
                             {
                                 provider?.form?.services.map((item: any, idx: number) => (
@@ -121,17 +123,18 @@ function Services(){
                                         </div>
                                         <div className="d-flex justify-content-start">
                                             {item.selectedDetails && (
-                                              <>
-                                                  {Object.keys(item.selectedDetails).map((detail:any, idx: number) => {
-                                                      if(item.selectedDetails[detail]?.data === '' || item.selectedDetails[detail]?.data === null){
-                                                          return false;
-                                                      }else{
-                                                          return (
-                                                              <span className="ml-2 badge badge-secondary p-2">{item.selectedDetails[detail]?.data?.name} </span>
-                                                          )
-                                                      }
-                                                  })}
-                                              </>
+                                                <>
+                                                    {Object.keys(item.selectedDetails).map((detail: any, idx: number) => {
+                                                        if (item.selectedDetails[detail]?.data === '' || item.selectedDetails[detail]?.data === null) {
+                                                            return false;
+                                                        } else {
+                                                            return (
+                                                                <span
+                                                                    className="ml-2 badge badge-secondary p-2">{item.selectedDetails[detail]?.data?.name} </span>
+                                                            )
+                                                        }
+                                                    })}
+                                                </>
                                             )}
 
                                         </div>
@@ -139,32 +142,33 @@ function Services(){
                                 ))
                             }
                         </>
-                </div>
+                    </div>
                 )}
-               {/*<div className="my-3 animate__animated animate__backInUp">*/}
-               {/*    <div className="d-flex justify-content-start align-items-start">*/}
-               {/*        <Checkbox className="pt-0" checked={provider?.form?.data_permission} onChange={onClickContract} name="data_permission" />*/}
-               {/*        <span>Carringo Servis <a href="">Veri İşleme İzni</a> metnini okudum, onaylıyorum.</span>*/}
-               {/*    </div>*/}
-               {/*    <div className="d-flex justify-content-start align-items-start">*/}
-               {/*        <Checkbox className="pt-0" checked={provider?.form?.share_permission} onChange={onClickContract} name="share_permission" />*/}
-               {/*        <span>......’ya ait diğer markalar kapsamında ..... San. ve Tic. A.Ş.*/}
-               {/*         tarafından yukarıda yer alan iletişim bilgilerime reklam, promosyon gibi amaçlarla ticari elektronik*/}
-               {/*         ileti gönderilmesini, bilgilerimin bu amaçla kullanılmasını ve üçüncü kişilerle paylaşılmasını,*/}
-               {/*         mevzuat kapsamındaki haklarım saklı kalmak kaydı ile kabul ediyorum.</span>*/}
-               {/*    </div>*/}
-               {/*    <div className="d-flex justify-content-start align-items-start">*/}
-               {/*        <Checkbox className="pt-0" checked={provider?.form?.person_data_permission} onChange={onClickContract} name="person_data_permission" />*/}
-               {/*        <span><a href="">Kişisel verilerin korunması</a> metnini okudum, kabul ediyorum.</span>*/}
-               {/*    </div>*/}
-               {/*</div>*/}
+                {/*<div className="my-3 animate__animated animate__backInUp">*/}
+                {/*    <div className="d-flex justify-content-start align-items-start">*/}
+                {/*        <Checkbox className="pt-0" checked={provider?.form?.data_permission} onChange={onClickContract} name="data_permission" />*/}
+                {/*        <span>Carringo Servis <a href="">Veri İşleme İzni</a> metnini okudum, onaylıyorum.</span>*/}
+                {/*    </div>*/}
+                {/*    <div className="d-flex justify-content-start align-items-start">*/}
+                {/*        <Checkbox className="pt-0" checked={provider?.form?.share_permission} onChange={onClickContract} name="share_permission" />*/}
+                {/*        <span>......’ya ait diğer markalar kapsamında ..... San. ve Tic. A.Ş.*/}
+                {/*         tarafından yukarıda yer alan iletişim bilgilerime reklam, promosyon gibi amaçlarla ticari elektronik*/}
+                {/*         ileti gönderilmesini, bilgilerimin bu amaçla kullanılmasını ve üçüncü kişilerle paylaşılmasını,*/}
+                {/*         mevzuat kapsamındaki haklarım saklı kalmak kaydı ile kabul ediyorum.</span>*/}
+                {/*    </div>*/}
+                {/*    <div className="d-flex justify-content-start align-items-start">*/}
+                {/*        <Checkbox className="pt-0" checked={provider?.form?.person_data_permission} onChange={onClickContract} name="person_data_permission" />*/}
+                {/*        <span><a href="">Kişisel verilerin korunması</a> metnini okudum, kabul ediyorum.</span>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
-               <div className="d-flex justify-content-end mt-2 mb-3">
-                  <Button variant={"contained"} color={"primary"} onClick={() => submit()}  className="text-white custom-button">Devam Et <ForwardIcon/></Button>
-               </div>
+                <div className="d-flex justify-content-end mt-2 mb-3">
+                    <Button variant={"contained"} color={"primary"} onClick={() => submit()}
+                            className="text-white custom-button">Devam Et <ForwardIcon/></Button>
+                </div>
             </div>
         </Layout>
-    )
+    );
 }
 
 export default Services;
