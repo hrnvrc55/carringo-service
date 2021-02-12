@@ -105,12 +105,13 @@ function Services(){
                    ))}
                </div>
 
-                <div className="mt-4 mb-3 px-3">
+                {provider?.form?.services?.length > 0 && (
+
+                    <div className="mt-4 mb-3 px-3">
                     <div className="">
                         <span>Seçilen Hizmetler</span>
                     </div>
                     <hr className="my-1"/>
-                    {provider?.form?.services?.length > 0 && (
                         <>
                             {
                                 provider?.form?.services.map((item: any, idx: number) => (
@@ -133,8 +134,8 @@ function Services(){
                                 ))
                             }
                         </>
-                    )}
                 </div>
+                )}
                {/*<div className="my-3 animate__animated animate__backInUp">*/}
                {/*    <div className="d-flex justify-content-start align-items-start">*/}
                {/*        <Checkbox className="pt-0" checked={provider?.form?.data_permission} onChange={onClickContract} name="data_permission" />*/}
