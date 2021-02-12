@@ -93,12 +93,12 @@ function SuccessPage(){
                              </div>
                            </div>
                            <div>
-                               <div className="d-flex justify-content-start">
+                               <div className="d-flex flex-wrap justify-content-start">
                                    {info?.services?.length > 0 && info?.services.map((item: any, idx: number) => (
                                        <Chip
                                            label={item.name}
                                            variant="default"
-                                           className="mr-2 p-2"
+                                           className="mr-2 p-2 mb-2"
                                            color="secondary"
                                        />
                                    ))}

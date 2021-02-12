@@ -24,33 +24,32 @@ function Appointment(){
     }
 
     function submit(){
-        console.log(provider?.form, 'form');
-        // let validateError = appointmentValidate(provider?.form);
-        //
-        // if(validateError.length > 0){
-        //     setErrors(validateError);
-        //     return false;
-        // }else{
-        //     let homeValidateData = homeValidate(provider?.form);
-        //     let serviceValidateData = serviceValidate(provider?.form);
-        //     let garageValidateData = garageValidate(provider?.form);
-        //
-        //     if(homeValidateData.length > 0){
-        //         history.push('/');
-        //         provider?.openGlobalAlert(true, "Uyarı", "Gerekli bilgileri doldurmadan adımı geçmemelisiniz", "warning");
-        //     }else if(serviceValidateData && serviceValidateData.status === false){
-        //         history.push('/services');
-        //         provider?.openGlobalAlert(true, "Uyarı", serviceValidateData.message, "warning");
-        //
-        //     }else if(garageValidateData === false){
-        //         history.push('/garages');
-        //         provider?.openGlobalAlert(true, "Uyarı", "Lütfen servis noktası seçiniz", "warning");
-        //
-        //     }else {
-        //         provider?.saveAppointment();
-        //         history.push("/success");
-        //     }
-        // }
+        let validateError = appointmentValidate(provider?.form);
+
+        if(validateError.length > 0){
+            setErrors(validateError);
+            return false;
+        }else{
+            let homeValidateData = homeValidate(provider?.form);
+            let serviceValidateData = serviceValidate(provider?.form);
+            let garageValidateData = garageValidate(provider?.form);
+
+            if(homeValidateData.length > 0){
+                history.push('/');
+                provider?.openGlobalAlert(true, "Uyarı", "Gerekli bilgileri doldurmadan adımı geçmemelisiniz", "warning");
+            }else if(serviceValidateData && serviceValidateData.status === false){
+                history.push('/services');
+                provider?.openGlobalAlert(true, "Uyarı", serviceValidateData.message, "warning");
+
+            }else if(garageValidateData === false){
+                history.push('/garages');
+                provider?.openGlobalAlert(true, "Uyarı", "Lütfen servis noktası seçiniz", "warning");
+
+            }else {
+                provider?.saveAppointment();
+                history.push("/success");
+            }
+        }
     }
 
     return (
