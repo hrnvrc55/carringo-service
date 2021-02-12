@@ -1,0 +1,33 @@
+
+.plate{
+  display: inline-block;
+  border: 1.5px solid #000;
+  background: #fff;
+  font-weight: 800;
+  padding: 0 3px 1px 13px;
+  position: relative;
+  border-radius: 3px;
+  text-align: center;
+  color: #000;
+
+  &::before {
+    content: "TR";
+    position: absolute;
+    margin: auto;
+    left: 1px;
+    bottom: 3px;
+    color: #fff;
+    font-size: 31%;
+    z-index: 1;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 11px;
+    background: #3653d2;
+  }
+}

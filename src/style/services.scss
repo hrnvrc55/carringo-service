@@ -19,6 +19,7 @@
 
   &.active{
     border: 2px solid $success;
+    color: $success;
 
   }
 
@@ -39,16 +40,15 @@
 
 }
 
-.services-detail{
-  border: 2px solid $secondary;
-  border-radius: 7px;
-  position: absolute;
-  background-color:white;
-  width: 200px;
-  height: auto;
-  right: -104%;
-  padding: 10px;
-  top: 0;
-  z-index: 99;
+.service-detail{
+   .select-all{
+     border-bottom: 1px solid $secondary;
+     width: 100%;
+
+     span{
+       color: $primary;
+       font-size: 14px;
+     }
+   }
 }
 

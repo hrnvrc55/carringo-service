@@ -12,6 +12,7 @@ import {Chip} from "@material-ui/core";
 import {appointmentValidate, garageValidate, homeValidate, serviceValidate} from "../utils/validation";
 import {useHistory} from "react-router-dom";
 
+
 function Appointment(){
     const provider = React.useContext(AppProviderContext);
     let [errors, setErrors] = useState<any>([]);
@@ -23,32 +24,33 @@ function Appointment(){
     }
 
     function submit(){
-        let validateError = appointmentValidate(provider?.form);
-
-        if(validateError.length > 0){
-            setErrors(validateError);
-            return false;
-        }else{
-            let homeValidateData = homeValidate(provider?.form);
-            let serviceValidateData = serviceValidate(provider?.form);
-            let garageValidateData = garageValidate(provider?.form);
-
-            if(homeValidateData.length > 0){
-                history.push('/');
-                provider?.openGlobalAlert(true, "Uyarı", "Gerekli bilgileri doldurmadan adımı geçmemelisiniz", "warning");
-            }else if(serviceValidateData && serviceValidateData.status === false){
-                history.push('/services');
-                provider?.openGlobalAlert(true, "Uyarı", serviceValidateData.message, "warning");
-
-            }else if(garageValidateData === false){
-                history.push('/garages');
-                provider?.openGlobalAlert(true, "Uyarı", "Lütfen servis noktası seçiniz", "warning");
-
-            }else {
-                provider?.saveAppointment();
-                history.push("/success");
-            }
-        }
+        console.log(provider?.form, 'form');
+        // let validateError = appointmentValidate(provider?.form);
+        //
+        // if(validateError.length > 0){
+        //     setErrors(validateError);
+        //     return false;
+        // }else{
+        //     let homeValidateData = homeValidate(provider?.form);
+        //     let serviceValidateData = serviceValidate(provider?.form);
+        //     let garageValidateData = garageValidate(provider?.form);
+        //
+        //     if(homeValidateData.length > 0){
+        //         history.push('/');
+        //         provider?.openGlobalAlert(true, "Uyarı", "Gerekli bilgileri doldurmadan adımı geçmemelisiniz", "warning");
+        //     }else if(serviceValidateData && serviceValidateData.status === false){
+        //         history.push('/services');
+        //         provider?.openGlobalAlert(true, "Uyarı", serviceValidateData.message, "warning");
+        //
+        //     }else if(garageValidateData === false){
+        //         history.push('/garages');
+        //         provider?.openGlobalAlert(true, "Uyarı", "Lütfen servis noktası seçiniz", "warning");
+        //
+        //     }else {
+        //         provider?.saveAppointment();
+        //         history.push("/success");
+        //     }
+        // }
     }
 
     return (
@@ -61,6 +63,9 @@ function Appointment(){
                             <DoneAllIcon className="done-icon"/>
                             <span className="h5">Araç Bilgileri</span>
                             <hr className="my-2"/>
+                            {provider?.form?.plate && (
+                                <span className="plate h5">{provider?.form?.plate}</span>
+                            )}
                             <p>{provider?.form?.brand?.name} - {provider?.form?.model?.name} - {provider?.form?.gear?.name} - {provider?.form?.engine?.name}</p>
                             <p>{provider?.form?.kilometer} Km'de</p>
                         </div>
@@ -68,14 +73,32 @@ function Appointment(){
                             <DoneAllIcon className="done-icon"/>
                             <span className="h5">Seçilen Hizmetler</span>
                             <hr className="my-2"/>
-                            {provider?.form?.services?.map((item: any) => (
-                                <Chip
-                                    label={item.name}
-                                    className="mr-2"
-                                    variant="outlined"
-                                    color="secondary"
-                                />
-                            ))}
+                            <div className="d-flex flex-wrap justify-content-start">
+                                {provider?.form?.services?.map((item: any) => (
+                                    <div className="d-flex flex-column w-25">
+                                        <Chip
+                                            label={item.name}
+                                            className="mr-2"
+                                            variant="outlined"
+                                            color="secondary"
+                                        />
+                                        <div className="d-flex flex-column pl-3 pt-2">
+                                            {Object.keys(item.selectedDetails).map((detail:any, idx: number) => {
+                                                if(item.selectedDetails[detail]?.data === '' || item.selectedDetails[detail]?.data === null){
+                                                    return false;
+                                                }else{
+                                                    return (
+                                                        <small className="w-100">- {item.selectedDetails[detail]?.data?.name} </small>
+                                                    )
+                                                }
+                                            })}
+                                        </div>
+
+                                    </div>
+
+                                ))}
+                            </div>
+
                         </div>
                         <div className="custom-card bottom-shadow p-3 mb-3 animate__animated animate__bounceInUp">
                             <DoneAllIcon className="done-icon"/>

@@ -46,11 +46,13 @@ function Services(){
     },[history])
 
     function onClick(data: any){
+        console.log(data, 'dataa');
         let oldServices = services;
         let newData = oldServices.map((item: any) => {
             if(item.id === data.id){
                 let newItem = item;
-                newItem.selected = !data.selected;
+                newItem.selected = data.selected;
+                newItem.selectedDetails = data.selectedDetails;
                 return newItem;
             }else{
                 return item;
@@ -71,6 +73,7 @@ function Services(){
 
     function submit(){
         let validate = serviceValidate(provider?.form);
+
         if(validate && validate.status === false){
             setOpenAlertDialog({open: true, title: 'Dikkat!', description: validate.message, alertType: "danger"});
             return false;
@@ -92,7 +95,7 @@ function Services(){
                 <div className="d-flex justify-content-center">
                     <div className="d-flex flex-column text-center mt-2">
                         <span className="h4">Servis Hizmetleri</span>
-                        <small>Seçtiğiniz <strong className="text-primary">{provider?.form?.garage?.name}</strong> aşağıdaki hizmetleri vermektedir. Almak istediğiniz hizmetleri seçiniz</small>
+                        <p><small>Seçtiğiniz</small> <strong className="text-primary">{provider?.form?.garage?.name}</strong> <small>aşağıdaki hizmetleri vermektedir. Almak istediğiniz hizmetleri seçiniz</small></p>
                     </div>
                 </div>
                 <hr/>
@@ -101,6 +104,37 @@ function Services(){
                        <ServiceCard onClick={onClick} key={"service-card" + idx} data={item}/>
                    ))}
                </div>
+
+                <div className="mt-4 mb-3 px-3">
+                    <div className="">
+                        <span>Seçilen Hizmetler</span>
+                    </div>
+                    <hr className="my-1"/>
+                    {provider?.form?.services?.length > 0 && (
+                        <>
+                            {
+                                provider?.form?.services.map((item: any, idx: number) => (
+                                    <div className="d-flex justify-content-start my-3 align-items-center">
+                                        <div>
+                                            <strong>{item.name}:</strong>
+                                        </div>
+                                        <div className="d-flex justify-content-start">
+                                            {Object.keys(item.selectedDetails).map((detail:any, idx: number) => {
+                                                if(item.selectedDetails[detail]?.data === '' || item.selectedDetails[detail]?.data === null){
+                                                    return false;
+                                                }else{
+                                                    return (
+                                                        <span className="ml-2 badge badge-secondary p-2">{item.selectedDetails[detail]?.data?.name} </span>
+                                                    )
+                                                }
+                                            })}
+                                        </div>
+                                    </div>
+                                ))
+                            }
+                        </>
+                    )}
+                </div>
                {/*<div className="my-3 animate__animated animate__backInUp">*/}
                {/*    <div className="d-flex justify-content-start align-items-start">*/}
                {/*        <Checkbox className="pt-0" checked={provider?.form?.data_permission} onChange={onClickContract} name="data_permission" />*/}
