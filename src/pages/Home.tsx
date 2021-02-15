@@ -7,6 +7,7 @@ import AutoCompleteSelector from "../components/AutoCompleteSelector";
 import TextInput from "../components/TextInput";
 import ForwardIcon from '@material-ui/icons/Forward';
 import {homeValidate} from "../utils/validation";
+import Footer from "../components/Footer";
 
 const brands = [
     {id: 1, name: "Opel"}

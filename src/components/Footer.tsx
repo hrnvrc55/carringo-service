@@ -3,11 +3,12 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPhoneSquare, faEnvelopeSquare } from '@fortawesome/free-solid-svg-icons'
+import { faPhoneSquare, faEnvelopeSquare, faPhone } from '@fortawesome/free-solid-svg-icons'
+import PhoneIcon from '@material-ui/icons/Phone';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import PhoneIcon from '@material-ui/icons/Phone';
 import HomeIcon from "@material-ui/icons/Home";
+import IconButton from '@material-ui/core/IconButton';
 
 function Footer(){
 
@@ -80,18 +81,26 @@ function MobileFooter(){
 
     return (
         <footer className="d-md-none d-mb-block mobile-footer">
-            <Tabs
-                value={0}
-                onChange={() => {}}
-                variant="fullWidth"
-                indicatorColor="primary"
-                textColor="primary"
-                aria-label="icon tabs example"
-            >
-                <Tab icon={<HomeIcon className="text-primary" />} component={"a"} href={"/"} aria-label="favorite" />
-                <Tab icon={<PhoneIcon className="text-primary" />} component={"a"} href={"tel:0362 554 3445"} aria-label="phone" />
-                {/*<Tab icon={<PersonPinIcon />} aria-label="person" />*/}
-            </Tabs>
+            <div className="d-flex justify-content-center">
+                <div className="my-1 phone-btn">
+                    <IconButton className="bg-primary"  href="tel:0362 554 3445" aria-label="upload picture" component="a">
+                        <PhoneIcon className="text-white"/>
+                    </IconButton>
+                </div>
+
+            </div>
+            {/*<Tabs*/}
+            {/*    value={0}*/}
+            {/*    onChange={() => {}}*/}
+            {/*    variant="fullWidth"*/}
+            {/*    indicatorColor="primary"*/}
+            {/*    textColor="primary"*/}
+            {/*    aria-label="icon tabs example"*/}
+            {/*>*/}
+            {/*    <Tab icon={<HomeIcon className="text-primary" />} component={"a"} href={"/"} aria-label="favorite" />*/}
+            {/*    <Tab icon={<PhoneIcon className="text-primary" />} component={"a"} href={"tel:0362 554 3445"} aria-label="phone" />*/}
+            {/*    /!*<Tab icon={<PersonPinIcon />} aria-label="person" />*!/*/}
+            {/*</Tabs>*/}
             {/*<div className="d-flex justify-content-between bg-white mobile-top-border align-items-center py-3 pl-2">*/}
             {/*    <div>*/}
             {/*       <span className="phone"><FontAwesomeIcon className="icon" icon={faPhoneSquare}/> 0362 554 3445</span>*/}

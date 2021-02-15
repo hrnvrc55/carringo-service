@@ -98,16 +98,38 @@ function SuccessPage(){
                                     </div>
                                 </div>
                                 <div>
-                                    <div className="d-flex flex-wrap justify-content-start">
-                                        {info?.services?.length > 0 && info?.services.map((item: any, idx: number) => (
-                                            <Chip
-                                                label={item.name}
-                                                variant="default"
-                                                className="mr-2 p-2 mb-2"
-                                                color="secondary"
-                                            />
+                                    <div className="">
+                                        {info.services?.map((item: any) => (
+                                            <>
+                                            <div className="d-flex justify-content-start align-items-center mb-2">
+                                                <Chip
+                                                    label={item.name}
+                                                    className="mr-2 text-white"
+                                                    variant="default"
+                                                    color="secondary"
+                                                />
+                                                <div className="d-flex flex-wrap justify-content-start align-items-center">
+                                                    {item.selectedDetails && (
+                                                        <>
+                                                            {Object.keys(item.selectedDetails).map((detail:any, idx: number) => {
+                                                                if(item.selectedDetails[detail]?.data === '' || item.selectedDetails[detail]?.data === null){
+                                                                    return false;
+                                                                }else{
+                                                                    return (
+                                                                        <small className="badge badge-secondary mr-2 my-1">{item.selectedDetails[detail]?.data?.name} </small>
+                                                                    )
+                                                                }
+                                                            })}
+                                                        </>
+                                                    )}
+
+                                                </div>
+                                             </div>
+                                                <hr/>
+                                            </>
                                         ))}
                                     </div>
+
                                 </div>
                             </div>
                         </div>

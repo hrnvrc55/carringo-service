@@ -6,7 +6,7 @@ import Appointment from "./pages/Appointment";
 import SuccessPage from "./pages/SuccessPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import {LoginProviderContext} from "./providers/LoginProvider";
+import {ApiProviderContext} from "./providers/ApiProvider";
 import MyAppointments from "./components/account/MyAppointments";
 import Profile from "./components/account/Profile";
 import CheckAppointment from "./pages/CheckAppointment";
@@ -17,7 +17,7 @@ import Home from "./pages/Home";
 
 function App() {
 
-    const loginProvider = React.useContext(LoginProviderContext);
+    const loginProvider = React.useContext(ApiProviderContext);
 
   return (
         <AppProvider>

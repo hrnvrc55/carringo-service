@@ -10,6 +10,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ServiceDetailDialog from "./dialogs/ServiceDetailDialog";
 import {HideAt, ShowAt} from "react-with-breakpoints";
+import ServiceDetailCollapse from "./dialogs/ServiceDetailCollapse";
 
 
 
@@ -32,7 +33,6 @@ function ServiceCard({data, onClick} : ServiceCardProps) {
 
     function onClickCard(){
         //onClick(data)
-        console.log(data, 'dataa');
         if(data.details.length > 0){
             setOpen(!open);
         }else{
@@ -85,7 +85,7 @@ function ServiceCard({data, onClick} : ServiceCardProps) {
         <>
             <HideAt breakpoint={"mediumAndBelow"}>
 
-                <div className="d-none d-md-block position-relative">
+                <div className="position-relative">
                     <Card onClick={() => onClickCard()}
                           className={"service-card m-2 animate__animated animate__backInLeft" + (data.selectedDetails || data.selected ? " active" : " ")}>
                         <CardContent>
@@ -119,40 +119,42 @@ function ServiceCard({data, onClick} : ServiceCardProps) {
                 </div>
             </HideAt>
             <ShowAt breakpoint={"mediumAndBelow"}>
-                <div className="d-md-none d-block mb-3 w-100">
-                    <Accordion className={"" + (data.selected ? " border border-success" : " ")}
-                               onClick={() => onClickCollapse()}>
-                        <CardB>
-                            <CardB.Header className="bg-white">
-                                <Accordion.Toggle as={Button} variant="link" eventKey={data.id + "accordion"}
-                                                  className="w-100">
+                <div className=" mb-3 w-100">
+                    {data.details.length > 0 ? (
+                        <Accordion className={"" + (data.selected ? " border border-success rounded" : " ")}
+                                   onClick={() => onClickCollapse()}>
+                            <CardB>
+                                <CardB.Header className="bg-white">
+                                    <Accordion.Toggle as={Button} variant="link" eventKey={data.id + "accordion"}
+                                                      className="w-100">
                                     <span className="text-dark ">{data.icon} <span
                                         className="pl-2">{data.name}</span></span>
-                                </Accordion.Toggle>
-                            </CardB.Header>
-                            <Accordion.Collapse eventKey={data.id + "accordion"}>
-                                <CardB.Body>
-                                    <div className="w-100">
-                                        {data.details?.map((item: any, idx: number) => (
-                                            <FormControlLabel
-                                                control={
-                                                    <Checkbox
-                                                        checked={false}
-                                                        onChange={(e) => {
-                                                        }}
-                                                        name="checkedB"
-                                                        color="primary"
-                                                    />
-                                                }
-                                                label={item.name}
-                                                className="w-100"
-                                            />
-                                        ))}
-                                    </div>
-                                </CardB.Body>
-                            </Accordion.Collapse>
-                        </CardB>
-                    </Accordion>
+                                    </Accordion.Toggle>
+                                </CardB.Header>
+                                <Accordion.Collapse eventKey={data.id + "accordion"}>
+                                    <CardB.Body>
+                                        <div className="w-100">
+                                            {data?.details?.length > 0 && (
+                                                <ServiceDetailCollapse
+                                                    list={data?.details}
+                                                    defaultList={data?.selectedDetails}
+                                                    onSubmit={(checkedList: any) => {
+                                                        onSubmit(checkedList)
+                                                    }}
+                                                />
+                                            )}
+                                        </div>
+                                    </CardB.Body>
+                                </Accordion.Collapse>
+                            </CardB>
+                        </Accordion>
+                    ) : (
+                        <Button onClick={() => onClickCard()} className={"bg-white w-100 py-3 border" + (data.selectedDetails || data.selected ? "  border-success" : " ")}>
+                                <span className="text-dark ">{data.icon} <span
+                                    className="pl-2">{data.name}</span></span>
+                        </Button>
+                    )}
+
                 </div>
             </ShowAt>
         </>

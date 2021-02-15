@@ -9,7 +9,7 @@ import { TransitionProps } from '@material-ui/core/transitions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-
+import {HideAt, ShowAt} from "react-with-breakpoints";
 type AlertProps = {
     open: boolean,
     title?: string,
@@ -100,7 +100,9 @@ function ServiceDetailDialog({open, title, description, defaultList, onSubmit, l
                         control={
                             <Checkbox
                                 checked={(checkedList ? Boolean(checkedList['checked-all']?.status) : false)}
-                                onChange={(e) => {onCheck(e, '')}}
+                                onChange={(e) => {
+                                    onCheck(e, '')
+                                }}
                                 name="checked-all"
 
                             />
@@ -116,7 +118,9 @@ function ServiceDetailDialog({open, title, description, defaultList, onSubmit, l
                             control={
                                 <Checkbox
                                     checked={(checkedList ? Boolean(checkedList['checked' + item.id]?.status) : false)}
-                                    onChange={(e) => {onCheck(e, item)}}
+                                    onChange={(e) => {
+                                        onCheck(e, item)
+                                    }}
                                     name={'checked' + item.id}
                                     color="primary"
                                 />
@@ -131,10 +135,11 @@ function ServiceDetailDialog({open, title, description, defaultList, onSubmit, l
                     İptal
                 </Button>
                 <Button onClick={submit} color="primary">
-                    Ekle
+                    Kaydet
                 </Button>
             </DialogActions>
         </Dialog>
+
     );
 }
 

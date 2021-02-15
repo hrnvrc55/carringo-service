@@ -21,7 +21,8 @@ import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
 import BrushIcon from '@material-ui/icons/Brush';
-
+import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
 type AlertDialog = {
     open: boolean,
@@ -108,40 +109,43 @@ function Services(){
                 </div>
 
                 {provider?.form?.services?.length > 0 && (
-
-                    <div className="mt-4 mb-3 px-3">
+                    <div className="mt-4 mb-3 px-3 d-none d-lg-block">
                         <div className="">
-                            <span>Seçilen Hizmetler</span>
+                            <span style={{fontWeight: 600}}>Seçilen Hizmetler</span>
                         </div>
                         <hr className="my-1"/>
-                        <>
+                        <ul>
                             {
                                 provider?.form?.services.map((item: any, idx: number) => (
-                                    <div className="d-flex justify-content-start my-3 align-items-center">
-                                        <div>
-                                            <strong>{item.name}:</strong>
-                                        </div>
-                                        <div className="d-flex justify-content-start">
-                                            {item.selectedDetails && (
-                                                <>
-                                                    {Object.keys(item.selectedDetails).map((detail: any, idx: number) => {
-                                                        if (item.selectedDetails[detail]?.data === '' || item.selectedDetails[detail]?.data === null) {
-                                                            return false;
-                                                        } else {
-                                                            return (
-                                                                <span
-                                                                    className="ml-2 badge badge-secondary p-2">{item.selectedDetails[detail]?.data?.name} </span>
-                                                            )
-                                                        }
-                                                    })}
-                                                </>
-                                            )}
+                                    <li>
+                                        <div className="d-flex justify-content-start my-3 align-items-center" key={"selected-services" + idx}>
+                                            <div>
+                                                <span>{item.name}</span>
+                                            </div>
+                                            <div className="d-flex justify-content-start align-items-center">
+                                                {item.selectedDetails && (
+                                                    <>
+                                                        <KeyboardArrowRightIcon/>
+                                                        {Object.keys(item.selectedDetails).map((detail: any, idx: number) => {
+                                                            if (item.selectedDetails[detail]?.data === '' || item.selectedDetails[detail]?.data === null) {
+                                                                return false;
+                                                            } else {
+                                                                return (
+                                                                    <span className="ml-1 badge badge-secondary p-2">
+                                                                    {item.selectedDetails[detail]?.data?.name}
+                                                                </span>
+                                                                )
+                                                            }
+                                                        })}
+                                                    </>
+                                                )}
 
+                                            </div>
                                         </div>
-                                    </div>
+                                    </li>
                                 ))
                             }
-                        </>
+                        </ul>
                     </div>
                 )}
                 {/*<div className="my-3 animate__animated animate__backInUp">*/}

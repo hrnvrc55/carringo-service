@@ -7,12 +7,12 @@ import {AppProviderContext} from "../providers/AppProvider";
 import {loginValidate, registerValidate} from "../utils/validation";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight} from '@fortawesome/free-solid-svg-icons'
-import {LoginProviderContext} from "../providers/LoginProvider";
+import {ApiProviderContext} from "../providers/ApiProvider";
 
 function Login(){
     let history = useHistory();
     const provider = React.useContext(AppProviderContext);
-    const loginProvider = React.useContext(LoginProviderContext);
+    const loginProvider = React.useContext(ApiProviderContext);
 
 
     let [errors, setErrors] = useState<any>([]);

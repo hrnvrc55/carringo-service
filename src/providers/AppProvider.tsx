@@ -79,7 +79,6 @@ function AppProvider(props: AppProviderProps){
         // console.log(appointmentValidate(form), 'appointment validate');
         // console.log(serviceValidate(form), 'service validate');
         // console.log(garageValidate(form), 'garage validate');
-
     }
 
     return (

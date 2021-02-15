@@ -8,7 +8,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import {themeData} from './utils/theme';
 import { trTR } from '@material-ui/core/locale';
 import App from "./App";
-import LoginProvider from "./providers/LoginProvider";
+import ApiProvider from "./providers/ApiProvider";
 import { BreakpointsProvider } from 'react-with-breakpoints';
 
 
@@ -28,11 +28,11 @@ const theme = createMuiTheme({
 
 const routing = (
     <ThemeProvider theme={theme}>
-       <LoginProvider>
+       <ApiProvider>
            <BreakpointsProvider>
                <App/>
            </BreakpointsProvider>
-       </LoginProvider>
+       </ApiProvider>
     </ThemeProvider>
 
 )

@@ -4,7 +4,7 @@ import List from '@material-ui/core/List';
 import {Divider, ListItem} from "@material-ui/core";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import {LoginProviderContext} from "../providers/LoginProvider";
+import {ApiProviderContext} from "../providers/ApiProvider";
 import {Dropdown} from "react-bootstrap";
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -23,7 +23,7 @@ const menuList = [
 
 function TopBar(){
     let history = useHistory();
-    const loginProvider = React.useContext(LoginProviderContext)!
+    const loginProvider = React.useContext(ApiProviderContext)!
 
     let [openMenu, setOpenMenu] = useState<boolean>(false);
     let [openAccountMenu, setOpenAccountMenu] = useState<boolean>(false);

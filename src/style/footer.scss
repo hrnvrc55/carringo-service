@@ -84,6 +84,14 @@ $padding-bottom: 1%;
     border-top: 2px solid $secondary;
   }
 
+  .phone-btn{
+    background-color: white;
+    border-radius: 50%;
+    padding:7px;
+    box-shadow: 0px 0px 5px 4px #ccc;
+
+  }
+
   .phone{
     font-size: 19px;
     font-weight: 500;

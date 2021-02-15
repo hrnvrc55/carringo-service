@@ -1,6 +1,6 @@
 import React, {useState, useEffect, createContext} from "react";
 
-interface LoginContextData {
+interface ApiContextData {
     isLogin: boolean,
     user: any,
     login: (username: string, password: any) => void
@@ -8,15 +8,14 @@ interface LoginContextData {
 }
 
 
-export const LoginProviderContext = createContext<LoginContextData | undefined>(undefined)
+export const ApiProviderContext = createContext<ApiContextData | undefined>(undefined)
 
 type LoginProviderProps = {
     children: React.ReactNode,
 
 }
 
-
-function LoginProvider(props: LoginProviderProps){
+function ApiProvider(props: LoginProviderProps){
 
     let [isLogin, setIsLogin] = useState<boolean>(false);
     let [user, setUser] = useState<any>(null);
@@ -45,10 +44,10 @@ function LoginProvider(props: LoginProviderProps){
 
 
     return (
-        <LoginProviderContext.Provider value={{isLogin, user, login, logout}}>
+        <ApiProviderContext.Provider value={{isLogin, user, login, logout}}>
             {props.children}
-        </LoginProviderContext.Provider>
+        </ApiProviderContext.Provider>
     )
 }
 
-export default LoginProvider;
+export default ApiProvider;
