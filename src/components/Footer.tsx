@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
@@ -9,13 +9,19 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import HomeIcon from "@material-ui/icons/Home";
 import IconButton from '@material-ui/core/IconButton';
+import Button from "@material-ui/core/Button";
+import {HideAt, ShowAt} from "react-with-breakpoints";
 
 function Footer(){
 
     return (
         <>
-            <DesktopFooter/>
-            <MobileFooter/>
+            <HideAt breakpoint={"mediumAndBelow"}>
+                <DesktopFooter/>
+            </HideAt>
+            <ShowAt breakpoint={"mediumAndBelow"}>
+                <MobileFooter/>
+            </ShowAt>
         </>
     )
 }
@@ -80,13 +86,19 @@ function DesktopFooter(){
 function MobileFooter(){
 
     return (
-        <footer className="d-md-none d-mb-block mobile-footer">
-            <div className="d-flex justify-content-center">
+        <footer className={"mobile-footer"}>
+            <div className="d-flex justify-content-center align-items-center">
+                {/*<div className="my-1">*/}
+                {/*    <Button variant="contained" color="primary" >Geri</Button>*/}
+                {/*</div>*/}
                 <div className="my-1 phone-btn">
                     <IconButton className="bg-primary"  href="tel:0362 554 3445" aria-label="upload picture" component="a">
                         <PhoneIcon className="text-white"/>
                     </IconButton>
                 </div>
+                {/*<div className="my-1">*/}
+                {/*    <Button variant="contained" color="primary" >İleri</Button>*/}
+                {/*</div>*/}
 
             </div>
             {/*<Tabs*/}

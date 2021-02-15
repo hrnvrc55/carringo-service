@@ -33,6 +33,27 @@ export function homeValidate(form: any) {
         })
     }
 
+    if(!form?.data_permission || form?.data_permission === false){
+        errors.push({
+            name: 'contract-error',
+            message: 'Lütfen sözleşme metnini onaylayınız'
+        })
+    }
+
+    if(!form?.share_permission || form?.share_permission === false){
+        errors.push({
+            name: 'contract-error',
+            message: 'Lütfen sözleşme metnini onaylayınız'
+        })
+    }
+
+    if(!form?.person_data_permission || form?.person_data_permission === false){
+        errors.push({
+            name: 'contract-error',
+            message: 'Lütfen sözleşme metnini onaylayınız'
+        })
+    }
+
 
     return errors;
 }

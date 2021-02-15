@@ -29,7 +29,7 @@ function MobileStepperComponent({active} : MobileStepperProps){
     const goPage = (data: any, type: string) => {
         let form = provider?.form;
         if(type === "next"){
-            if(data.code === "main"){
+            if(data.code === "services"){
                 let validation = serviceValidate(form);
                 if(validation && validation.status === false){
                     provider?.openGlobalAlert(true,"Uyarı",validation.message, "danger");
@@ -37,7 +37,7 @@ function MobileStepperComponent({active} : MobileStepperProps){
                 }else{
                     history.push(data.next);
                 }
-            }else if(data.code === "my-vehicle"){
+            }else if(data.code === "main"){
                 let validation = homeValidate(form);
                 if(validation.length > 0){
                     provider?.openGlobalAlert(true,"Uyarı","Gerekli bilgileri doldurunuz", "danger");
@@ -54,7 +54,7 @@ function MobileStepperComponent({active} : MobileStepperProps){
                     history.push(data.next);
                 }
 
-            }else if(data.code === "appoinment"){
+            }else if(data.code === "appointment"){
                 let validation = appointmentValidate(form);
                 if(validation.length > 0){
                     provider?.openGlobalAlert(true,"Uyarı","Gerekli bilgileri doldurunuz", "danger");

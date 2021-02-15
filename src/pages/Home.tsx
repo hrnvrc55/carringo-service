@@ -8,6 +8,8 @@ import TextInput from "../components/TextInput";
 import ForwardIcon from '@material-ui/icons/Forward';
 import {homeValidate} from "../utils/validation";
 import Footer from "../components/Footer";
+import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
+import {Simulate} from "react-dom/test-utils";
 
 const brands = [
     {id: 1, name: "Opel"}
@@ -46,6 +48,12 @@ function Home(){
        provider?.onChange(key, value);
     }
 
+    function onClickContract(event: React.ChangeEvent<HTMLInputElement>){
+        provider?.onChange(event.target.name, event.target.checked);
+        let filterError : any = errors.filter((x: any) => x.name !== "contract-error");
+        setErrors(filterError)
+    }
+
     function submit(){
         let validateError = homeValidate(provider?.form);
         if(validateError.length > 0){
@@ -54,12 +62,15 @@ function Home(){
         }else{
             history.push("/garages");
         }
+
+        //console.log(provider?.form, 'form');
     }
 
     return (
         <Layout title={"Anasayfa"} stepper={true}>
-            <div className="d-flex justify-content-center mt-3 mt-md-2 mb-3">
-                <div className="form-wrapper animate__animated animate__fadeInLeft">
+            <div className="row mt-3 mt-md-2 mb-3">
+                <div className="col-12 col-md-6 pl-md-5">
+                    <div className="form-wrapper animate__animated animate__fadeInLeft">
                         <div className="form-group p-3">
                             <div>
                                 <h4>Araç Bilgileri</h4>
@@ -103,15 +114,41 @@ function Home(){
                             />
                             <TextInput type={"number"} errors={errors} label={"Kilometre"} defaultValue={provider?.form?.kilometer} name={"kilometer"} onChange={onChange}/>
                             <TextInput type={"text"} errors={errors} label={"Plaka"} defaultValue={provider?.form?.plate} name={"plate"} onChange={onChange}/>
-
-                            <Button fullWidth={true} variant={"contained"} color="primary" onClick={() => submit()} className="text-white custom-button" >Devam Et <ForwardIcon/></Button>
                         </div>
                     </div>
 
-                {/*<div className="col-12 col-md-6 position-relative">*/}
-                {/*    /!*<img style={{position: "absolute", right: 0, bottom: 0, width: "100%"}} src={"/car.png"}/>*!/*/}
-                {/*</div>*/}
+                </div>
+                <div className="col-12 col-md-6 pr-md-5">
+                    <div className="">
+                        <div className={"animate__animated animate__backInRight" + (Boolean(errors.find((x : any) => x.name === "contract-error")) ? " error-border" : "")}>
+                            <div className="d-flex justify-content-start align-items-start">
+                                <Checkbox className="pt-0" checked={provider?.form?.data_permission} onChange={onClickContract} name="data_permission" />
+                                <span>Carringo Servis <a href="">Veri İşleme İzni</a> metnini okudum, onaylıyorum.</span>
+                            </div>
+                            <div className="d-flex justify-content-start align-items-start">
+                                <Checkbox className="pt-0" checked={provider?.form?.share_permission} onChange={onClickContract} name="share_permission" />
+                                <span>......’ya ait diğer markalar kapsamında ..... San. ve Tic. A.Ş.
+                             tarafından iletişim bilgilerime reklam, promosyon gibi amaçlarla ticari elektronik
+                             ileti gönderilmesini, bilgilerimin bu amaçla kullanılmasını ve üçüncü kişilerle paylaşılmasını,
+                             mevzuat kapsamındaki haklarım saklı kalmak kaydı ile kabul ediyorum.</span>
+                            </div>
+                            <div className="d-flex justify-content-start align-items-start">
+                                <Checkbox className="pt-0" checked={provider?.form?.person_data_permission} onChange={onClickContract} name="person_data_permission" />
+                                <span><a href="">Kişisel verilerin korunması</a> metnini okudum, kabul ediyorum.</span>
+                            </div>
+
+                        </div>
+                        {Boolean(errors.find((x : any) => x.name === "contract-error")) && (
+                         <small className="text-danger">Lütfen sözleşme metinlerini okuyup, onaylayınız</small>
+                        )}
+                        <div className="d-flex justify-content-end px-md-5">
+                            <Button fullWidth={true} variant={"contained"} color="primary" onClick={() => submit()} className="text-white custom-button mt-3 mt-md-5 " >Devam Et <ForwardIcon/></Button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
+
         </Layout>
     )
 }
