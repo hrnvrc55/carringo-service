@@ -31,7 +31,6 @@ function TopBar(){
 
     function logout(){
         loginProvider.logout();
-        window.location.assign("/");
     }
 
     return (

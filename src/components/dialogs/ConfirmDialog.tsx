@@ -9,13 +9,14 @@ import { TransitionProps } from '@material-ui/core/transitions';
 import ErrorIcon from '@material-ui/icons/Error';
 import WarningIcon from '@material-ui/icons/Warning';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import HelpIcon from '@material-ui/icons/Help';
 
 type AlertProps = {
     open: boolean,
     title?: string,
     description?: string,
     alertType?: string,
-    onClose: () => void
+    onClose: (value: any) => void
 }
 
 const Transition = React.forwardRef(function Transition(
@@ -33,27 +34,26 @@ type typesArray = {
 }
 
 
-function AlertDialog({open, title, description, alertType, onClose} : AlertProps){
+function ConfirmDialog({open, title, description, alertType, onClose} : AlertProps){
     const typesArray : typesArray = {
         success: <CheckCircleIcon style={{fontSize: "50px"}} className="text-success"/>,
         danger: <ErrorIcon style={{fontSize: "50px"}} className="text-danger"/>,
         warning: <WarningIcon style={{fontSize: "50px"}} className="text-warning"/>,
+        confirm: <HelpIcon style={{fontSize: "50px"}} className="text-warning"/>,
     }
 
     useEffect(() => {
-        setTimeout(() => {
 
-        }, 3000);
     }, [])
-    const handleClose = () => {
-        onClose();
+    const handleClose = (value: any) => {
+        onClose(value);
     }
 
     return (
         <Dialog
             open={open}
             TransitionComponent={Transition}
-            onClose={() => handleClose()}
+            onClose={() => handleClose(null)}
         >
             <DialogContent className="d-flex flex-column align-items-center">
                 <div className="d-flex justify-content-center">
@@ -64,15 +64,15 @@ function AlertDialog({open, title, description, alertType, onClose} : AlertProps
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                {/*<Button onClick={handleClose} color="primary">*/}
-                {/*    Disagree*/}
-                {/*</Button>*/}
-                <Button onClick={handleClose} color="primary">
-                    Tamam
+                <Button onClick={() => handleClose(false)} color="primary">
+                    Hayır
+                </Button>
+                <Button onClick={() => handleClose(true)} color="primary">
+                    Evet
                 </Button>
             </DialogActions>
         </Dialog>
     )
 }
 
-export default AlertDialog;
+export default ConfirmDialog;

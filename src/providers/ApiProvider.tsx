@@ -1,4 +1,5 @@
 import React, {useState, useEffect, createContext} from "react";
+import ConfirmDialog from "../components/dialogs/ConfirmDialog";
 
 interface ApiContextData {
     isLogin: boolean,
@@ -19,6 +20,7 @@ function ApiProvider(props: LoginProviderProps){
 
     let [isLogin, setIsLogin] = useState<boolean>(false);
     let [user, setUser] = useState<any>(null);
+    let [confirmDialog, setConfirmDialog] = useState(false);
 
     useEffect(() => {
        if(Boolean(localStorage.getItem("user-carringo-service"))){
@@ -37,14 +39,28 @@ function ApiProvider(props: LoginProviderProps){
     }
 
     function logout() {
-      localStorage.removeItem("user-carringo-service");
-      setUser(null);
-      setIsLogin(false);
+
+        setConfirmDialog(true);
+    }
+
+    function confirmDialogClose(value: any){
+
+        if(value === true) {
+            localStorage.removeItem("user-carringo-service");
+            setUser(null);
+            setIsLogin(false);
+            setConfirmDialog(false);
+            window.location.assign("/");
+
+        }else{
+            setConfirmDialog(false);
+        }
     }
 
 
     return (
         <ApiProviderContext.Provider value={{isLogin, user, login, logout}}>
+            <ConfirmDialog open={confirmDialog} alertType={"confirm"} description={"Çıkış yapmak istediğinize emin misiniz?"} onClose={confirmDialogClose}/>
             {props.children}
         </ApiProviderContext.Provider>
     )
