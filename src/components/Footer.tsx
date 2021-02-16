@@ -92,7 +92,7 @@ function MobileFooter(){
                 {/*    <Button variant="contained" color="primary" >Geri</Button>*/}
                 {/*</div>*/}
                 <div className="my-1 phone-btn">
-                    <IconButton className="bg-primary"  href="tel:0362 554 3445" aria-label="upload picture" component="a">
+                    <IconButton className="bg-primary"  href="tel:+90 (850) 840 06 55" aria-label="upload picture" component="a">
                         <PhoneIcon className="text-white"/>
                     </IconButton>
                 </div>
