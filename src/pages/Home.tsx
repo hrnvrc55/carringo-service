@@ -10,6 +10,7 @@ import {homeValidate} from "../utils/validation";
 import Footer from "../components/Footer";
 import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
 import {Simulate} from "react-dom/test-utils";
+import {useApi} from "../providers/ApiProvider";
 
 const brands = [
     {id: 1, name: "Opel"}
@@ -35,13 +36,24 @@ const engines = [
 
 function Home(){
     let history = useHistory();
+    let {api}: any = useApi();
 
     const provider = React.useContext(AppProviderContext);
+
+    // let [brands, setBrands] = useState<any>([]);
+    // let [models, setModels] = useState<any>([]);
+    // let [gears, setGears] = useState<any>([]);
+    // let [engines, setEngines] = useState<any>([]);
+
 
     let [errors, setErrors] = useState<any>([]);
 
     useEffect(() => {
-
+       // api?.get("services/app/VehicleBrand/GetAll").then((resp : any) => {
+       //     console.log(resp, 'resp');
+       //     let respBrands = resp.data.result.items;
+       //     setBrands(respBrands);
+       // });
     },[])
 
     function onChange(key: string, value: any) {
@@ -67,7 +79,7 @@ function Home(){
     }
 
     return (
-        <Layout title={"Anasayfa"} stepper={true}>
+        <Layout title={"Araç Bilgileri"} stepper={true}>
             <div className="row mt-3 mt-md-2 mb-3">
                 <div className="col-12 col-md-6 pl-md-5">
                     <div className="form-wrapper animate__animated animate__fadeInLeft">

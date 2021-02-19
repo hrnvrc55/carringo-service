@@ -1,19 +1,25 @@
-import React, {useState, useEffect, createContext} from "react";
+import React, {useState, useEffect, createContext, useContext} from "react";
 import ConfirmDialog from "../components/dialogs/ConfirmDialog";
+import axios from "axios";
 
 interface ApiContextData {
     isLogin: boolean,
     user: any,
+    api: any,
     login: (username: string, password: any) => void
-    logout: () => void
+    logout: () => void,
 }
-
 
 export const ApiProviderContext = createContext<ApiContextData | undefined>(undefined)
 
 type LoginProviderProps = {
     children: React.ReactNode,
+}
 
+const apiUrl = "https://api.parcapaketi.com/api";
+
+export function useApi(){
+    return useContext(ApiProviderContext);
 }
 
 function ApiProvider(props: LoginProviderProps){
@@ -30,6 +36,55 @@ function ApiProvider(props: LoginProviderProps){
            setIsLogin(true);
        }
     },[])
+
+    const api = {
+        get: (endPoint : any, params: any) => {
+            return new Promise(function(resolve, reject) {
+                return   axios({
+                    method: 'get',
+                    url: apiUrl + '/' + endPoint ,
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        //"Authorization" : isLogin() ? "Bearer " + user.token : null
+                    },
+                }).then(async resp => {
+                    if (resp.status === 200 || resp.status === 201) {
+                        resolve((await resp));
+                    } else {
+                        throw (await resp);
+                    }
+                }).catch(error => {
+                    reject(error);
+                    return error;
+                });
+            });
+        },
+        post: (endPoint : any, params: any) => {
+            return new Promise(function(resolve, reject) {
+                return   axios({
+                    method: 'post',
+                    url: apiUrl + '/' + endPoint ,
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        //"Authorization" : isLogin() ? "Bearer " + user.token : null
+                    },
+                    data: params
+                }).then(async resp => {
+                    if (resp.status === 200 || resp.status === 201) {
+                        resolve((await resp));
+                    } else {
+                        throw (await resp);
+                    }
+                }).catch(error => {
+                    reject(error);
+                    return error;
+                });
+            });
+        }
+    };
+
 
     function login(username: string, password: any){
         let userData : any = {id: 1, username: username};
@@ -59,7 +114,7 @@ function ApiProvider(props: LoginProviderProps){
 
 
     return (
-        <ApiProviderContext.Provider value={{isLogin, user, login, logout}}>
+        <ApiProviderContext.Provider value={{api, isLogin, user, login, logout}}>
             <ConfirmDialog open={confirmDialog} alertType={"confirm"} description={"Çıkış yapmak istediğinize emin misiniz?"} onClose={confirmDialogClose}/>
             {props.children}
         </ApiProviderContext.Provider>

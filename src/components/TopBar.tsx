@@ -39,12 +39,12 @@ function TopBar(){
                 <div className="container pl-2 pl-md-0 pr-2 pr-md-0 py-1">
                     <div className="d-flex justify-content-start align-items-center">
                         <div className="">
-                            <a href="/"><img src="/carringo-logo-new.png" height={60} loading={"lazy"}/></a>
+                            <a href="https://carringoservis.com/" target="_blank"><img src="/carringo-logo-new.png" height={60} loading={"lazy"}/></a>
                         </div>
                         <div className="flex-fill">
                             <div className="justify-content-end d-flex align-items-center">
-                                <div key={"menu-main"} className="ml-4 ">
-                                    <a  href={"/"} className={"nav-list-item text-decoration-none "}>Anasayfa</a>
+                                <div key={"menu-ask-appointment"} className="ml-4 ">
+                                    <a  href={"/"} className={"nav-list-item text-decoration-none "}>Randevu Al</a>
                                 </div>
 
                                 {loginProvider?.isLogin === true ? (
@@ -95,7 +95,7 @@ function TopBar(){
                         )}
 
                         <div className="ml-2">
-                            <a href="/"><img src="/carringo-logo-new.png" height={40} loading={"lazy"}/></a>
+                            <a href="/https://carringoservis.com/" target="_blank"><img src="/carringo-logo-new.png" height={40} loading={"lazy"}/></a>
                         </div>
                         <div className="flex-fill">
                             {loginProvider.isLogin === true ? (
@@ -110,7 +110,7 @@ function TopBar(){
                 <div className="bg-white ">
                     <Drawer open={openMenu} className="" onClose={() => setOpenMenu(false)}>
                         <div className="bg-primary py-1 pl-2">
-                            <a href="/"><img src="/carringo-logo-new.png" height={40} loading={"lazy"}/></a>
+                            <a href="https://carringoservis.com/" target="_blank"><img src="/carringo-logo-new.png" height={40} loading={"lazy"}/></a>
                         </div>
                         <List component="nav" className="pt-1 mobile-menu">
                             <div key={"menu-register"} className="pb-1 pt-1">
@@ -141,7 +141,7 @@ function TopBar(){
                     </Drawer>
                     <Drawer  anchor={"right"} open={openAccountMenu} className="" onClose={() => setOpenAccountMenu(false)}>
                         <div className="bg-primary py-1 pl-2">
-                            <a href="/"><img src="/carringo-logo-new.png" height={40} loading={"lazy"}/></a>
+                            <a href="https://carringoservis.com/" target="_blank"><img src="/carringo-logo-new.png" height={40} loading={"lazy"}/></a>
                         </div>
                         <div className="px-3 py-1">
                             <AccountCircleIcon className="text-success"/> {loginProvider?.user?.username}
