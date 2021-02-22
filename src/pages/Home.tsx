@@ -145,7 +145,7 @@ function Home(){
                             </div>
                             <div className="d-flex justify-content-start align-items-start">
                                 <Checkbox className="pt-0" checked={provider?.form?.person_data_permission} onChange={onClickContract} name="person_data_permission" />
-                                <span><a href="https://carringoservis.com/gizlilik-politikasi" target="_blank">Kişisel verilerin korunması</a> metnini okudum, kabul ediyorum.</span>
+                                <span><a href="https://carringoservis.com/kisisel-verilerin-korunmasi-kanunu" target="_blank">Kişisel verilerin korunması</a> metnini okudum, kabul ediyorum.</span>
                             </div>
 
                         </div>
