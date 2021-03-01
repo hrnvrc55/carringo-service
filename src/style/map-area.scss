@@ -1,8 +1,14 @@
 
 .map-area{
   width: 100%;
-  height: 500px;
-  background-color: #c1c9d5;
+  height: 100%;
+  position: relative;
+}
+
+.map-mobil-area{
+  width: 100%;
+  height: 400px;
+  position: relative;
 }
 
 .marker{
@@ -46,5 +52,22 @@
   .close-icon{
     font-size: 12px;
     margin-right: 0;
+  }
+}
+
+.map-loading{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 500px;
+  background-color: white;
+
+  .icon-area{
+    align-self: center;
+    padding: 2rem;
+    .icon{
+      font-size: 45px;
+      color: $orange;
+    }
   }
 }

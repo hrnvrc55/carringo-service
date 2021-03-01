@@ -120,7 +120,7 @@ function Garages(){
                 <div className="row">
                     {tab === 0 && (
                         <div className="col-12 col-md-4 animate__animated animate__bounceInLeft">
-                            <TextInput label={"Ara"} onChange={() => {}} name={"search"}/>
+                            {/*<TextInput label={"Ara"} onChange={() => {}} name={"search"}/>*/}
                             <div className="list-area">
                                 <FormControl component="fieldset" className="list-items">
                                     <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
@@ -145,13 +145,17 @@ function Garages(){
                     )}
 
                     {tab === 1 && (
-                        <div className="col-12 col-md-8 d-block animate__animated animate__bounceInRight">
-                            <MapArea garages={garages} />
+                        <div className="col-12 col-md-8  animate__animated animate__bounceInRight">
+                            <div className="map-mobil-area">
+                                <MapArea/>
+                            </div>
                         </div>
                     )}
 
                     <div className="col-12 col-md-8 d-none d-md-block animate__animated animate__bounceInRight">
-                        <MapArea garages={garages} />
+                        <div className="map-area">
+                            <MapArea/>
+                        </div>
                     </div>
 
                 </div>

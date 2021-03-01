@@ -14,6 +14,7 @@ import MyServicesRouter from "./custom_routes/MyServicesRouter";
 import MyGaragesRouter from "./custom_routes/MyGaragesRouter";
 import MyAppointmentRouter from "./custom_routes/MyAppointmentRouter";
 import Home from "./pages/Home";
+import MapArea from "./components/MapArea";
 
 function App() {
 
@@ -42,6 +43,8 @@ function App() {
                        <Route exact path="/login" component={Login} />
                        <Route exact path="/register" component={Register} />
                        <Route exact path="/check-appointment" component={CheckAppointment} />
+                       <Route exact path="/map-area" component={MapArea} />
+
                    </>
                )}
             </Switch>

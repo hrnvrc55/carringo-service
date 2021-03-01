@@ -3,7 +3,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import List from '@material-ui/core/List';
 import {Divider, ListItem} from "@material-ui/core";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import {faSearch, faUser} from '@fortawesome/free-solid-svg-icons'
 import {ApiProviderContext} from "../providers/ApiProvider";
 import {Dropdown} from "react-bootstrap";
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
@@ -35,7 +35,7 @@ function TopBar(){
 
     return (
         <header className="header">
-            <HideAt breakpoint={"mediumAndBelow"}>
+            <div className="d-none d-md-block">
                 <div className="container pl-2 pl-md-0 pr-2 pr-md-0 py-1">
                     <div className="d-flex justify-content-start align-items-center">
                         <div className="">
@@ -43,68 +43,72 @@ function TopBar(){
                         </div>
                         <div className="flex-fill">
                             <div className="justify-content-end d-flex align-items-center">
+                                {/*<div key={"menu-ask-appointment"} className="ml-4 ">*/}
+                                {/*    <a  href={"/"} className={"nav-list-item text-decoration-none "}>Randevu Al</a>*/}
+                                {/*</div>*/}
+
                                 <div key={"menu-ask-appointment"} className="ml-4 ">
-                                    <a  href={"/"} className={"nav-list-item text-decoration-none "}>Randevu Al</a>
+                                    <a  href={"/check-appointment"} target="_blank" className={"nav-list-item text-decoration-none "}>Randevu Sorgula <FontAwesomeIcon icon={faSearch}/></a>
                                 </div>
 
-                                {loginProvider?.isLogin === true ? (
-                                    <>
-                                        <div key={"menu-my-account"} className="ml-4 ">
-                                            <Dropdown>
-                                                <Dropdown.Toggle variant="secondary" id="dropdown-basic" className=" d-flex justify-content-start align-items-center">
-                                                    <AccountCircleIcon className="text-orange"/><span className="mx-1 ">Hesabım</span><small className="">({loginProvider?.user?.username})</small>
-                                                </Dropdown.Toggle>
-                                                <Dropdown.Menu alignRight={true}>
-                                                    <Dropdown.Item href="/my-appointments">Randevularım</Dropdown.Item>
-                                                    <Dropdown.Item href="/profile">Profil</Dropdown.Item>
-                                                    <Dropdown.Item onClick={() => logout()}>Çıkış</Dropdown.Item>
-                                                </Dropdown.Menu>
-                                            </Dropdown>
-                                        </div>
-                                    </>
-                                ) : (
-                                    <>
-                                        <div key={"menu-ask-appointment"} className="ml-4 ">
-                                            <a  href={"check-appointment"} className={"nav-list-item text-decoration-none "}>Randevu Sorgula</a>
-                                        </div>
-                                        <div key={"menu-register"} className="ml-4 ">
-                                            <a  href={"/register"} className={"nav-list-item text-decoration-none "}>Yeni Üyelik</a>
-                                        </div>
-                                        <div key={"menu-login"} className="ml-4 ">
-                                            <a  href={"/login"} className={"nav-list-item text-decoration-none "}>Giriş Yap</a>
-                                        </div>
-                                    </>
-                                )}
+                                {/*{loginProvider?.isLogin === true ? (*/}
+                                {/*    <>*/}
+                                {/*        <div key={"menu-my-account"} className="ml-4 ">*/}
+                                {/*            <Dropdown>*/}
+                                {/*                <Dropdown.Toggle variant="secondary" id="dropdown-basic" className=" d-flex justify-content-start align-items-center">*/}
+                                {/*                    <AccountCircleIcon className="text-orange"/><span className="mx-1 ">Hesabım</span><small className="">({loginProvider?.user?.username})</small>*/}
+                                {/*                </Dropdown.Toggle>*/}
+                                {/*                <Dropdown.Menu alignRight={true}>*/}
+                                {/*                    <Dropdown.Item href="/my-appointments">Randevularım</Dropdown.Item>*/}
+                                {/*                    <Dropdown.Item href="/profile">Profil</Dropdown.Item>*/}
+                                {/*                    <Dropdown.Item onClick={() => logout()}>Çıkış</Dropdown.Item>*/}
+                                {/*                </Dropdown.Menu>*/}
+                                {/*            </Dropdown>*/}
+                                {/*        </div>*/}
+                                {/*    </>*/}
+                                {/*) : (*/}
+                                {/*    <>*/}
+                                {/*        <div key={"menu-ask-appointment"} className="ml-4 ">*/}
+                                {/*            <a  href={"check-appointment"} className={"nav-list-item text-decoration-none "}>Randevu Sorgula</a>*/}
+                                {/*        </div>*/}
+                                {/*        <div key={"menu-register"} className="ml-4 ">*/}
+                                {/*            <a  href={"/register"} className={"nav-list-item text-decoration-none "}>Yeni Üyelik</a>*/}
+                                {/*        </div>*/}
+                                {/*        <div key={"menu-login"} className="ml-4 ">*/}
+                                {/*            <a  href={"/login"} className={"nav-list-item text-decoration-none "}>Giriş Yap</a>*/}
+                                {/*        </div>*/}
+                                {/*    </>*/}
+                                {/*)}*/}
+
                             </div>
-                            {loginProvider.isLogin === true ? (
-                                <AccountCircleIcon onClick={() => setOpenAccountMenu(!openAccountMenu)} className="text-orange float-right d-md-none d-block" fontSize={"large"} />
-                            ) : (
-                                <PersonOutlineIcon onClick={() => history.push('/login')} className="text-white float-right d-md-none d-block" fontSize={"large"} />
-                            )}
+                            {/*{loginProvider.isLogin === true ? (*/}
+                            {/*    <AccountCircleIcon onClick={() => setOpenAccountMenu(!openAccountMenu)} className="text-orange float-right d-md-none d-block" fontSize={"large"} />*/}
+                            {/*) : (*/}
+                            {/*    <PersonOutlineIcon onClick={() => history.push('/login')} className="text-white float-right d-md-none d-block" fontSize={"large"} />*/}
+                            {/*)}*/}
 
                         </div>
                     </div>
                 </div>
-            </HideAt>
-
-            <ShowAt breakpoint={"mediumAndBelow"}>
+            </div>
+            <div className="d-block d-md-none">
                 <div className="container pl-2 pl-md-0 pr-2 pr-md-0 py-1">
                     <div className="d-flex justify-content-start align-items-center">
-                        {loginProvider.isLogin === false && (
-                            <MenuIcon onClick={() => setOpenMenu(!openMenu)} className="text-white float-right " fontSize={"large"} />
-                        )}
+                        {/*{loginProvider.isLogin === false && (*/}
+                        {/*    <MenuIcon onClick={() => setOpenMenu(!openMenu)} className="text-white float-right " fontSize={"large"} />*/}
+                        {/*)}*/}
 
                         <div className="ml-2">
-                            <a href="/https://carringoservis.com/" target="_blank"><img src="/carringo-logo-new.png" height={40} loading={"lazy"}/></a>
+                            <a href="https://carringoservis.com/" target="_blank"><img src="/carringo-logo-new.png" height={40} loading={"lazy"}/></a>
                         </div>
-                        <div className="flex-fill">
-                            {loginProvider.isLogin === true ? (
-                                <AccountCircleIcon onClick={() => setOpenAccountMenu(!openAccountMenu)} className="text-orange float-right" fontSize={"large"} />
-                            ) : (
-                                <PersonOutlineIcon onClick={() => history.push('/login')} className="text-white float-right " fontSize={"large"} />
-                            )}
+                        {/*<div className="flex-fill">*/}
+                        {/*    {loginProvider.isLogin === true ? (*/}
+                        {/*        <AccountCircleIcon onClick={() => setOpenAccountMenu(!openAccountMenu)} className="text-orange float-right" fontSize={"large"} />*/}
+                        {/*    ) : (*/}
+                        {/*        <PersonOutlineIcon onClick={() => history.push('/login')} className="text-white float-right " fontSize={"large"} />*/}
+                        {/*    )}*/}
 
-                        </div>
+                        {/*</div>*/}
                     </div>
                 </div>
                 <div className="bg-white ">
@@ -166,8 +170,7 @@ function TopBar(){
                     </Drawer>
                 </div>
 
-            </ShowAt>
-
+            </div>
         </header>
     )
 }
