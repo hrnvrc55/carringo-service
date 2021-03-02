@@ -160,14 +160,14 @@ function Appointment(){
                                 <Card.Body>
                                     <div className="d-flex flex-wrap justify-content-start">
                                         {provider?.form?.services?.map((item: any) => (
-                                            <div className="d-flex flex-column w-25">
+                                            <div className="d-flex flex-column w-100">
                                                 <Chip
                                                     label={item.name}
-                                                    className="mr-2"
+                                                    className=""
                                                     variant="outlined"
                                                     color="secondary"
                                                 />
-                                                <div className="d-flex flex-column pl-3 pt-2">
+                                                <div className="d-flex flex-column pl-3 pt-2 mb-2">
                                                     {item.selectedDetails && (
                                                         <>
                                                             {Object.keys(item.selectedDetails).map((detail:any, idx: number) => {

@@ -65,6 +65,8 @@ function MapArea(props) {
                         lng={activeService.lng}
                         allGarages={garages}
                         style={mapContainerStyle}
+                        activeService={activeService}
+                        onSelectButton={onSelectButton}
                     />
                 </div>
             ) : (
