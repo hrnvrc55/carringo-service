@@ -36,7 +36,7 @@ function AppProvider(props: AppProviderProps){
          setForm({
              ...form,
              date: moment().format(),
-             time: moment().format()
+             time: moment().format("HH:mm")
          })
     },[])
 

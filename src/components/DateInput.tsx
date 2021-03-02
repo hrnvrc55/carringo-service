@@ -1,6 +1,7 @@
 import React from "react";
 import DateFnsUtils from '@date-io/date-fns';
 import trLocale from "date-fns/locale/tr";
+import moment from "moment";
 
 import {
     MuiPickersUtilsProvider,
@@ -19,9 +20,7 @@ type DateInputProps = {
 }
 
 function DateInput({onChange, label, name} : DateInputProps){
-    const [selectedDate, setSelectedDate] = React.useState<Date | null>(
-        new Date(),
-    );
+    const [selectedDate, setSelectedDate] = React.useState<Date | null>(new Date());
 
     const handleDateChange = (date: Date | null) => {
         setSelectedDate(date);
@@ -43,8 +42,8 @@ function DateInput({onChange, label, name} : DateInputProps){
                 okLabel="Tamam"
                 todayLabel="Bugün"
                 clearLabel="Temizle"
-                //minDate={moment().add(this.props.cargoDeliveryDay, 'days')}
-                //maxDate={moment().add(this.props.cargoDeliveryDay, 'days').add(1, 'months').subtract(1, 'days')}
+                minDate={moment()}
+                maxDate={moment().add(3, 'days').add(1, 'months').subtract(1, 'days')}
                 format="dd/MM/yyyy"
                 value={selectedDate}
                 onChange={handleDateChange}

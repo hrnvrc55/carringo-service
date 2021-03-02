@@ -39,7 +39,7 @@ function SuccessPage(){
                 vehicle: form?.brand?.name + "-" +form?.model?.name + "-" + form?.gear?.name+ "-" + form?.engine?.name,
                 km: form?.kilometer,
                 date: moment(form?.date).format("DD/MM/YYYY"),
-                time: moment(form?.time).format("HH:mm"),
+                time: form?.time,
                 garage: form?.garage,
                 services: form?.services,
                 plate: form?.plate

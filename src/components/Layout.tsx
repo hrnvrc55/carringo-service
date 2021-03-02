@@ -42,6 +42,7 @@ function Layout({title, children, stepper}: LayoutProps,){
                 )}
                 <FullLoader show={provider?.loading}/>
                 <div className="container px-0 d-none d-md-block">
+                    <button onClick={() => console.log(provider?.form, 'provider form')}>form</button>
                     <div className="d-flex justify-content-between my-3 align-items-center px-2">
                         <div>
                             <Typography variant={"h5"} >{title}</Typography>
