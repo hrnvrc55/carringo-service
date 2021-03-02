@@ -11,6 +11,9 @@ import Footer from "../components/Footer";
 import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
 import {Simulate} from "react-dom/test-utils";
 import {useApi} from "../providers/ApiProvider";
+import TimeInput from "../components/TimeInput";
+import NewDateInput from "../components/NewDateInput";
+import NewTimeInput from "../components/NewTimeInput";
 
 const brands = [
     {id: 1, name: "Opel"}
@@ -89,6 +92,7 @@ function Home(){
                                 <small>Araç bilgilerinizi seçiniz</small>
                                 <hr/>
                             </div>
+
                             <AutoCompleteSelector
                                 name={"brand"}
                                 options={brands}
