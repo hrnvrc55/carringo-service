@@ -14,28 +14,29 @@ import {useApi} from "../providers/ApiProvider";
 import TimeInput from "../components/TimeInput";
 import NewDateInput from "../components/NewDateInput";
 import NewTimeInput from "../components/NewTimeInput";
+import axios from "axios";
+const apiUrl = "https://api.parcapaketi.com/api";
+// const brands = [
+//     {id: 1, name: "Opel"}
+// ];
 
-const brands = [
-    {id: 1, name: "Opel"}
-];
+// const models = [
+//     {id: 1, name: "Corsa"},
+//     {id: 2, name: "Astra"}
+//
+// ];
 
-const models = [
-    {id: 1, name: "Corsa"},
-    {id: 2, name: "Astra"}
-
-];
-
-const gears = [
-    {id: 1, name: "Otomatik"},
-    {id: 2, name: "Manuel"}
-
-];
-
-const engines = [
-    {id: 1, name: "1.3 CDTİ"},
-    {id: 2, name: "1.7 CDTI"}
-
-];
+// const gears = [
+//     {id: 1, name: "Otomatik"},
+//     {id: 2, name: "Manuel"}
+//
+// ];
+//
+// const engines = [
+//     {id: 1, name: "1.3 CDTİ"},
+//     {id: 2, name: "1.7 CDTI"}
+//
+// ];
 
 function Home(){
     let history = useHistory();
@@ -43,24 +44,100 @@ function Home(){
 
     const provider = React.useContext(AppProviderContext);
 
-    // let [brands, setBrands] = useState<any>([]);
-    // let [models, setModels] = useState<any>([]);
-    // let [gears, setGears] = useState<any>([]);
-    // let [engines, setEngines] = useState<any>([]);
+     let [brands, setBrands] = useState<any>([]);
+     let [models, setModels] = useState<any>([]);
+     let [gears, setGears] = useState<any>([]);
+     let [engines, setEngines] = useState<any>([]);
 
 
     let [errors, setErrors] = useState<any>([]);
 
     useEffect(() => {
-       // api?.get("services/app/VehicleBrand/GetAll").then((resp : any) => {
-       //     console.log(resp, 'resp');
-       //     let respBrands = resp.data.result.items;
-       //     setBrands(respBrands);
-       // });
+        axios({
+            method: 'get',
+            url: apiUrl + '/' + 'services/app/VehicleBrand/GetAll' ,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                //"Authorization" : isLogin() ? "Bearer " + user.token : null
+            },
+        }).then(async resp => {
+            let respBrands = resp.data.result.items;
+            setBrands(respBrands);
+        }).catch(error => {
+
+        });
+
     },[])
 
     function onChange(key: string, value: any) {
-       provider?.onChange(key, value);
+        provider?.onChange(key, value);
+    }
+
+    function onChangeBrand(key: string, value: any){
+        provider?.onChange(key, value);
+        getModels(value?.id);
+    }
+
+    function onChangeModel(key: string, value: any){
+        provider?.onChange(key, value);
+        getOthers(value?.id);
+
+    }
+
+    async function getModels(id: any) {
+        await axios({
+            method: 'get',
+            url: apiUrl + '/' + 'services/app/VehicleModel/GetAll' ,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                //"Authorization" : isLogin() ? "Bearer " + user.token : null
+            },
+            params: {BrandID:id}
+        }).then(resp => {
+            let respBrands = resp.data.result.items;
+            setModels(respBrands);
+        })
+    }
+
+    async function getOthers(id: any) {
+
+        await Promise.all([
+            axios({
+                method: 'get',
+                url: apiUrl + '/' + 'services/app/VehicleGear/GetAll' ,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    //"Authorization" : isLogin() ? "Bearer " + user.token : null
+                },
+                params: {VehicleModelId:id}
+            }),
+            axios({
+                method: 'get',
+                url: apiUrl + '/' + 'services/app/VehicleEngine/GetAll' ,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    //"Authorization" : isLogin() ? "Bearer " + user.token : null
+                },
+                params: {VehicleModelId:id}
+            }),
+
+        ]).then(resp => {
+            console.log(resp[0], 'respp');
+            console.log(resp[1], 'respp');
+
+            let respGears = resp[0].data.result.items;
+            let respEngines = resp[1].data.result.items;
+
+            setGears(respGears);
+            setEngines(respEngines);
+
+            // let respBrands = resp[0].data.result.items;
+            // setModels(respBrands);
+        })
     }
 
     function onClickContract(event: React.ChangeEvent<HTMLInputElement>){
@@ -96,7 +173,7 @@ function Home(){
                             <AutoCompleteSelector
                                 name={"brand"}
                                 options={brands}
-                                onChange={onChange}
+                                onChange={onChangeBrand}
                                 label={"Marka"}
                                 defaultValue={provider?.form?.brand}
                                 errors={errors}
@@ -105,7 +182,7 @@ function Home(){
                             <AutoCompleteSelector
                                 name={"model"}
                                 options={models}
-                                onChange={onChange}
+                                onChange={onChangeModel}
                                 label={"Model"}
                                 defaultValue={provider?.form?.model}
                                 errors={errors}
@@ -160,7 +237,6 @@ function Home(){
                             <Button fullWidth={true} variant={"contained"} color="primary" onClick={() => submit()} className="text-white custom-button mt-3 mt-md-5 " >Devam Et <ForwardIcon/></Button>
                         </div>
                     </div>
-
                 </div>
             </div>
 
