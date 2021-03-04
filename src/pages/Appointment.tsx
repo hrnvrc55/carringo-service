@@ -53,7 +53,6 @@ function Appointment(){
 
             }else {
                 //provider?.saveAppointment();
-                console.log(provider?.form,'formm');
 
                 let currentForm = provider?.form;
 
@@ -61,7 +60,6 @@ function Appointment(){
                 let currentPhone = replaced.replace(" ", '');
                 let hizmetler: any = "";
                 currentForm?.services.map((item: any, idx: number) => {
-                    console.log(item, 'item')
                     hizmetler = hizmetler + item.name + ", ";
                 })
                 let message = "Sayın " + currentForm?.first_name + " " + currentForm?.last_name + "; " + moment(currentForm.date).format("DD/MM/YYYY") + " tarihinde saat " + currentForm.time + " 'de " + currentForm?.garage.name + " için randevunuz oluşturulmuştur.";
@@ -75,9 +73,7 @@ function Appointment(){
     }
 
     async function sendMessage(phone: any , message: any, serviceMessage: any){
-        console.log(message,'message');
-        console.log(phone, 'currentphone');
-        console.log(serviceMessage, 'service message');
+
 
         provider?.isLoading(true);
         await axios({
