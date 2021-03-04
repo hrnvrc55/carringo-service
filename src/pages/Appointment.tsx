@@ -64,7 +64,8 @@ function Appointment(){
                 })
                 let message = "Sayın " + currentForm?.first_name + " " + currentForm?.last_name + "; " + moment(currentForm.date).format("DD/MM/YYYY") + " tarihinde saat " + currentForm.time + " 'de " + currentForm?.garage.name + " için randevunuz oluşturulmuştur.";
                 let serviceMessage = currentForm?.first_name + " " + currentForm?.last_name + " adına servisinizden "+moment(currentForm.date).format("DD/MM/YYYY")+" ("+currentForm.time +") tarihinde randevu alınmıştır. İletişim bilgileri: Telefon: " + currentPhone +",Email: " + currentForm?.email + ". Hizmetler: " + hizmetler  ;
-                sendMessage(currentPhone, message, serviceMessage);
+
+                sendMessage(currentPhone, message, serviceMessage, currentForm?.email);
                 provider?.saveAppointment();
                 history.push("/success");
 
@@ -72,8 +73,7 @@ function Appointment(){
         }
     }
 
-    async function sendMessage(phone: any , message: any, serviceMessage: any){
-
+    async function sendMessage(phone: any , message: any, serviceMessage: any, email: any){
 
         provider?.isLoading(true);
         await axios({
@@ -88,7 +88,8 @@ function Appointment(){
             data: {
                   "kullaniciMesaji": message,
                   "servisMesaji": serviceMessage,
-                  "numara": phone
+                  "numara": phone,
+                  "mail": email
                  }
         }).then(resp => {
             provider?.isLoading(false);
