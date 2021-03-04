@@ -197,23 +197,5 @@ export const garages = [
         services: services
     },
 
-    {
-        id: 1,
-        name: "Tekşen Servis",
-        address: "Teksen Otomotiv, Yenimahalle, 55080 Canik/Samsun",
-        selected: false,
-        lat: 41.2965075,
-        lng: 36.2389533,
-        services: services
-    },
-    {
-        id: 2,
-        name: "ÖZDERE Service",
-        address: "Çankırı Sanayi No: 5 Çankırı/Çerkeş",
-        selected: false,
-        lat: 40.912348,
-        lng: 32.806211,
-        services: services
-    },
 ]
 
