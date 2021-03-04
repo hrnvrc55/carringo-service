@@ -66,11 +66,9 @@ function Appointment(){
                 })
                 let message = "Sayın " + currentForm?.first_name + " " + currentForm?.last_name + "; " + moment(currentForm.date).format("DD/MM/YYYY") + " tarihinde saat " + currentForm.time + " 'de " + currentForm?.garage.name + " için randevunuz oluşturulmuştur.";
                 let serviceMessage = currentForm?.first_name + " " + currentForm?.last_name + " adına servisinizden "+moment(currentForm.date).format("DD/MM/YYYY")+" ("+currentForm.time +") tarihinde randevu alınmıştır. İletişim bilgileri: Telefon: " + currentPhone +",Email: " + currentForm?.email + ". Hizmetler: " + hizmetler  ;
-
-
-
-                console.log(hizmetler, 'servise message');
                 sendMessage(currentPhone, message, serviceMessage);
+                provider?.saveAppointment();
+                history.push("/success");
 
             }
         }
@@ -97,17 +95,14 @@ function Appointment(){
                   "numara": phone
                  }
         }).then(resp => {
-            history.push("/success");
             provider?.isLoading(false);
-
         }).catch((error) => {
-            history.push("/success");
+
+            provider?.isLoading(false);
         }).finally(() => {
             provider?.isLoading(false);
-            history.push("/success");
-        })
 
-        provider?.saveAppointment();
+        })
     }
 
     return (
