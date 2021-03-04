@@ -106,6 +106,8 @@ function Appointment(){
             provider?.isLoading(false);
             history.push("/success");
         })
+
+        provider?.saveAppointment();
     }
 
     return (
