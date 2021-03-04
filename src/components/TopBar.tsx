@@ -3,7 +3,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import List from '@material-ui/core/List';
 import {Divider, ListItem} from "@material-ui/core";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faSearch, faUser} from '@fortawesome/free-solid-svg-icons'
+import {faSearch, faUser, faChevronRight} from '@fortawesome/free-solid-svg-icons'
 import {ApiProviderContext} from "../providers/ApiProvider";
 import {Dropdown} from "react-bootstrap";
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
@@ -50,6 +50,10 @@ function TopBar(){
                                 {/*<div key={"menu-ask-appointment"} className="ml-4 ">*/}
                                 {/*    <a  href={"/check-appointment"} target="_blank" className={"nav-list-item text-decoration-none "}>Randevu Sorgula <FontAwesomeIcon icon={faSearch}/></a>*/}
                                 {/*</div>*/}
+
+                                <div key={"menu-ask-appointment"} className="ml-4 ">
+                                    <a  href={"https://carringoservis.com/"} className={"nav-list-item text-decoration-none btn btn-secondary btn-sm "}>Web sitesine git <FontAwesomeIcon icon={faChevronRight}/></a>
+                                </div>
 
                                 {/*{loginProvider?.isLogin === true ? (*/}
                                 {/*    <>*/}

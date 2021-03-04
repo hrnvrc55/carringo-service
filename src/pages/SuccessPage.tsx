@@ -16,6 +16,7 @@ import {
     faTachometerAlt,
     faFileAlt, faInfoCircle
 } from '@fortawesome/free-solid-svg-icons'
+import {Button} from "@material-ui/core";
 
 
 function SuccessPage(){
@@ -59,6 +60,7 @@ function SuccessPage(){
                     <span className="title">Randevunuz Oluşturuldu</span>
                 </div>
                 {info && (
+                    <>
                     <div className="row mt-3">
                         <div className="col-12 col-md-6 mb-3">
                             <div className="info-card animate__animated animate__bounceInRight">
@@ -134,6 +136,14 @@ function SuccessPage(){
                             </div>
                         </div>
                     </div>
+                        <hr/>
+                        <div className="d-flex justify-content-center mt-2">
+                            <Button href="/" variant="outlined" style={{width: "150px"}} color="primary" className="mr-2">Yeni Randevu</Button>
+
+                            <Button href="https://carringoservis.com" variant="outlined" style={{width: "150px"}} color="secondary" className="ml-2">Siteye Git</Button>
+
+                        </div>
+                    </>
                 )}
 
 
