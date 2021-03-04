@@ -143,6 +143,7 @@ function Home(){
     function onClickContract(event: React.ChangeEvent<HTMLInputElement>){
         provider?.onChange(event.target.name, event.target.checked);
         let filterError : any = errors.filter((x: any) => x.name !== "contract-error");
+        console.log(filterError, 'filter error');
         setErrors(filterError)
     }
 

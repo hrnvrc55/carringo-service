@@ -47,9 +47,9 @@ function TopBar(){
                                 {/*    <a  href={"/"} className={"nav-list-item text-decoration-none "}>Randevu Al</a>*/}
                                 {/*</div>*/}
 
-                                <div key={"menu-ask-appointment"} className="ml-4 ">
-                                    <a  href={"/check-appointment"} target="_blank" className={"nav-list-item text-decoration-none "}>Randevu Sorgula <FontAwesomeIcon icon={faSearch}/></a>
-                                </div>
+                                {/*<div key={"menu-ask-appointment"} className="ml-4 ">*/}
+                                {/*    <a  href={"/check-appointment"} target="_blank" className={"nav-list-item text-decoration-none "}>Randevu Sorgula <FontAwesomeIcon icon={faSearch}/></a>*/}
+                                {/*</div>*/}
 
                                 {/*{loginProvider?.isLogin === true ? (*/}
                                 {/*    <>*/}

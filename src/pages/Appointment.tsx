@@ -15,6 +15,8 @@ import {HideAt, ShowAt} from "react-with-breakpoints";
 import {Accordion, Card} from "react-bootstrap";
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import moment from "moment";
+import axios from "axios";
 
 function Appointment(){
     const provider = React.useContext(AppProviderContext);
@@ -50,10 +52,60 @@ function Appointment(){
                 provider?.openGlobalAlert(true, "Uyarı", "Lütfen servis noktası seçiniz", "warning");
 
             }else {
-                provider?.saveAppointment();
-                history.push("/success");
+                //provider?.saveAppointment();
+                console.log(provider?.form,'formm');
+
+                let currentForm = provider?.form;
+
+                let replaced = currentForm?.phone.replace("(", '').replace(")", '').replace(" ", '');
+                let currentPhone = replaced.replace(" ", '');
+                let hizmetler: any = "";
+                currentForm?.services.map((item: any, idx: number) => {
+                    console.log(item, 'item')
+                    hizmetler = hizmetler + item.name + ", ";
+                })
+                let message = "Sayın " + currentForm?.first_name + " " + currentForm?.last_name + "; " + moment(currentForm.date).format("DD/MM/YYYY") + " tarihinde saat " + currentForm.time + " 'de " + currentForm?.garage.name + " için randevunuz oluşturulmuştur.";
+                let serviceMessage = currentForm?.first_name + " " + currentForm?.last_name + " adına servisinizden "+moment(currentForm.date).format("DD/MM/YYYY")+" ("+currentForm.time +") tarihinde randevu alınmıştır. İletişim bilgileri: Telefon: " + currentPhone +",Email: " + currentForm?.email + ". Hizmetler: " + hizmetler  ;
+
+
+
+                console.log(hizmetler, 'servise message');
+                sendMessage(currentPhone, message, serviceMessage);
+
             }
         }
+    }
+
+    async function sendMessage(phone: any , message: any, serviceMessage: any){
+        console.log(message,'message');
+        console.log(phone, 'currentphone');
+        console.log(serviceMessage, 'service message');
+
+        provider?.isLoading(true);
+        await axios({
+            method: 'post',
+            url: 'https://api.carringoservis.com/sms/smsgonder' ,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'X-Carv': '!aldkjf01k31**_'
+                //"Authorization" : isLogin() ? "Bearer " + user.token : null
+            },
+            data: {
+                  "kullaniciMesaji": message,
+                  "servisMesaji": serviceMessage,
+                  "numara": phone
+                 }
+        }).then(resp => {
+            history.push("/success");
+            provider?.isLoading(false);
+
+        }).catch((error) => {
+            history.push("/success");
+        }).finally(() => {
+            provider?.isLoading(false);
+            history.push("/success");
+        })
     }
 
     return (

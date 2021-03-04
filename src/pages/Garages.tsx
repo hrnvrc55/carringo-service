@@ -24,6 +24,8 @@ import LocalCarWashIcon from "@material-ui/icons/LocalCarWash";
 import ViewAgendaIcon from "@material-ui/icons/ViewAgenda";
 import GroupWorkIcon from "@material-ui/icons/GroupWork";
 import {garages} from "../utils/static-datas";
+import {apiUrl} from "../utils/config";
+import axios from "axios";
 
 const garagesData = garages;
 
@@ -58,7 +60,37 @@ function Garages(){
     useEffect(() => {
         setGarages(garagesData);
         setValue(provider?.form?.garage?.id);
-    },[provider?.form?.garage])
+        //load();
+    },[provider?.form?.garage?.id])
+
+    async function load(){
+        await axios({
+            method: 'post',
+            url: apiUrl + '/' + 'Servis/ServisleriListele' ,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                //"Authorization" : isLogin() ? "Bearer " + user.token : null
+            },
+            data: {}
+        }).then(resp => {
+            let respData = resp.data.servisler;
+
+            let newRespData = respData.map((item: any, idx: number) => {
+                return {
+                    id: idx+1,
+                    name: item.ad,
+                    address: "",
+                    selected: false,
+                    lat: "",
+                    lng: "",
+                    services: []
+                }
+            })
+
+            setGarages(newRespData);
+        })
+    }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(Number(event.target.value));

@@ -7,6 +7,8 @@ import ActiveMap from "./ActiveMap";
 import {faCog} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Button from "@material-ui/core/Button";
+import axios from "axios";
+import {apiUrl} from "../utils/config";
 
 const mapContainerStyle = {
     width: '100%',
@@ -26,13 +28,45 @@ function MapArea(props) {
     let [mapLoaded, setMapLoaded] = useState(false);
     let [loading, setLoading] = useState(false);
 
+    //let [garages, setGarages] = useState([]);
+
     useEffect(() => {
        setLoading(true);
         setTimeout(() => {
             setActiveService(provider?.form?.garage);
             setLoading(false);
         },500)
+        //load();
     },[provider?.form?.garage])
+
+    async function load(){
+        await axios({
+            method: 'post',
+            url: apiUrl + '/' + 'Servis/ServisleriListele' ,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                //"Authorization" : isLogin() ? "Bearer " + user.token : null
+            },
+            data: {}
+        }).then(resp => {
+            let respData = resp.data.servisler;
+
+            let newRespData = respData.map((item, idx) => {
+                return {
+                    id: idx+1,
+                    name: item.ad,
+                    address: "",
+                    selected: false,
+                    lat: "",
+                    lng: "",
+                    services: []
+                }
+            })
+
+            //setGarages(newRespData);
+        })
+    }
 
 
 
