@@ -58,32 +58,34 @@ function Garages(){
 
 
     useEffect(() => {
-        setGarages(garagesData);
+        //setGarages(garagesData);
         setValue(provider?.form?.garage?.id);
-        //load();
+        load();
     },[provider?.form?.garage?.id])
 
     async function load(){
         await axios({
-            method: 'post',
-            url: apiUrl + '/' + 'Servis/ServisleriListele' ,
+            method: 'get',
+            url: apiUrl + '/' + 'services/app/CompanyProperty/GetServices' ,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 //"Authorization" : isLogin() ? "Bearer " + user.token : null
             },
-            data: {}
         }).then(resp => {
-            let respData = resp.data.servisler;
+            console.log(resp, 'respp')
+            let respData = resp.data.result;
 
             let newRespData = respData.map((item: any, idx: number) => {
+                let splitted = item.coordinate.split(",");
+
                 return {
-                    id: idx+1,
-                    name: item.ad,
-                    address: "",
+                    id: item.id,
+                    name: item.name,
+                    address: item.addressDescription,
                     selected: false,
-                    lat: "",
-                    lng: "",
+                    lat: Number(splitted[0]),
+                    lng: Number(splitted[1]),
                     services: []
                 }
             })

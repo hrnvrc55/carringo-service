@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import InfoWindowCt from "./InfoWindowCt";
 import {GoogleApiWrapper, Map, Marker} from "google-maps-react";
-import {garages} from "../utils/static-datas";
+// import {garages} from "../utils/static-datas";
 import {AppProviderContext} from "../providers/AppProvider";
 import ActiveMap from "./ActiveMap";
 import {faCog} from "@fortawesome/free-solid-svg-icons";
@@ -28,7 +28,7 @@ function MapArea(props) {
     let [mapLoaded, setMapLoaded] = useState(false);
     let [loading, setLoading] = useState(false);
 
-    //let [garages, setGarages] = useState([]);
+    let [garages, setGarages] = useState([]);
 
     useEffect(() => {
        setLoading(true);
@@ -36,35 +36,36 @@ function MapArea(props) {
             setActiveService(provider?.form?.garage);
             setLoading(false);
         },500)
-        //load();
+        load();
     },[provider?.form?.garage])
 
     async function load(){
         await axios({
-            method: 'post',
-            url: apiUrl + '/' + 'Servis/ServisleriListele' ,
+            method: 'get',
+            url: apiUrl + '/' + 'services/app/CompanyProperty/GetServices' ,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 //"Authorization" : isLogin() ? "Bearer " + user.token : null
             },
-            data: {}
         }).then(resp => {
-            let respData = resp.data.servisler;
+            let respData = resp.data.result;
 
             let newRespData = respData.map((item, idx) => {
+                let splitted = item.coordinate.split(",");
+
                 return {
-                    id: idx+1,
-                    name: item.ad,
-                    address: "",
+                    id: item.id,
+                    name: item.name,
+                    address: item.addressDescription,
                     selected: false,
-                    lat: "",
-                    lng: "",
+                    lat: Number(splitted[0]),
+                    lng: Number(splitted[1]),
                     services: []
                 }
             })
 
-            //setGarages(newRespData);
+            setGarages(newRespData);
         })
     }
 
