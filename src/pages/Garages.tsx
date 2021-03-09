@@ -18,15 +18,12 @@ import Tab from '@material-ui/core/Tab';
 import ListIcon from '@material-ui/icons/List';
 import RoomIcon from '@material-ui/icons/Room';
 import {garageValidate} from "../utils/validation";
-import HealingIcon from "@material-ui/icons/Healing";
-import BrushIcon from "@material-ui/icons/Brush";
-import LocalCarWashIcon from "@material-ui/icons/LocalCarWash";
-import ViewAgendaIcon from "@material-ui/icons/ViewAgenda";
-import GroupWorkIcon from "@material-ui/icons/GroupWork";
+
 import {garages, services} from "../utils/static-datas";
 import {apiUrl} from "../utils/config";
 import axios from "axios";
 import PageAlert from "../components/PageAlert";
+import CitySelector from "../components/CitySelector";
 
 const garagesData = garages;
 
@@ -65,10 +62,10 @@ function Garages(){
         load();
     },[provider?.form?.garage?.id])
 
-    async function load(){
+    async function load(city?: string){
         await axios({
             method: 'get',
-            url: apiUrl + '/' + 'services/app/CompanyProperty/GetServices?brandId=' + provider?.form?.brand?.id ,
+            url: apiUrl + '/' + 'services/app/CompanyProperty/GetServices?brandId=' + provider?.form?.brand?.id + (city ? "&city=" + city : "") ,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -85,6 +82,8 @@ function Garages(){
                     id: item.id,
                     name: item.name,
                     address: item.addressDescription,
+                    city:item.city,
+                    district: item.district,
                     selected: false,
                     lat: Number(splitted[0]),
                     lng: Number(splitted[1]),
@@ -108,6 +107,12 @@ function Garages(){
 
     function onAlertDialogClose(){
         setOpenAlertDialog({open: false, alertType: '', title:'', description: ''});
+    }
+
+    function onChangeCitySelector(key: string, value: any){
+        load(value?.il);
+        provider?.onChange("selectedCity", value);
+
     }
 
     function submit(){
@@ -158,6 +163,13 @@ function Garages(){
                             {tab === 0 && (
                                 <div className="col-12 col-md-4 animate__animated animate__bounceInLeft">
                                     {/*<TextInput label={"Ara"} onChange={() => {}} name={"search"}/>*/}
+                                    <CitySelector
+                                        name={"city"}
+                                        onChange={onChangeCitySelector}
+                                        label={"Şehir Seçiniz"}
+                                        defaultValue={provider?.form?.selectedCity}
+                                        errors={[]}
+                                    />
                                     <div className="list-area">
                                         <FormControl component="fieldset" className="list-items">
                                             <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
@@ -169,7 +181,8 @@ function Garages(){
                                                             label={item.name}
                                                             labelPlacement="end"
                                                         />
-                                                        <p className="text-muted">{item.address}</p>
+                                                        <p className="text-muted mb-0">{item.address}</p>
+                                                        <p className={"text-muted"}>{item.city}/{item.district}</p>
 
                                                     </div>
                                                 ))}
@@ -184,14 +197,14 @@ function Garages(){
                             {tab === 1 && (
                                 <div className="col-12 col-md-8  animate__animated animate__bounceInRight">
                                     <div className="map-mobil-area">
-                                        <MapArea/>
+                                        <MapArea deneme={123}/>
                                     </div>
                                 </div>
                             )}
 
                             <div className="col-12 col-md-8 d-none d-md-block animate__animated animate__bounceInRight">
                                 <div className="map-area">
-                                    <MapArea/>
+                                    <MapArea deneme={123}/>
                                 </div>
                             </div>
 
@@ -201,7 +214,21 @@ function Garages(){
                         </div>
                     </>
                 ) : (
-                  <PageAlert message={"Seçtiğiniz markaya hizmet veren servis bulunmamaktadır!"} type={"danger"}/>
+                    <div>
+                        <PageAlert message={"Seçtiğiniz araç markası ve şehre hizmet veren servis bulunmamaktadır!"} type={"danger"}/>
+                        <div className="d-flex justify-content-center">
+                            <div className="w-50 mt-2">
+                                <CitySelector
+                                    name={"city"}
+                                    onChange={onChangeCitySelector}
+                                    label={"Başka Şehir Seç"}
+                                    errors={[]}
+                                    defaultValue={provider?.form?.selectedCity}
+
+                                />
+                            </div>
+                        </div>
+                    </div>
                 )
 
                 }
