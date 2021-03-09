@@ -26,6 +26,7 @@ import GroupWorkIcon from "@material-ui/icons/GroupWork";
 import {garages, services} from "../utils/static-datas";
 import {apiUrl} from "../utils/config";
 import axios from "axios";
+import PageAlert from "../components/PageAlert";
 
 const garagesData = garages;
 
@@ -60,13 +61,14 @@ function Garages(){
     useEffect(() => {
         //setGarages(garagesData);
         setValue(provider?.form?.garage?.id);
+        console.log(provider?.form, 'provider form');
         load();
     },[provider?.form?.garage?.id])
 
     async function load(){
         await axios({
             method: 'get',
-            url: apiUrl + '/' + 'services/app/CompanyProperty/GetServices' ,
+            url: apiUrl + '/' + 'services/app/CompanyProperty/GetServices?brandId=' + provider?.form?.brand?.id ,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -149,53 +151,61 @@ function Garages(){
                         <Tab icon={<RoomIcon/>} label="Haritadan Seç" />
                     </Tabs>
                 </div>
-
                 <hr/>
-                <div className="row">
-                    {tab === 0 && (
-                        <div className="col-12 col-md-4 animate__animated animate__bounceInLeft">
-                            {/*<TextInput label={"Ara"} onChange={() => {}} name={"search"}/>*/}
-                            <div className="list-area">
-                                <FormControl component="fieldset" className="list-items">
-                                    <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-                                        {garages.map((item: any, idx: number) => (
-                                            <div key={"garage-list-item" + idx} className={"mb-2 pl-2 pt-2 list-card custom-shadow" + (value === item.id ? " active": " ")}>
-                                                <FormControlLabel
-                                                    value={item.id}
-                                                    control={<CustomRadio />}
-                                                    label={item.name}
-                                                    labelPlacement="end"
-                                                />
-                                                <p className="text-muted">{item.address}</p>
+                {garages.length > 0 ? (
+                    <>
+                        <div className="row">
+                            {tab === 0 && (
+                                <div className="col-12 col-md-4 animate__animated animate__bounceInLeft">
+                                    {/*<TextInput label={"Ara"} onChange={() => {}} name={"search"}/>*/}
+                                    <div className="list-area">
+                                        <FormControl component="fieldset" className="list-items">
+                                            <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
+                                                {garages.map((item: any, idx: number) => (
+                                                    <div key={"garage-list-item" + idx} className={"mb-2 pl-2 pt-2 list-card custom-shadow" + (value === item.id ? " active": " ")}>
+                                                        <FormControlLabel
+                                                            value={item.id}
+                                                            control={<CustomRadio />}
+                                                            label={item.name}
+                                                            labelPlacement="end"
+                                                        />
+                                                        <p className="text-muted">{item.address}</p>
 
-                                            </div>
-                                        ))}
+                                                    </div>
+                                                ))}
 
-                                    </RadioGroup>
-                                </FormControl>
+                                            </RadioGroup>
+                                        </FormControl>
 
+                                    </div>
+                                </div>
+                            )}
+
+                            {tab === 1 && (
+                                <div className="col-12 col-md-8  animate__animated animate__bounceInRight">
+                                    <div className="map-mobil-area">
+                                        <MapArea/>
+                                    </div>
+                                </div>
+                            )}
+
+                            <div className="col-12 col-md-8 d-none d-md-block animate__animated animate__bounceInRight">
+                                <div className="map-area">
+                                    <MapArea/>
+                                </div>
                             </div>
-                        </div>
-                    )}
 
-                    {tab === 1 && (
-                        <div className="col-12 col-md-8  animate__animated animate__bounceInRight">
-                            <div className="map-mobil-area">
-                                <MapArea/>
-                            </div>
                         </div>
-                    )}
-
-                    <div className="col-12 col-md-8 d-none d-md-block animate__animated animate__bounceInRight">
-                        <div className="map-area">
-                            <MapArea/>
+                        <div className="d-flex justify-content-end my-3">
+                            <Button variant={"contained"} color={"primary"} onClick={() => submit()} className="text-white custom-button" >Devam Et <ForwardIcon/></Button>
                         </div>
-                    </div>
+                    </>
+                ) : (
+                  <PageAlert message={"Seçtiğiniz markaya hizmet veren servis bulunmamaktadır!"} type={"danger"}/>
+                )
 
-                </div>
-                <div className="d-flex justify-content-end my-3">
-                    <Button variant={"contained"} color={"primary"} onClick={() => submit()} className="text-white custom-button" >Devam Et <ForwardIcon/></Button>
-                </div>
+                }
+
             </div>
         </Layout>
     )

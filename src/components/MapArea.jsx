@@ -42,7 +42,7 @@ function MapArea(props) {
     async function load(){
         await axios({
             method: 'get',
-            url: apiUrl + '/' + 'services/app/CompanyProperty/GetServices' ,
+            url: apiUrl + '/' + 'services/app/CompanyProperty/GetServices?brandId=' + provider?.form?.brand?.id ,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
