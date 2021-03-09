@@ -13,20 +13,36 @@ const localeMap = {
 };
 
 type DateInputProps = {
-    onChange: (key: string, value: any) => void,
+    onChange: (key: string, value: any, times: any) => void,
     label: string,
-    name: string
+    name: string,
+    maxDate: any,
+    minDate: any,
+    availableDates: any,
 
 }
 
-function DateInput({onChange, label, name} : DateInputProps){
+function DateInput({onChange, label, name, maxDate, minDate, availableDates} : DateInputProps){
     const [selectedDate, setSelectedDate] = React.useState<Date | null>(new Date());
 
-    const handleDateChange = (date: Date | null) => {
+    console.log()
+
+    const handleDateChange = (date: any | null) => {
         setSelectedDate(date);
-        onChange(name, date);
+
+        let found = availableDates?.find((x:any) => moment(x.date).format("YYYY-MM-DD") === moment(date).format("YYYY-MM-DD"))
+
+        onChange(name, date, found?.time);
 
     };
+
+    function disableDates(value: any){
+        if(availableDates?.find((x:any) => moment(x.date).format("YYYY-MM-DD") === moment(value).format("YYYY-MM-DD"))){
+            return false;
+        }else{
+            return true
+        }
+    }
 
     return (
         <div className="">
@@ -42,12 +58,14 @@ function DateInput({onChange, label, name} : DateInputProps){
                 okLabel="Tamam"
                 todayLabel="Bugün"
                 clearLabel="Temizle"
-                minDate={moment()}
-                maxDate={moment().add(3, 'days').add(1, 'months').subtract(1, 'days')}
+                minDate={minDate}
+                maxDate={maxDate}
+                // minDate={moment()}
+                // maxDate={moment().add(3, 'days').add(1, 'months').subtract(1, 'days')}
                 format="dd/MM/yyyy"
                 value={selectedDate}
                 onChange={handleDateChange}
-                //shouldDisableDate={this.disableDates}
+                shouldDisableDate={disableDates}
                 //onMonthChange={this.monthChange}
             />
 

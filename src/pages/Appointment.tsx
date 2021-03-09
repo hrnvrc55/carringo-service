@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Layout from "../components/Layout";
 import Button from "@material-ui/core/Button";
 import {AppProviderContext} from "../providers/AppProvider";
@@ -17,16 +17,50 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import moment from "moment";
 import axios from "axios";
+import {DatePicker} from "@material-ui/pickers";
+import {apiUrl} from "../utils/config";
+
 
 function Appointment(){
     const provider = React.useContext(AppProviderContext);
     let [errors, setErrors] = useState<any>([]);
     let [activeCollapseKey, setActiveCollapseKey] = useState<any>(null);
+    let [maxDate, setMaxDate] = useState<any>(null);
+    let [minDate, setMinDate] = useState<any>(null);
+    let [availableDates, setAvailableDates] = useState<any>(null);
+    let [availableTimes, setAvailableTimes] = useState<any>([]);
     let history = useHistory();
+
+    useEffect(() => {
+        load()
+    }, [])
+
+    async function load() {
+        let startDate =moment()
+        let endDate =moment().add(3, 'days').add(1, 'months').subtract(1, 'days')
+        let id = provider?.form?.garage?.id;
+        setMinDate(startDate);
+        setMaxDate(endDate);
+        const params = {
+            startDate: startDate.format("YYYY-MM-DD"),
+            endDate: endDate.format("YYYY-MM-DD"),
+            companyPropertyId: id,
+        };
+
+        axios.get(apiUrl + "/services/app/Appointment/GetAvailableAppointment", {params}).then(resp => {
+           console.log(resp, 'resp')
+            setAvailableDates(resp.data.result);
+        })
+    }
 
 
     function onChange(key: string, value: any) {
         provider?.onChange(key, value);
+    }
+
+    function onChangeDate(key: string, value: any, times: any){
+        provider?.onChange(key, value);
+        setAvailableTimes(times);
     }
 
     function submit(){
@@ -250,8 +284,15 @@ function Appointment(){
                             </div>
                         </div>
                         <hr/>
-                        <DateInput name={"date"} onChange={onChange} label={"Tarih"}/>
-                        <TimeInput name={"time"} onChange={onChange} label={"Saat"}/>
+                        <DateInput
+                            minDate={minDate}
+                            maxDate={maxDate}
+                            name={"date"}
+                            onChange={onChangeDate}
+                            label={"Tarih"}
+                            availableDates={availableDates}
+                        />
+                        <TimeInput name={"time"} times={availableTimes} onChange={onChange} label={"Saat"}/>
                         <TextInput errors={errors} defaultValue={provider?.form?.first_name} label={"Adınız"} onChange={onChange} name={"first_name"}/>
                         <TextInput errors={errors} defaultValue={provider?.form?.last_name} label={"Soyadınız"} onChange={onChange} name={"last_name"}/>
                         <TextInput errors={errors} defaultValue={provider?.form?.email} label={"Eposta"} onChange={onChange} name={"email"}/>

@@ -23,7 +23,7 @@ import BrushIcon from "@material-ui/icons/Brush";
 import LocalCarWashIcon from "@material-ui/icons/LocalCarWash";
 import ViewAgendaIcon from "@material-ui/icons/ViewAgenda";
 import GroupWorkIcon from "@material-ui/icons/GroupWork";
-import {garages} from "../utils/static-datas";
+import {garages, services} from "../utils/static-datas";
 import {apiUrl} from "../utils/config";
 import axios from "axios";
 
@@ -86,7 +86,7 @@ function Garages(){
                     selected: false,
                     lat: Number(splitted[0]),
                     lng: Number(splitted[1]),
-                    services: []
+                    services: services
                 }
             })
 

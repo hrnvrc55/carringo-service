@@ -5,7 +5,7 @@ import GroupWorkIcon from "@material-ui/icons/GroupWork";
 import LocalCarWashIcon from "@material-ui/icons/LocalCarWash";
 import React from "react";
 
-const services = [
+export const services = [
     {
         id: 6,
         name: "Bakım ve Onarım",

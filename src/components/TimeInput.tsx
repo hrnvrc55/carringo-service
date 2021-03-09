@@ -15,13 +15,14 @@ const localeMap = {
 type TimeInputProps = {
     onChange: (key: string, value: any) => void,
     label: string,
-    name: string
+    name: string,
+    times: any,
 
 }
 
-const times = ["08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00",]
+// const times = ["08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00",]
 
-function TimeInput({onChange, label, name} : TimeInputProps){
+function TimeInput({onChange, label, name, times} : TimeInputProps){
 
     const [selectedTime, setSelectedTime] = React.useState<string | undefined>("08:00");
 
