@@ -100,12 +100,35 @@ function Appointment(){
                 currentForm?.services.map((item: any, idx: number) => {
                     hizmetler = hizmetler + item.name + ", ";
                 })
-                let message = "Sayın " + currentForm?.first_name + " " + currentForm?.last_name + "; " + moment(currentForm.date).format("DD/MM/YYYY") + " tarihinde saat " + currentForm.time + " 'de " + currentForm?.garage.name + " için randevunuz oluşturulmuştur.";
+                let message = "Sayın " + currentForm?.first_name + " " + currentForm?.last_name + "; " + moment(currentForm.date).format("DD/MM/YYYY") + " tarihinde saat " + currentForm.time + " 'de " + currentForm?.garage.name + " için randevunuz oluşturulmuştur. Adres: " + currentForm?.garage?.address + " / Telefon: " + currentForm?.garage?.phone;
                 let serviceMessage = currentForm?.first_name + " " + currentForm?.last_name + " adına servisinizden "+moment(currentForm.date).format("DD/MM/YYYY")+" ("+currentForm.time +") tarihinde randevu alınmıştır. İletişim bilgileri: Telefon: " + currentPhone +",Email: " + currentForm?.email + ". Hizmetler: " + hizmetler  ;
 
-                sendMessage(currentPhone, message, serviceMessage, currentForm?.email);
-                provider?.saveAppointment();
-                history.push("/success");
+                let selectedDate = moment(provider?.form?.date).format('YYYY-MM-DD') + ' ' + provider?.form?.time;
+                let selectedStartDate = moment(selectedDate).format('YYYY-MM-DD HH:mm');
+                let selectedEndDate = moment(selectedDate).add(1, 'hour').format('YYYY-MM-DD HH:mm');
+
+                let infoData = {
+                    fullName: currentForm?.first_name + " " + currentForm?.last_name,
+                    date: moment(provider?.form?.date).format("DD/MM/YYYY"),
+                    time: provider?.form?.time,
+                    phone: currentForm?.phone,
+                    email: currentForm?.email,
+                    services: currentForm.services,
+                }
+
+                let params = {
+                    plate: provider?.form?.plate,
+                    companyPropertyId: provider?.form?.garage?.id,
+                    caption: currentForm?.first_name + " " + currentForm?.last_name,
+                    startDate: selectedStartDate,
+                    endDate: selectedEndDate,
+                    description: JSON.stringify(infoData)
+                }
+
+                // sendMessage(currentPhone, message, serviceMessage, currentForm?.email);
+                // provider?.saveAppointment();
+                // history.push("/success")
+
 
             }
         }

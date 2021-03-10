@@ -94,8 +94,8 @@ function Garages(){
                 //"Authorization" : isLogin() ? "Bearer " + user.token : null
             },
         }).then(resp => {
-            console.log(resp, 'respp')
             let respData = resp.data.result;
+            console.log(respData, 'respp')
 
             let newRespData = respData.map((item: any, idx: number) => {
                 let splitted = item.coordinate.split(",");
@@ -109,7 +109,9 @@ function Garages(){
                     selected: false,
                     lat: Number(splitted[0]),
                     lng: Number(splitted[1]),
-                    services: services
+                    services: services,
+                    phone: item.phoneNumber,
+                    email: item.emailAddress
                 }
             })
 
@@ -214,8 +216,8 @@ function Garages(){
                                         <List component="nav" aria-label="main mailbox folders" className={classes.root}>
                                             {garages.map((item: any, idx: number) => (
                                                 <>
-                                                <ListItem button onClick={() => {handleChange(item)}} className={"list-card" + (value?.id === item?.id ? " active": " ")}>
-                                                    {value?.id === item?.id ? (
+                                                <ListItem button onClick={() => {handleChange(item)}} className={"list-card" + (provider?.form?.garage?.id === item?.id ? " active": " ")}>
+                                                    {provider?.form?.garage?.id === item?.id ? (
                                                         <CheckCircleIcon className="active-icon text-success"/>
                                                     ) : (
                                                         <RadioButtonUncheckedIcon className="active-icon text-secondary"/>

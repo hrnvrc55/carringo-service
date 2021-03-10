@@ -3,25 +3,14 @@ import Layout from "../components/Layout";
 import ServiceCard from "../components/ServiceCard";
 import Button from "@material-ui/core/Button";
 import {useHistory} from "react-router-dom";
-import AcUnitIcon from "@material-ui/icons/AcUnit";
-import BatteryCharging60Icon from '@material-ui/icons/BatteryCharging60';
-import TollIcon from '@material-ui/icons/Toll';
-import ViewCarouselIcon from '@material-ui/icons/ViewCarousel';
-import ViewAgendaIcon from '@material-ui/icons/ViewAgenda';
-import HealingIcon from '@material-ui/icons/Healing';
-import LocationSearchingIcon from '@material-ui/icons/LocationSearching';
+
 import {AppProviderContext} from "../providers/AppProvider";
 import ForwardIcon from "@material-ui/icons/Forward";
 import AlertDialog from "../components/dialogs/AlertDialog";
 import {serviceValidate} from "../utils/validation";
-import LocalDrinkIcon from '@material-ui/icons/LocalDrink';
-import LocalCarWashIcon from '@material-ui/icons/LocalCarWash';
-import GroupWorkIcon from '@material-ui/icons/GroupWork';
-import DeviceHubIcon from '@material-ui/icons/DeviceHub';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
-import BrushIcon from '@material-ui/icons/Brush';
-import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
+import axios from 'axios';
+import {apiUrl} from "../utils/config";
+
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
 type AlertDialog = {
@@ -43,8 +32,18 @@ function Services(){
 
     useEffect(() => {
       let selectedGarage = provider?.form?.garage;
+      load(selectedGarage);
+      console.log(selectedGarage, 'selected garage');
       setServices(selectedGarage?.services);
     },[history])
+
+    async function load(garage: any){
+        await axios.get(apiUrl+'/services/app/ServiceWork/GetServiceWorksGroupedByCategory', {params:{
+            serviceId: garage.id
+            }}).then(resp => {
+            console.log(resp, 'resp');
+        })
+    }
 
     function onClick(data: any){
         let oldServices = services;
