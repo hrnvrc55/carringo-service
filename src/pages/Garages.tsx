@@ -24,6 +24,26 @@ import {apiUrl} from "../utils/config";
 import axios from "axios";
 import PageAlert from "../components/PageAlert";
 import CitySelector from "../components/CitySelector";
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import {Divider} from "@material-ui/core";
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            width: '100%',
+            maxWidth: '36ch',
+        },
+        inline: {
+            display: 'inline',
+
+        },
+    }),
+);
 
 const garagesData = garages;
 
@@ -45,6 +65,7 @@ type AlertDialog = {
 }
 
 function Garages(){
+    const classes = useStyles();
 
     const provider = React.useContext(AppProviderContext);
     let history = useHistory();
@@ -57,12 +78,13 @@ function Garages(){
 
     useEffect(() => {
         //setGarages(garagesData);
-        setValue(provider?.form?.garage?.id);
-        console.log(provider?.form, 'provider form');
-        load();
-    },[provider?.form?.garage?.id])
+        setValue(provider?.form?.garage);
+        let selectedCity = provider?.form?.selectedCity?.il;
+        load(selectedCity);
+    },[])
 
     async function load(city?: string){
+        console.log(city, 'city selected')
         await axios({
             method: 'get',
             url: apiUrl + '/' + 'services/app/CompanyProperty/GetServices?brandId=' + provider?.form?.brand?.id + (city ? "&city=" + city : "") ,
@@ -95,10 +117,8 @@ function Garages(){
         })
     }
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(Number(event.target.value));
-        let found = garages.find((x: any) => x.id === Number(event.target.value));
-        provider?.onChange("garage", found);
+    const handleChange = (value: any) => {
+        provider?.onChange("garage", value);
     };
 
     const tableChange = (event: React.ChangeEvent<{}>, newValue: number) => {
@@ -110,8 +130,10 @@ function Garages(){
     }
 
     function onChangeCitySelector(key: string, value: any){
+        console.log(value, 'valuee');
         load(value?.il);
         provider?.onChange("selectedCity", value);
+        provider?.onChange("garage", undefined);
 
     }
 
@@ -171,24 +193,43 @@ function Garages(){
                                         errors={[]}
                                     />
                                     <div className="list-area">
-                                        <FormControl component="fieldset" className="list-items">
-                                            <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-                                                {garages.map((item: any, idx: number) => (
-                                                    <div key={"garage-list-item" + idx} className={"mb-2 pl-2 pt-2 list-card custom-shadow" + (value === item.id ? " active": " ")}>
-                                                        <FormControlLabel
-                                                            value={item.id}
-                                                            control={<CustomRadio />}
-                                                            label={item.name}
-                                                            labelPlacement="end"
-                                                        />
+                                        {/*<FormControl component="fieldset" className="list-items">*/}
+                                        {/*    <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>*/}
+                                        {/*        {garages.map((item: any, idx: number) => (*/}
+                                        {/*            <div key={"garage-list-item" + idx} className={"mb-2 pl-2 pt-2 list-card custom-shadow" + (value === item.id ? " active": " ")}>*/}
+                                        {/*                <FormControlLabel*/}
+                                        {/*                    value={item.id}*/}
+                                        {/*                    control={<CustomRadio />}*/}
+                                        {/*                    label={item.name}*/}
+                                        {/*                    labelPlacement="end"*/}
+                                        {/*                />*/}
+                                        {/*                <p className="text-muted mb-0">{item.address}</p>*/}
+                                        {/*                <p className={"text-muted"}>{item.city}/{item.district}</p>*/}
+
+                                        {/*            </div>*/}
+                                        {/*        ))}*/}
+
+                                        {/*    </RadioGroup>*/}
+                                        {/*</FormControl>*/}
+                                        <List component="nav" aria-label="main mailbox folders" className={classes.root}>
+                                            {garages.map((item: any, idx: number) => (
+                                                <>
+                                                <ListItem button onClick={() => {handleChange(item)}} className={"list-card" + (value?.id === item?.id ? " active": " ")}>
+                                                    {value?.id === item?.id ? (
+                                                        <CheckCircleIcon className="active-icon text-success"/>
+                                                    ) : (
+                                                        <RadioButtonUncheckedIcon className="active-icon text-secondary"/>
+                                                    )}
+                                                    <div>
+                                                        <ListItemText primary={item.name} />
                                                         <p className="text-muted mb-0">{item.address}</p>
                                                         <p className={"text-muted"}>{item.city}/{item.district}</p>
-
                                                     </div>
-                                                ))}
+                                                </ListItem>
+                                                </>
+                                            ))}
+                                        </List>
 
-                                            </RadioGroup>
-                                        </FormControl>
 
                                     </div>
                                 </div>
@@ -197,14 +238,14 @@ function Garages(){
                             {tab === 1 && (
                                 <div className="col-12 col-md-8  animate__animated animate__bounceInRight">
                                     <div className="map-mobil-area">
-                                        <MapArea deneme={123}/>
+                                        <MapArea garages={garages}/>
                                     </div>
                                 </div>
                             )}
 
                             <div className="col-12 col-md-8 d-none d-md-block animate__animated animate__bounceInRight">
                                 <div className="map-area">
-                                    <MapArea deneme={123}/>
+                                    <MapArea garages={garages}/>
                                 </div>
                             </div>
 

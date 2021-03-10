@@ -35,8 +35,6 @@ function AppProvider(props: AppProviderProps){
     useEffect(() => {
          setForm({
              ...form,
-             date: moment().format(),
-             time: "08:00"
          })
     },[])
 

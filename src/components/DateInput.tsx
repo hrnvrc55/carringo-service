@@ -23,9 +23,7 @@ type DateInputProps = {
 }
 
 function DateInput({onChange, label, name, maxDate, minDate, availableDates} : DateInputProps){
-    const [selectedDate, setSelectedDate] = React.useState<Date | null>(new Date());
-
-    console.log()
+    const [selectedDate, setSelectedDate] = React.useState<Date | null>(null);
 
     const handleDateChange = (date: any | null) => {
         setSelectedDate(date);

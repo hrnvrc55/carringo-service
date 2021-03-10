@@ -9,6 +9,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import {apiUrl} from "../utils/config";
+import NewActiveMap from "./NewActiveMap";
 
 const mapContainerStyle = {
     width: '100%',
@@ -36,37 +37,38 @@ function MapArea(props) {
             setActiveService(provider?.form?.garage);
             setLoading(false);
         },500)
-        load();
-    },[provider?.form?.garage])
+        load(props.garages);
+    },[provider?.form?.garage, props.garages])
 
-    async function load(){
-        await axios({
-            method: 'get',
-            url: apiUrl + '/' + 'services/app/CompanyProperty/GetServices?brandId=' + provider?.form?.brand?.id ,
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                //"Authorization" : isLogin() ? "Bearer " + user.token : null
-            },
-        }).then(resp => {
-            let respData = resp.data.result;
-
-            let newRespData = respData.map((item, idx) => {
-                let splitted = item.coordinate.split(",");
-
-                return {
-                    id: item.id,
-                    name: item.name,
-                    address: item.addressDescription,
-                    selected: false,
-                    lat: Number(splitted[0]),
-                    lng: Number(splitted[1]),
-                    services: []
-                }
-            })
-
-            setGarages(newRespData);
-        })
+    async function load(garageList){
+        setGarages(garageList);
+        // await axios({
+        //     method: 'get',
+        //     url: apiUrl + '/' + 'services/app/CompanyProperty/GetServices?brandId=' + provider?.form?.brand?.id ,
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'application/json',
+        //         //"Authorization" : isLogin() ? "Bearer " + user.token : null
+        //     },
+        // }).then(resp => {
+        //     let respData = resp.data.result;
+        //
+        //     let newRespData = respData.map((item, idx) => {
+        //         let splitted = item.coordinate.split(",");
+        //
+        //         return {
+        //             id: item.id,
+        //             name: item.name,
+        //             address: item.addressDescription,
+        //             selected: false,
+        //             lat: Number(splitted[0]),
+        //             lng: Number(splitted[1]),
+        //             services: []
+        //         }
+        //     })
+        //
+        //     setGarages(newRespData);
+        // })
     }
 
 
@@ -90,18 +92,25 @@ function MapArea(props) {
                 <div className={"map-loading"}>
                     <div className="icon-area">
                         <FontAwesomeIcon className="icon" icon={faCog} spin={true}/>
-
                     </div>
                 </div>
             ) : activeService ? (
                 <div>
-                    <ActiveMap
+                    {/*<ActiveMap*/}
+                    {/*    lat={activeService.lat}*/}
+                    {/*    lng={activeService.lng}*/}
+                    {/*    allGarages={garages}*/}
+                    {/*    style={mapContainerStyle}*/}
+                    {/*    activeService={activeService}*/}
+                    {/*    onSelectButton={onSelectButton}*/}
+                    {/*/>*/}
+                    <NewActiveMap
+                        center={{ lat: activeService.lat, lng: activeService.lng}}
+                        zoom={4}
                         lat={activeService.lat}
                         lng={activeService.lng}
                         allGarages={garages}
-                        style={mapContainerStyle}
                         activeService={activeService}
-                        onSelectButton={onSelectButton}
                     />
                 </div>
             ) : (

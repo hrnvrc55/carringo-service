@@ -47,7 +47,6 @@ function Services(){
     },[history])
 
     function onClick(data: any){
-        console.log(data, 'dataa');
         let oldServices = services;
         let newData = oldServices.map((item: any) => {
             if(item.id === data.id){

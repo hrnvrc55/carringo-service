@@ -19,6 +19,8 @@ import moment from "moment";
 import axios from "axios";
 import {DatePicker} from "@material-ui/pickers";
 import {apiUrl} from "../utils/config";
+import DenemeSelect from "../components/DenemeSelect";
+import {start} from "repl";
 
 
 function Appointment(){
@@ -36,8 +38,9 @@ function Appointment(){
     }, [])
 
     async function load() {
-        let startDate =moment()
+        let startDate =moment().add(1, 'days')
         let endDate =moment().add(3, 'days').add(1, 'months').subtract(1, 'days')
+        console.log(startDate, 'start date')
         let id = provider?.form?.garage?.id;
         setMinDate(startDate);
         setMaxDate(endDate);
@@ -50,6 +53,7 @@ function Appointment(){
         axios.get(apiUrl + "/services/app/Appointment/GetAvailableAppointment", {params}).then(resp => {
            console.log(resp, 'resp')
             setAvailableDates(resp.data.result);
+            setAvailableTimes(resp.data?.result[0]?.time)
         })
     }
 

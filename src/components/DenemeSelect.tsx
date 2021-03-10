@@ -27,7 +27,7 @@ type TimeInputProps = {
 
 }
 
-export default function TimeInput({onChange, label, name, times} : TimeInputProps) {
+export default function DenemeSelect({onChange, label, name, times} : TimeInputProps) {
     const classes = useStyles();
 
     const [selectedTime, setSelectedTime] = React.useState<string | undefined>(undefined);

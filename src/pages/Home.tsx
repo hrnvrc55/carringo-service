@@ -78,6 +78,7 @@ function Home(){
     function onChangeBrand(key: string, value: any){
         provider?.onChange(key, value);
         getModels(value?.id);
+
     }
 
     function onChangeModel(key: string, value: any){

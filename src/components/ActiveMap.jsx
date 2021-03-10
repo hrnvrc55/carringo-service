@@ -8,6 +8,7 @@ function ActiveMap(props) {
 
     let [activeMarker, setActiveMarker] = useState(null);
     let [clickedService, setClickedService] = useState(null);
+    let [mapLoad, setMapLoad] = useState(false)
 
 
     const onMarkerClick = (props, marker, e) => {
@@ -24,15 +25,25 @@ function ActiveMap(props) {
         props.onSelectButton(selectedService);
     }
 
-    console.log(props.activeService, 'active service');
+    function onMarkerMounted(element){
+        if(element){
+            onMarkerClick(element.props, element.marker, element);
+        }
+    }
+
+    const handleMapIdle = () => {
+       setMapLoad(true);
+    };
+
 
     return(
         <div>
             <Map
                 style={props.style}
                 google={props.google}
-                zoom={10}
+                zoom={5}
                 initialCenter={{lat: props.lat, lng: props.lng}}
+                onIdle={handleMapIdle}
             >
                 {props.allGarages?.map((service, idx) => (
                     <Marker
@@ -43,11 +54,15 @@ function ActiveMap(props) {
                         service={service}
                     />
                 ))}
-                <Marker
-                    style={{backgroundColor: 'green'}}
-                    position={{lat: props.lat, lng: props.lng}}
-                    service={props.activeService}
-                    onClick={onActiveClick}/>
+                {mapLoad && (
+                    <Marker
+                        style={{backgroundColor: 'green'}}
+                        position={{lat: props.lat, lng: props.lng}}
+                        service={props.activeService}
+                        ref={onMarkerMounted}
+                        onClick={onActiveClick}/>
+                )}
+
 
                 <InfoWindowCt marker={activeMarker} visible={true} onClose={() => console.log('close')} >
                     <>
