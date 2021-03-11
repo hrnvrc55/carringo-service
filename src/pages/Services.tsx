@@ -12,6 +12,8 @@ import axios from 'axios';
 import {apiUrl} from "../utils/config";
 
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import HealingIcon from "@material-ui/icons/Healing";
+import PageAlert from "../components/PageAlert";
 
 type AlertDialog = {
     open: boolean,
@@ -29,19 +31,45 @@ function Services(){
     const provider = React.useContext(AppProviderContext);
     const [services, setServices] = useState<any>([]);
     let [openAlertDialog, setOpenAlertDialog] = useState<AlertDialog>({open: false, alertType: '', title:'', description: ''})
+    let [loading, setLoading] = useState(false);
 
     useEffect(() => {
       let selectedGarage = provider?.form?.garage;
       load(selectedGarage);
       console.log(selectedGarage, 'selected garage');
-      setServices(selectedGarage?.services);
+      //setServices(selectedGarage?.services);
     },[history])
 
     async function load(garage: any){
+        setLoading(true);
         await axios.get(apiUrl+'/services/app/ServiceWork/GetServiceWorksGroupedByCategory', {params:{
             serviceId: garage.id
             }}).then(resp => {
-            console.log(resp, 'resp');
+            let respData = resp.data.result;
+            if(respData.length > 0){
+                let newData = respData.map((item: any) => {
+
+                    let newDetails = item.items.map((item: any) => {
+                        return {
+                            id:item.serviceWorkId,
+                            name: item.workItemName,
+                            code: ""
+                        }
+                    })
+
+                    return     {
+                        id: item.categoryId,
+                        name: item.categoryName,
+                        icon: <HealingIcon className="icon"/>,
+                        selected: false,
+                        details: newDetails
+                    }
+                })
+                setServices(newData);
+            }
+            setLoading(false);
+        }).finally(() => {
+            setLoading(false);
         })
     }
 
@@ -89,67 +117,80 @@ function Services(){
                 description={openAlertDialog.description}
             />
             <div className="bg-light mt-3 mt-md-2 mb-3 mx-2 px-3 custom-shadow">
-                <div className="d-flex justify-content-center">
-                    <div className="d-flex flex-column text-center mt-2">
-                        <span className="h4">Servis Hizmetleri</span>
-                        <p><small>Seçtiğiniz</small> <strong
-                            className="text-primary">{provider?.form?.garage?.name}</strong> <small>aşağıdaki hizmetleri
-                            vermektedir. Almak istediğiniz hizmetleri seçiniz</small></p>
+                {loading ? (
+                    <div className="d-flex justify-content-center py-4">
+                        Yükleniyor...
                     </div>
-                </div>
-                <hr/>
-                <div className="d-flex flex-wrap justify-content-center">
-                    {services.map((item: any, idx: number) => (
-                        <ServiceCard onClick={onClick} key={"service-card" + idx} data={item}/>
-                    ))}
-                </div>
-
-                {provider?.form?.services?.length > 0 && (
-                    <div className="mt-4 mb-3 px-3 d-none d-lg-block">
-                        <div className="">
-                            <span style={{fontWeight: 600}}>Seçilen Hizmetler</span>
+                ) : (services.length > 0) ? (
+                    <>
+                        <div className="d-flex justify-content-center">
+                            <div className="d-flex flex-column text-center mt-2">
+                                <span className="h4">Servis Hizmetleri</span>
+                                <p><small>Seçtiğiniz</small> <strong
+                                    className="text-primary">{provider?.form?.garage?.name}</strong> <small>aşağıdaki hizmetleri
+                                    vermektedir. Almak istediğiniz hizmetleri seçiniz</small></p>
+                            </div>
                         </div>
-                        <hr className="my-1"/>
-                        <ul>
-                            {
-                                provider?.form?.services.map((item: any, idx: number) => (
-                                    <li>
-                                        <div className="d-flex justify-content-start my-3 align-items-center" key={"selected-services" + idx}>
-                                            <div>
-                                                <span>{item.name}</span>
-                                            </div>
-                                            <div className="d-flex justify-content-start align-items-center">
-                                                {item.selectedDetails && (
-                                                    <>
-                                                        <KeyboardArrowRightIcon/>
-                                                        {Object.keys(item.selectedDetails).map((detail: any, idx: number) => {
-                                                            if (item.selectedDetails[detail]?.data === '' || item.selectedDetails[detail]?.data === null) {
-                                                                return false;
-                                                            } else {
-                                                                return (
-                                                                    <span className="ml-1 badge badge-secondary p-2">
+                        <hr/>
+                        <div className="d-flex flex-wrap justify-content-center">
+                            {services.map((item: any, idx: number) => (
+                                <ServiceCard onClick={onClick} key={"service-card" + idx} data={item}/>
+                            ))}
+                        </div>
+
+                        {provider?.form?.services?.length > 0 && (
+                            <div className="mt-4 mb-3 px-3 d-none d-lg-block">
+                                <div className="">
+                                    <span style={{fontWeight: 600}}>Seçilen Hizmetler</span>
+                                </div>
+                                <hr className="my-1"/>
+                                <ul>
+                                    {
+                                        provider?.form?.services.map((item: any, idx: number) => (
+                                            <li>
+                                                <div className="d-flex justify-content-start my-3 align-items-center" key={"selected-services" + idx}>
+                                                    <div>
+                                                        <span>{item.name}</span>
+                                                    </div>
+                                                    <div className="d-flex justify-content-start align-items-center">
+                                                        {item.selectedDetails && (
+                                                            <>
+                                                                <KeyboardArrowRightIcon/>
+                                                                {Object.keys(item.selectedDetails).map((detail: any, idx: number) => {
+                                                                    if (item.selectedDetails[detail]?.data === '' || item.selectedDetails[detail]?.data === null) {
+                                                                        return false;
+                                                                    } else {
+                                                                        return (
+                                                                            <span className="ml-1 badge badge-secondary p-2">
                                                                     {item.selectedDetails[detail]?.data?.name}
                                                                 </span>
-                                                                )
-                                                            }
-                                                        })}
-                                                    </>
-                                                )}
+                                                                        )
+                                                                    }
+                                                                })}
+                                                            </>
+                                                        )}
 
-                                            </div>
-                                        </div>
-                                    </li>
-                                ))
-                            }
-                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        ))
+                                    }
+                                </ul>
+                            </div>
+                        )}
+
+
+                        <div className="d-flex justify-content-end mt-2 mb-3">
+                            <Button variant={"contained"} color={"primary"} onClick={() => submit()}
+                                    className="text-white custom-button">Devam Et <ForwardIcon/></Button>
+                        </div>
+                    </>
+                ) : (
+                    <div className="d-flex justify-content-center py-4">
+                        <PageAlert message={"Seçtiğiniz " + provider?.form?.garage?.name + " servisinin hizmet listesi bulunmamaktadır" } type={"danger"}/>
                     </div>
                 )}
 
-
-                <div className="d-flex justify-content-end mt-2 mb-3">
-                    <Button variant={"contained"} color={"primary"} onClick={() => submit()}
-                            className="text-white custom-button">Devam Et <ForwardIcon/></Button>
-                </div>
             </div>
         </Layout>
     );

@@ -4,7 +4,7 @@ import InfoWindowCt from "./InfoWindowCt";
 import Button from "@material-ui/core/Button";
 
 const style = {
-    height: "400px",
+    height: "100%",
     width: "100%"
 };
 

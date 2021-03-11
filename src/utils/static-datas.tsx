@@ -8,7 +8,7 @@ import React from "react";
 export const services = [
     {
         id: 6,
-        name: "Bakım ve Onarım",
+        name: "Periyodik Bakım ve Onarım",
         icon: <HealingIcon className="icon"/>,
         selected: false,
         details: [

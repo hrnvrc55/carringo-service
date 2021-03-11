@@ -51,9 +51,11 @@ function Appointment(){
         };
 
         axios.get(apiUrl + "/services/app/Appointment/GetAvailableAppointment", {params}).then(resp => {
-           console.log(resp, 'resp')
-            setAvailableDates(resp.data.result);
-            setAvailableTimes(resp.data?.result[0]?.time)
+            if(resp.data.result.length > 0) {
+                setAvailableDates(resp.data.result);
+                setAvailableTimes(resp.data?.result[0]?.time)
+            }
+
         })
     }
 

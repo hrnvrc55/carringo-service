@@ -11,6 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ServiceDetailDialog from "./dialogs/ServiceDetailDialog";
 import {HideAt, ShowAt} from "react-with-breakpoints";
 import ServiceDetailCollapse from "./dialogs/ServiceDetailCollapse";
+import {services} from "../utils/static-datas";
 
 
 
@@ -28,8 +29,8 @@ function ServiceCard({data, onClick} : ServiceCardProps) {
 
     useEffect(() => {
         setHaveDetail(Boolean(data?.details?.length > 0));
-        console.log(data, 'dataa');
-    }, []);
+
+    }, [data]);
 
     function onClickCard(){
         //onClick(data)
@@ -46,6 +47,8 @@ function ServiceCard({data, onClick} : ServiceCardProps) {
             }
             onClick(newData);
         }
+
+        console.log(data, 'dataa');
 
     }
 
@@ -95,7 +98,8 @@ function ServiceCard({data, onClick} : ServiceCardProps) {
                                         <CheckCircleIcon className="selected-icon text-success"/>
                                     )}
                                     <div>
-                                        {data?.icon}
+                                        {services.find(x => x.name === data.name)?.icon}
+
                                     </div>
                                     <div>
                                         <span className="mt-2">{data?.name}</span>
