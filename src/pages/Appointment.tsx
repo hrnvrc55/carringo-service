@@ -55,7 +55,6 @@ function Appointment(){
                 setAvailableDates(resp.data.result);
                 setAvailableTimes(resp.data?.result[0]?.time)
             }
-
         })
     }
 
@@ -102,7 +101,7 @@ function Appointment(){
                 currentForm?.services.map((item: any, idx: number) => {
                     hizmetler = hizmetler + item.name + ", ";
                 })
-                let message = "Sayın " + currentForm?.first_name + " " + currentForm?.last_name + "; " + moment(currentForm.date).format("DD/MM/YYYY") + " tarihinde saat " + currentForm.time + " 'de " + currentForm?.garage.name + " için randevunuz oluşturulmuştur. Adres: " + currentForm?.garage?.address + " / Telefon: " + currentForm?.garage?.phone;
+                let message = "Sayın " + currentForm?.first_name + " " + currentForm?.last_name + "; " + moment(currentForm.date).format("DD/MM/YYYY") + " tarihinde saat " + currentForm.time + " 'de " + currentForm?.garage.name + " için randevunuz oluşturulmuştur. Adres: " + currentForm?.garage?.address + " ,Telefon: " + currentForm?.garage?.phone +" . Konum: "+ "http://maps.google.com/maps?q="+currentForm?.garage?.lat +"," + currentForm?.garage?.lng;
                 let serviceMessage = currentForm?.first_name + " " + currentForm?.last_name + " adına servisinizden "+moment(currentForm.date).format("DD/MM/YYYY")+" ("+currentForm.time +") tarihinde randevu alınmıştır. İletişim bilgileri: Telefon: " + currentPhone +",Email: " + currentForm?.email + ". Hizmetler: " + hizmetler  ;
 
                 let selectedDate = moment(provider?.form?.date).format('YYYY-MM-DD') + ' ' + provider?.form?.time;
@@ -124,12 +123,23 @@ function Appointment(){
                     caption: currentForm?.first_name + " " + currentForm?.last_name,
                     startDate: selectedStartDate,
                     endDate: selectedEndDate,
-                    description: JSON.stringify(infoData)
+                    description: JSON.stringify(infoData),
+                    firstName: currentForm?.first_name,
+                    lastName: currentForm?.last_name,
+                    eMailAddress: currentForm?.email,
+                    phoneNumber: currentForm?.phone,
+                    orderId: null
                 }
 
-                // sendMessage(currentPhone, message, serviceMessage, currentForm?.email);
-                // provider?.saveAppointment();
-                // history.push("/success")
+                axios.post(apiUrl + "/services/app/Appointment/Create", params).then(resp => {
+                    sendMessage(currentPhone, message, serviceMessage, currentForm?.email);
+                    provider?.saveAppointment();
+                    history.push("/success")
+                }).finally(() => {
+
+                })
+
+
 
 
             }
