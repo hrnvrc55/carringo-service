@@ -56,14 +56,14 @@ function Home(){
     useEffect(() => {
         axios({
             method: 'get',
-            url: apiUrl + '/' + 'services/app/VehicleBrand/GetAll' ,
+            url: apiUrl + '/' + 'services/app/ServiceBrand/GetBrands' ,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 //"Authorization" : isLogin() ? "Bearer " + user.token : null
             },
         }).then(async resp => {
-            let respBrands = resp.data.result.items;
+            let respBrands = resp.data.result;
             setBrands(respBrands);
         }).catch(error => {
 
