@@ -26,14 +26,12 @@ import PageAlert from "../components/PageAlert";
 import CitySelector from "../components/CitySelector";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-import {Divider} from "@material-ui/core";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import {faPhone, faUser} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -97,7 +95,6 @@ function Garages(){
             },
         }).then(resp => {
             let respData = resp.data.result;
-            console.log(respData, 'respp')
 
             let newRespData = respData.map((item: any, idx: number) => {
                 let splitted = item.coordinate.split(",");
@@ -135,10 +132,11 @@ function Garages(){
     }
 
     function onChangeCitySelector(key: string, value: any){
-        console.log(value, 'valuee');
         load(value?.il);
-        provider?.onChange("selectedCity", value);
-        provider?.onChange("garage", undefined);
+        provider?.updateForm({
+            garage: undefined,
+            selectedCity: value
+        })
 
     }
 
@@ -193,33 +191,18 @@ function Garages(){
                             <div className="row">
                                 {tab === 0 && (
                                     <div className="col-12 col-md-4 animate__animated animate__bounceInLeft">
-                                        {/*<TextInput label={"Ara"} onChange={() => {}} name={"search"}/>*/}
-                                        <CitySelector
-                                            name={"city"}
-                                            onChange={onChangeCitySelector}
-                                            label={"Şehir Seçiniz"}
-                                            defaultValue={provider?.form?.selectedCity}
-                                            errors={[]}
-                                        />
+                                        <div className="mb-2">
+                                            <CitySelector
+                                                name={"city"}
+                                                onChange={onChangeCitySelector}
+                                                label={"Şehir Seçiniz"}
+                                                defaultValue={provider?.form?.selectedCity}
+                                                errors={[]}
+                                            />
+                                        </div>
+
                                         <div className="list-area">
-                                            {/*<FormControl component="fieldset" className="list-items">*/}
-                                            {/*    <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>*/}
-                                            {/*        {garages.map((item: any, idx: number) => (*/}
-                                            {/*            <div key={"garage-list-item" + idx} className={"mb-2 pl-2 pt-2 list-card custom-shadow" + (value === item.id ? " active": " ")}>*/}
-                                            {/*                <FormControlLabel*/}
-                                            {/*                    value={item.id}*/}
-                                            {/*                    control={<CustomRadio />}*/}
-                                            {/*                    label={item.name}*/}
-                                            {/*                    labelPlacement="end"*/}
-                                            {/*                />*/}
-                                            {/*                <p className="text-muted mb-0">{item.address}</p>*/}
-                                            {/*                <p className={"text-muted"}>{item.city}/{item.district}</p>*/}
 
-                                            {/*            </div>*/}
-                                            {/*        ))}*/}
-
-                                            {/*    </RadioGroup>*/}
-                                            {/*</FormControl>*/}
                                             <List component="nav" aria-label="main mailbox folders" className={classes.root}>
                                                 {garages.map((item: any, idx: number) => (
                                                     <>
@@ -233,14 +216,11 @@ function Garages(){
                                                                 <ListItemText primary={item.name} />
                                                                 <p className="text-muted mb-0">{item.address}</p>
                                                                 <p className={"text-muted mb-0"}>{item.city}/{item.district}</p>
-                                                                <p className={"text-muted"}><FontAwesomeIcon icon={faPhone} className="mr-2"/>{item.phone}</p>
                                                             </div>
                                                         </ListItem>
                                                     </>
                                                 ))}
                                             </List>
-
-
                                         </div>
                                     </div>
                                 )}
@@ -266,18 +246,24 @@ function Garages(){
                         </>
                     ) : (
                         <div>
-                            <PageAlert message={"Seçtiğiniz araç markası ve şehre hizmet veren servis bulunmamaktadır!"} type={"danger"}/>
+                            <PageAlert message={provider?.form?.selectedCity ? "Seçtiğiniz şehre hizmet veren servis bulunmamaktadır!" : "Seçtiğiniz markaya hizmet veren servis bulunmamaktadır!"} type={"danger"}/>
                             <div className="d-flex justify-content-center">
-                                <div className="w-50 mt-2">
-                                    <CitySelector
-                                        name={"city"}
-                                        onChange={onChangeCitySelector}
-                                        label={"Başka Şehir Seç"}
-                                        errors={[]}
-                                        defaultValue={provider?.form?.selectedCity}
+                                    {provider?.form?.selectedCity ? (
+                                        <div className="w-50 my-2">
+                                        <CitySelector
+                                            name={"city"}
+                                            onChange={onChangeCitySelector}
+                                            label={"Başka Şehir Seç"}
+                                            errors={[]}
+                                            defaultValue={provider?.form?.selectedCity}
 
-                                    />
-                                </div>
+                                        />
+                                        </div>
+                                    ) : (
+                                        <div className="mb-3">
+                                            <Button onClick={() => history.push('/')} variant="outlined" color="primary"><KeyboardBackspaceIcon/> Araç Seçimi</Button>
+                                        </div>
+                                    )}
                             </div>
                         </div>
                     )}

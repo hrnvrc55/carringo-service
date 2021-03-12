@@ -21,6 +21,9 @@ import {DatePicker} from "@material-ui/pickers";
 import {apiUrl} from "../utils/config";
 import DenemeSelect from "../components/DenemeSelect";
 import {start} from "repl";
+import FullLoader from "../components/FullLoader";
+import {faPhone, faUser} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 
 function Appointment(){
@@ -31,6 +34,7 @@ function Appointment(){
     let [minDate, setMinDate] = useState<any>(null);
     let [availableDates, setAvailableDates] = useState<any>(null);
     let [availableTimes, setAvailableTimes] = useState<any>([]);
+    let [loading, setLoading] = useState<boolean>(false);
     let history = useHistory();
 
     useEffect(() => {
@@ -49,12 +53,15 @@ function Appointment(){
             endDate: endDate.format("YYYY-MM-DD"),
             companyPropertyId: id,
         };
-
+       setLoading(true);
         axios.get(apiUrl + "/services/app/Appointment/GetAvailableAppointment", {params}).then(resp => {
             if(resp.data.result.length > 0) {
                 setAvailableDates(resp.data.result);
                 setAvailableTimes(resp.data?.result[0]?.time)
             }
+            setLoading(false);
+        }).finally(() => {
+            setLoading(false);
         })
     }
 
@@ -101,7 +108,7 @@ function Appointment(){
                 currentForm?.services.map((item: any, idx: number) => {
                     hizmetler = hizmetler + item.name + ", ";
                 })
-                let message = "Sayın " + currentForm?.first_name + " " + currentForm?.last_name + "; " + moment(currentForm.date).format("DD/MM/YYYY") + " tarihinde saat " + currentForm.time + " 'de " + currentForm?.garage.name + " için randevunuz oluşturulmuştur. Adres: " + currentForm?.garage?.address + " ,Telefon: " + currentForm?.garage?.phone +" . Konum: "+ "http://maps.google.com/maps?q="+currentForm?.garage?.lat +"," + currentForm?.garage?.lng;
+                let message = "Sayın " + currentForm?.first_name + " " + currentForm?.last_name + "; " + moment(currentForm.date).format("DD/MM/YYYY") + " tarihinde saat " + currentForm.time + " 'de " + currentForm?.garage.name + " için randevunuz oluşturulmuştur. Adres: " + currentForm?.garage?.address + ", Telefon: " + currentForm?.garage?.phone +". Konum: "+ "http://maps.google.com/maps?q="+currentForm?.garage?.lat +"," + currentForm?.garage?.lng;
                 let serviceMessage = currentForm?.first_name + " " + currentForm?.last_name + " adına servisinizden "+moment(currentForm.date).format("DD/MM/YYYY")+" ("+currentForm.time +") tarihinde randevu alınmıştır. İletişim bilgileri: Telefon: " + currentPhone +",Email: " + currentForm?.email + ". Hizmetler: " + hizmetler  ;
 
                 let selectedDate = moment(provider?.form?.date).format('YYYY-MM-DD') + ' ' + provider?.form?.time;
@@ -131,22 +138,34 @@ function Appointment(){
                     orderId: null
                 }
 
+                let servicePhone = provider?.form?.garage?.phone;
+                let serviceEmail = provider?.form?.garage?.email;
+
+                setLoading(true);
                 axios.post(apiUrl + "/services/app/Appointment/Create", params).then(resp => {
-                    sendMessage(currentPhone, message, serviceMessage, currentForm?.email);
+                    sendMessage(currentPhone, message, serviceMessage, currentForm?.email, servicePhone, serviceEmail);
                     provider?.saveAppointment();
                     history.push("/success")
+                    setLoading(false);
                 }).finally(() => {
-
+                    setLoading(false);
                 })
 
-
-
+                //sendMessage(currentPhone, message, serviceMessage, currentForm?.email, servicePhone, serviceEmail);
 
             }
         }
     }
 
-    async function sendMessage(phone: any , message: any, serviceMessage: any, email: any){
+    async function sendMessage(phone: any , message: any, serviceMessage: any, email: any, servicePhone: any, serviceEmail: any){
+        let params = {
+            "kullaniciMesaji": message,
+            "servisMesaji": serviceMessage,
+            "numara": phone,
+            "servisNumara": servicePhone,
+            "servisMail" : serviceEmail,
+            "mail": email
+        }
 
         provider?.isLoading(true);
         await axios({
@@ -158,12 +177,7 @@ function Appointment(){
                 'X-Carv': '!aldkjf01k31**_'
                 //"Authorization" : isLogin() ? "Bearer " + user.token : null
             },
-            data: {
-                  "kullaniciMesaji": message,
-                  "servisMesaji": serviceMessage,
-                  "numara": phone,
-                  "mail": email
-                 }
+            data: params
         }).then(resp => {
             provider?.isLoading(false);
         }).catch((error) => {
@@ -177,6 +191,7 @@ function Appointment(){
 
     return (
         <Layout title={"Randevu"} stepper={true}>
+            <FullLoader show={loading}/>
             <div className="mt-2 mb-3 px-3 pt-3">
             <div className="row">
                 <div className="col-12 col-md-6 d-none d-md-block">
@@ -195,9 +210,9 @@ function Appointment(){
                                 <DoneAllIcon className="done-icon"/>
                                 <span className="h5">Seçilen Hizmetler</span>
                                 <hr className="my-2"/>
-                                <div className="d-flex flex-wrap justify-content-start">
+                                <div className="d-flex justify-content-start">
                                     {provider?.form?.services?.map((item: any) => (
-                                        <div className="d-flex flex-column w-25">
+                                        <div className="d-flex flex-column flex-wrap">
                                             <Chip
                                                 label={item.name}
                                                 className="mr-2"
@@ -232,7 +247,7 @@ function Appointment(){
                                 <span className="h5">Seçilen Servis</span>
                                 <hr className="my-2"/>
                                 <p className="mb-0">{provider?.form?.garage?.name}</p>
-                                <p className="text-muted">{provider?.form?.garage?.address}</p>
+                                <p className="text-muted mb-0">{provider?.form?.garage?.address}</p>
                             </div>
                         </div>
                     </div>

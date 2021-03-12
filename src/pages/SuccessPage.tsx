@@ -14,7 +14,7 @@ import {
     faEnvelope,
     faCarSide,
     faTachometerAlt,
-    faFileAlt, faInfoCircle
+    faFileAlt, faInfoCircle, faPhone
 } from '@fortawesome/free-solid-svg-icons'
 import {Button} from "@material-ui/core";
 
@@ -84,7 +84,8 @@ function SuccessPage(){
                                         </div>
                                         <div className="flex-fill pl-2">
                                             <p className="garage-title">{info?.garage?.name}</p>
-                                            <small >{info?.garage?.address}</small>
+                                            <small>{info?.garage?.address}</small>
+                                            <p><FontAwesomeIcon icon={faPhone} className="mr-2"/>{info?.garage?.phone}</p>
                                         </div>
                                     </div>
                                 </div>

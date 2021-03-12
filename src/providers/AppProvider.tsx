@@ -6,6 +6,7 @@ import getStepsData from "../utils/steps";
 interface AppContextData {
     changePage: (path: string) => number,
     onChange: (key: string, value: any) => void,
+    updateForm: (data: any) => void,
     form: any,
     loading: boolean,
     recordedForm: any,
@@ -56,6 +57,14 @@ function AppProvider(props: AppProviderProps){
       })
     }
 
+    function updateForm(data: any){
+        let oldForm: any = form;
+        setForm({
+            ...oldForm,
+            ...data
+        });
+    }
+
     function isLoading(loadingData: boolean){
         setLoading(loadingData);
     }
@@ -80,7 +89,7 @@ function AppProvider(props: AppProviderProps){
     }
 
     return (
-        <AppProviderContext.Provider value={{changePage, isLoading, recordedForm, loading, onChange, form, saveAppointment, openGlobalAlert}}>
+        <AppProviderContext.Provider value={{changePage, isLoading, recordedForm, loading, onChange, form, saveAppointment, openGlobalAlert, updateForm}}>
             <AlertDialog open={globalAlert.open} description={globalAlert.message} alertType={globalAlert.type} onClose={closeGlobalAlert}/>
             {props.children}
         </AppProviderContext.Provider>

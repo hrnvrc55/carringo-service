@@ -30,8 +30,10 @@ function CitySelector({ name, defaultValue, onChange, label, errors} : SelectorP
         // }
     },[])
 
+    console.log(defaultValue, 'vall');
+
     return (
-        <div className="mb-3">
+        <div className="">
             <Autocomplete
                 id="combo-box-demo"
                 options={cities}
