@@ -23,6 +23,8 @@ type ServiceCardProps = {
 
 function ServiceCard({data, onClick} : ServiceCardProps) {
 
+    console.log(data, 'datassss');
+
     let [open, setOpen] = useState<boolean>(false);
     let [openCollapse, setOpenCollapse] = useState<boolean>(false);
     let [haveDetail, setHaveDetail] = useState<boolean>(false);

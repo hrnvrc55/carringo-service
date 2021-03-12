@@ -16,6 +16,8 @@ function AutoCompleteSelector({options, name, defaultValue, onChange, label, err
 
     let [error, setError] = useState<any>({message: "", status: false});
 
+    console.log(options, 'options')
+
     const onChangeSelector = (e: object, value: any) => {
        onChange(name, value);
     }

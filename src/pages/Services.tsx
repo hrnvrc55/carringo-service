@@ -36,7 +36,6 @@ function Services(){
     useEffect(() => {
       let selectedGarage = provider?.form?.garage;
       load(selectedGarage);
-      console.log(selectedGarage, 'selected garage');
       //setServices(selectedGarage?.services);
     },[history])
 

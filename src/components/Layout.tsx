@@ -41,6 +41,8 @@ function Layout({title, children, stepper}: LayoutProps,){
                     <MobileStepperComponent active={stepCount}/>
                 )}
                 <FullLoader show={provider?.loading}/>
+                {/*<button onClick={() => console.log(provider?.form, 'form')}>test</button>*/}
+
                 <div className="container px-0 d-none d-md-block">
                     <div className="d-flex justify-content-between my-3 align-items-center px-2">
                         <div>

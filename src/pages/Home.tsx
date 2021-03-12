@@ -11,12 +11,12 @@ import Footer from "../components/Footer";
 import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
 import {Simulate} from "react-dom/test-utils";
 import {useApi} from "../providers/ApiProvider";
-import TimeInput from "../components/TimeInput";
-import NewDateInput from "../components/NewDateInput";
-import NewTimeInput from "../components/NewTimeInput";
 import axios from "axios";
-import CitySelector from "../components/CitySelector";
-const apiUrl = "https://api.parcapaketi.com/api";
+import {apiUrl} from "../utils/config";
+
+import Skeleton from '@material-ui/lab/Skeleton';
+
+
 // const brands = [
 //     {id: 1, name: "Opel"}
 // ];
@@ -50,8 +50,10 @@ function Home(){
      let [gears, setGears] = useState<any>([]);
      let [engines, setEngines] = useState<any>([]);
 
+     let [onLoad, setOnLoad] = useState<boolean>(true);
+     let [onOtherLoad, setOnOtherLoad] = useState<boolean>(true);
 
-    let [errors, setErrors] = useState<any>([]);
+     let [errors, setErrors] = useState<any>([]);
 
     useEffect(() => {
         axios({
@@ -68,6 +70,15 @@ function Home(){
         }).catch(error => {
 
         });
+        if(provider?.form?.brand){
+            let brandId = provider?.form?.brand?.id;
+            getModels(brandId)
+        }
+
+        if(provider?.form?.model){
+            let modelId = provider?.form?.model?.id;
+            getOthers(modelId);
+        }
 
     },[])
 
@@ -76,18 +87,39 @@ function Home(){
     }
 
     function onChangeBrand(key: string, value: any){
-        provider?.onChange(key, value);
-        getModels(value?.id);
+        if(value){
+            getModels(value?.id);
+        }else{
+            setModels([]);
+        }
+
+        provider?.updateForm({
+            [key] : value,
+            model: undefined,
+            gear: undefined,
+            engine: undefined
+        })
 
     }
 
     function onChangeModel(key: string, value: any){
-        provider?.onChange(key, value);
-        getOthers(value?.id);
+        if(value){
+            getOthers(value?.id);
+        }else{
+            setGears([]);
+            setEngines([]);
+        }
+        provider?.updateForm({
+            [key]: value,
+            gear: undefined,
+            engine: undefined
+        })
 
     }
 
     async function getModels(id: any) {
+        setOnLoad(false);
+        setOnOtherLoad(false);
         await axios({
             method: 'get',
             url: apiUrl + '/' + 'services/app/VehicleModel/GetAll' ,
@@ -100,10 +132,18 @@ function Home(){
         }).then(resp => {
             let respBrands = resp.data.result.items;
             setModels(respBrands);
+            setOnLoad(true);
+            setOnOtherLoad(true);
+
+        }).finally(() => {
+            setOnLoad(true);
+            setOnOtherLoad(true);
+
         })
     }
 
     async function getOthers(id: any) {
+        setOnOtherLoad(false);
 
         await Promise.all([
             axios({
@@ -128,17 +168,19 @@ function Home(){
             }),
 
         ]).then(resp => {
-            console.log(resp[0], 'respp');
-            console.log(resp[1], 'respp');
+
 
             let respGears = resp[0].data.result.items;
             let respEngines = resp[1].data.result.items;
 
             setGears(respGears);
             setEngines(respEngines);
-
+            setOnOtherLoad(true);
             // let respBrands = resp[0].data.result.items;
             // setModels(respBrands);
+        }).finally(() => {
+            setOnOtherLoad(true);
+
         })
     }
 
@@ -172,7 +214,6 @@ function Home(){
                                 <small>Araç bilgilerinizi seçiniz</small>
                                 <hr/>
                             </div>
-
                             <AutoCompleteSelector
                                 name={"brand"}
                                 options={brands}
@@ -181,33 +222,45 @@ function Home(){
                                 defaultValue={provider?.form?.brand}
                                 errors={errors}
                             />
+                            {onLoad ? (
+                                <AutoCompleteSelector
+                                    name={"model"}
+                                    options={models}
+                                    onChange={onChangeModel}
+                                    label={"Model"}
+                                    defaultValue={provider?.form?.model}
+                                    errors={errors}
+                                />
+                            ) : (
+                                <Skeleton height={75}  animation="wave" />
+                            )}
 
-                            <AutoCompleteSelector
-                                name={"model"}
-                                options={models}
-                                onChange={onChangeModel}
-                                label={"Model"}
-                                defaultValue={provider?.form?.model}
-                                errors={errors}
-                            />
+                            {onOtherLoad ? (
+                                <AutoCompleteSelector
+                                    name={"gear"}
+                                    options={gears}
+                                    onChange={onChange}
+                                    label={"Şanzıman"}
+                                    defaultValue={provider?.form?.gear}
+                                    errors={errors}
+                                />
+                            ) : (
+                                <Skeleton height={75}  animation="wave" />
+                            )}
 
-                            <AutoCompleteSelector
-                                name={"gear"}
-                                options={gears}
-                                onChange={onChange}
-                                label={"Şanzıman"}
-                                defaultValue={provider?.form?.gear}
-                                errors={errors}
-                            />
+                            {onOtherLoad ? (
+                                <AutoCompleteSelector
+                                    name={"engine"}
+                                    options={engines}
+                                    onChange={onChange}
+                                    label={"Motor"}
+                                    defaultValue={provider?.form?.engine}
+                                    errors={errors}
+                                />
+                            ) : (
+                                <Skeleton height={75}  animation="wave" />
+                            )}
 
-                            <AutoCompleteSelector
-                                name={"engine"}
-                                options={engines}
-                                onChange={onChange}
-                                label={"Motor"}
-                                defaultValue={provider?.form?.engine}
-                                errors={errors}
-                            />
                             <TextInput type={"number"} errors={errors} label={"Kilometre"} defaultValue={provider?.form?.kilometer} name={"kilometer"} onChange={onChange}/>
                             <TextInput type={"text"} errors={errors} label={"Plaka"} defaultValue={provider?.form?.plate} name={"plate"} onChange={onChange}/>
                         </div>
