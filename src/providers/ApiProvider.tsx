@@ -1,6 +1,9 @@
 import React, {useState, useEffect, createContext, useContext} from "react";
 import ConfirmDialog from "../components/dialogs/ConfirmDialog";
-import axios from "axios";
+import axios, {AxiosError, AxiosResponse} from "axios";
+import { useSnackbar } from 'notistack';
+import Slide from '@material-ui/core/Slide';
+
 
 interface ApiContextData {
     isLogin: boolean,
@@ -23,6 +26,7 @@ export function useApi(){
 }
 
 function ApiProvider(props: LoginProviderProps){
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     let [isLogin, setIsLogin] = useState<boolean>(false);
     let [user, setUser] = useState<any>(null);
@@ -36,6 +40,33 @@ function ApiProvider(props: LoginProviderProps){
            setIsLogin(true);
        }
     },[])
+
+    axios.interceptors.response.use((response: AxiosResponse) => {
+
+        return response;
+    }, (error: AxiosError) => {
+        console.log("error aldı baba");
+        if(!error.response){
+            handleError("Sunucuya Bağlanılamıyor");
+        }else if(error?.response?.data?.error?.message){
+            handleError(error?.response?.data?.error?.message);
+        }else{
+            handleError();
+
+        }
+
+        return Promise.reject(error);
+    })
+
+    const handleError = (message?: string) => {
+        enqueueSnackbar(message ? message : "Hata oluştu", {
+            variant: 'error',
+            anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'right',
+            },
+        });
+    };
 
     const api = {
         get: (endPoint : any, params: any) => {

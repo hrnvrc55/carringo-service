@@ -15,10 +15,12 @@ import MyGaragesRouter from "./custom_routes/MyGaragesRouter";
 import MyAppointmentRouter from "./custom_routes/MyAppointmentRouter";
 import Home from "./pages/Home";
 import MapArea from "./components/MapArea";
+import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
+import {Simulate} from "react-dom/test-utils";
 
 function App() {
 
-    const loginProvider = React.useContext(ApiProviderContext);
+  const loginProvider = React.useContext(ApiProviderContext);
 
   return (
         <AppProvider>
@@ -44,7 +46,6 @@ function App() {
                        <Route exact path="/register" component={Register} />
                        <Route exact path="/check-appointment" component={CheckAppointment} />
                        <Route exact path="/map-area" component={MapArea} />
-
                    </>
                )}
             </Switch>

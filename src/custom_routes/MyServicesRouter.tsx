@@ -16,7 +16,6 @@ function MyServicesRouter({path, exact}: MyVehicleRouterProps){
     useEffect(() => {
         let validate = garageValidate(provider?.form);
 
-        console.log(validate, 'validatee service router')
         if(!validate){
             setIsRoute(false);
         }

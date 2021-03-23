@@ -24,6 +24,7 @@ import {start} from "repl";
 import FullLoader from "../components/FullLoader";
 import {faPhone, faUser} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {platformArray} from "../utils/appointment-status";
 
 
 function Appointment(){
@@ -116,12 +117,11 @@ function Appointment(){
                 let selectedEndDate = moment(selectedDate).add(1, 'hour').format('YYYY-MM-DD HH:mm');
 
                 let infoData = {
-                    fullName: currentForm?.first_name + " " + currentForm?.last_name,
-                    date: moment(provider?.form?.date).format("DD/MM/YYYY"),
-                    time: provider?.form?.time,
-                    phone: currentForm?.phone,
-                    email: currentForm?.email,
-                    services: currentForm.services,
+                   selectedServices: currentForm.services,
+                   brand: provider?.form?.brand,
+                   model: provider?.form?.model,
+                   gear: provider?.form?.gear,
+                   engine: provider?.form?.engine
                 }
 
                 let params = {
@@ -135,8 +135,14 @@ function Appointment(){
                     lastName: currentForm?.last_name,
                     eMailAddress: currentForm?.email,
                     phoneNumber: currentForm?.phone,
-                    orderId: null
+                    orderId: null,
+                    status: 0,
+                    source: platformArray.find(x => x.name === "Carringo")?.id,
                 }
+
+                console.log(provider?.form, 'form');
+
+                console.log(params, 'infoData');
 
                 let servicePhone = provider?.form?.garage?.phone;
                 let serviceEmail = provider?.form?.garage?.email;

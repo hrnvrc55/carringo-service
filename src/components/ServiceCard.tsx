@@ -23,7 +23,6 @@ type ServiceCardProps = {
 
 function ServiceCard({data, onClick} : ServiceCardProps) {
 
-    console.log(data, 'datassss');
 
     let [open, setOpen] = useState<boolean>(false);
     let [openCollapse, setOpenCollapse] = useState<boolean>(false);
@@ -50,7 +49,6 @@ function ServiceCard({data, onClick} : ServiceCardProps) {
             onClick(newData);
         }
 
-        console.log(data, 'dataa');
 
     }
 

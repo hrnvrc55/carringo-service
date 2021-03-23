@@ -73,6 +73,7 @@ function Services(){
     }
 
     function onClick(data: any){
+        console.log(services, 'services');
         let oldServices = services;
         let newData = oldServices.map((item: any) => {
             if(item.id === data.id){
@@ -86,6 +87,7 @@ function Services(){
         });
         setServices(newData);
         let filterData = newData.filter((x: any) => x.selected === true);
+
         provider?.onChange("services", filterData);
     }
 

@@ -10,6 +10,7 @@ import { trTR } from '@material-ui/core/locale';
 import App from "./App";
 import ApiProvider from "./providers/ApiProvider";
 import { BreakpointsProvider } from 'react-with-breakpoints';
+import { SnackbarProvider } from 'notistack';
 
 
 const theme = createMuiTheme({
@@ -28,11 +29,15 @@ const theme = createMuiTheme({
 
 const routing = (
     <ThemeProvider theme={theme}>
-       <ApiProvider>
+        <SnackbarProvider maxSnack={3}>
+
+        <ApiProvider>
            <BreakpointsProvider>
+
                <App/>
            </BreakpointsProvider>
        </ApiProvider>
+        </SnackbarProvider>
     </ThemeProvider>
 
 )

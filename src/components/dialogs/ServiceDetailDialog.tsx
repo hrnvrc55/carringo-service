@@ -32,7 +32,7 @@ function ServiceDetailDialog({open, title, description, defaultList, onSubmit, l
 
     let [checkedList, setCheckedList] = useState<any>(null);
 
-    console.log(defaultList, 'open');
+
 
     useEffect(() => {
         if(open){
