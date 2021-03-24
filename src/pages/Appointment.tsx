@@ -106,11 +106,24 @@ function Appointment(){
                 let replaced = currentForm?.phone.replace("(", '').replace(")", '').replace(" ", '');
                 let currentPhone = replaced.replace(" ", '');
                 let hizmetler: any = "";
+                let plate: any = "";
+                let vehicle = currentForm?.brand?.name + " " + currentForm?.model?.name + " " +currentForm?.gear?.name + " " + currentForm?.engine?.name
                 currentForm?.services.map((item: any, idx: number) => {
-                    hizmetler = hizmetler + item.name + ", ";
+                    hizmetler = hizmetler + item.name + "(";
+                    Object.keys(item.selectedDetails).map((key) => {
+                        if(item.selectedDetails[key]?.data){
+                            hizmetler = hizmetler + item.selectedDetails[key]?.data?.name + ","
+                        }
+                    })
+                    hizmetler = hizmetler + ")";
                 })
+                if(currentForm?.plate !== undefined){
+                    plate = "(" +currentForm?.plate + ")";
+                }
+
                 let message = "Sayın " + currentForm?.first_name + " " + currentForm?.last_name + "; " + moment(currentForm.date).format("DD/MM/YYYY") + " tarihinde saat " + currentForm.time + " 'de " + currentForm?.garage.name + " için randevunuz oluşturulmuştur. Adres: " + currentForm?.garage?.address + ", Telefon: " + currentForm?.garage?.phone +". Konum: "+ "http://maps.google.com/maps?q="+currentForm?.garage?.lat +"," + currentForm?.garage?.lng;
-                let serviceMessage = currentForm?.first_name + " " + currentForm?.last_name + " adına servisinizden "+moment(currentForm.date).format("DD/MM/YYYY")+" ("+currentForm.time +") tarihinde randevu alınmıştır. İletişim bilgileri: Telefon: " + currentPhone +",Email: " + currentForm?.email + ". Hizmetler: " + hizmetler  ;
+
+                let serviceMessage = currentForm?.first_name + " " + currentForm?.last_name + " adına servisinizden "+moment(currentForm.date).format("DD/MM/YYYY")+" ("+currentForm.time +") tarihinde randevu alınmıştır.Telefon: " + currentPhone +",Email: " + currentForm?.email + ". Hizmetler: " + hizmetler + " Araç: " + vehicle + plate;
 
                 let selectedDate = moment(provider?.form?.date).format('YYYY-MM-DD') + ' ' + provider?.form?.time;
                 let selectedStartDate = moment(selectedDate).format('YYYY-MM-DD HH:mm');
@@ -140,9 +153,11 @@ function Appointment(){
                     source: platformArray.find(x => x.name === "Carringo")?.id,
                 }
 
-                console.log(provider?.form, 'form');
+                console.log(serviceMessage, 'message')
+                console.log(currentForm?.plate, 'plate')
 
-                console.log(params, 'infoData');
+
+
 
                 let servicePhone = provider?.form?.garage?.phone;
                 let serviceEmail = provider?.form?.garage?.email;
