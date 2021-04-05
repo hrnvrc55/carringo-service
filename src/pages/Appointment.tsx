@@ -99,7 +99,6 @@ function Appointment(){
                 provider?.openGlobalAlert(true, "Uyarı", "Lütfen servis noktası seçiniz", "warning");
 
             }else {
-                //provider?.saveAppointment();
 
                 let currentForm = provider?.form;
 
@@ -134,7 +133,8 @@ function Appointment(){
                    brand: provider?.form?.brand,
                    model: provider?.form?.model,
                    gear: provider?.form?.gear,
-                   engine: provider?.form?.engine
+                   engine: provider?.form?.engine,
+                   description:  provider?.form?.description
                 }
 
                 let params = {
@@ -153,12 +153,6 @@ function Appointment(){
                     source: platformArray.find(x => x.name === "Carringo")?.id,
                 }
 
-                console.log(serviceMessage, 'message')
-                console.log(currentForm?.plate, 'plate')
-
-
-
-
                 let servicePhone = provider?.form?.garage?.phone;
                 let serviceEmail = provider?.form?.garage?.email;
 
@@ -171,8 +165,6 @@ function Appointment(){
                 }).finally(() => {
                     setLoading(false);
                 })
-
-                //sendMessage(currentPhone, message, serviceMessage, currentForm?.email, servicePhone, serviceEmail);
 
             }
         }
