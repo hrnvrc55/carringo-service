@@ -11,8 +11,9 @@ interface AppContextData {
     loading: boolean,
     recordedForm: any,
     isLoading: (loadingData: boolean) => void;
-    saveAppointment: () => void;
+    saveAppointment: (data: any) => void;
     openGlobalAlert: (open: boolean, title: string, message: string, type: string) => void
+    created: any,
     //page: number
 }
 
@@ -32,6 +33,7 @@ function AppProvider(props: AppProviderProps){
     let [loading, setLoading] = useState<boolean>(false);
     let [globalAlert, setGlobalAlert] = useState<any>({open: false, title: null, message: null, type: null});
     let [recordedForm, setRecordedForm] = useState<any>(null);
+    let [created, setCreated] = useState<any>(null);
 
     useEffect(() => {
          setForm({
@@ -78,10 +80,11 @@ function AppProvider(props: AppProviderProps){
 
     }
 
-    function saveAppointment(){
+    function saveAppointment(appointment: any){
         let oldForm = form;
         setForm({});
         setRecordedForm(oldForm);
+        setCreated(appointment);
         // console.log(homeValidate(form), 'home validate');
         // console.log(appointmentValidate(form), 'appointment validate');
         // console.log(serviceValidate(form), 'service validate');
@@ -89,7 +92,7 @@ function AppProvider(props: AppProviderProps){
     }
 
     return (
-        <AppProviderContext.Provider value={{changePage, isLoading, recordedForm, loading, onChange, form, saveAppointment, openGlobalAlert, updateForm}}>
+        <AppProviderContext.Provider value={{changePage, isLoading, recordedForm, loading, onChange, form, saveAppointment, openGlobalAlert, updateForm, created}}>
             <AlertDialog open={globalAlert.open} description={globalAlert.message} alertType={globalAlert.type} onClose={closeGlobalAlert}/>
             {props.children}
         </AppProviderContext.Provider>

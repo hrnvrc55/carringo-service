@@ -36,6 +36,7 @@ function Appointment(){
     let [availableDates, setAvailableDates] = useState<any>(null);
     let [availableTimes, setAvailableTimes] = useState<any>([]);
     let [loading, setLoading] = useState<boolean>(false);
+    let [createdAppointment, setCreatedAppointment] = useState<any>(null);
     let history = useHistory();
 
     useEffect(() => {
@@ -126,7 +127,7 @@ function Appointment(){
 
                 let selectedDate = moment(provider?.form?.date).format('YYYY-MM-DD') + ' ' + provider?.form?.time;
                 let selectedStartDate = moment(selectedDate).format('YYYY-MM-DD HH:mm');
-                let selectedEndDate = moment(selectedDate).add(1, 'hour').format('YYYY-MM-DD HH:mm');
+                let selectedEndDate = moment(selectedDate).add(30, 'minute').format('YYYY-MM-DD HH:mm');
 
                 let infoData = {
                    selectedServices: currentForm.services,
@@ -159,7 +160,7 @@ function Appointment(){
                 setLoading(true);
                 axios.post(apiUrl + "/services/app/Appointment/Create", params).then(resp => {
                     sendMessage(currentPhone, message, serviceMessage, currentForm?.email, servicePhone, serviceEmail);
-                    provider?.saveAppointment();
+                    provider?.saveAppointment(resp.data.result);
                     history.push("/success")
                     setLoading(false);
                 }).finally(() => {

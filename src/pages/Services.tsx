@@ -50,7 +50,7 @@ function Services(){
 
                     let newDetails = item.items.map((item: any) => {
                         return {
-                            id:item.serviceWorkId,
+                            id:item.workItemId,
                             name: item.workItemName,
                             code: ""
                         }

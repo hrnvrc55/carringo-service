@@ -59,6 +59,9 @@ function SuccessPage(){
                 <div className="d-flex justify-content-center">
                     <span className="title">Randevunuz Oluşturuldu</span>
                 </div>
+                <div className="d-flex justify-content-center">
+                    <span className="">Randevu Numarası: <strong className="number">{provider?.created?.appointmentNumber}</strong></span>
+                </div>
                 {info && (
                     <>
                     <div className="row mt-3">
