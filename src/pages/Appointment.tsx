@@ -102,17 +102,19 @@ function Appointment(){
             }else {
 
                 let currentForm = provider?.form;
-
                 let replaced = currentForm?.phone.replace("(", '').replace(")", '').replace(" ", '');
                 let currentPhone = replaced.replace(" ", '');
                 let hizmetler: any = "";
                 let plate: any = "";
+                let selectedArray: any = [];
                 let vehicle = currentForm?.brand?.name + " " + currentForm?.model?.name + " " +currentForm?.gear?.name + " " + currentForm?.engine?.name
                 currentForm?.services.map((item: any, idx: number) => {
                     hizmetler = hizmetler + item.name + "(";
                     Object.keys(item.selectedDetails).map((key) => {
                         if(item.selectedDetails[key]?.data){
                             hizmetler = hizmetler + item.selectedDetails[key]?.data?.name + ","
+                            let value = item.selectedDetails[key]?.data?.id;
+                            selectedArray.push(value);
                         }
                     })
                     hizmetler = hizmetler + ")";
@@ -144,7 +146,7 @@ function Appointment(){
                     caption: currentForm?.first_name + " " + currentForm?.last_name,
                     startDate: selectedStartDate,
                     endDate: selectedEndDate,
-                    description: JSON.stringify(infoData),
+                    description: provider?.form?.description + "--" + vehicle,
                     firstName: currentForm?.first_name,
                     lastName: currentForm?.last_name,
                     eMailAddress: currentForm?.email,
@@ -152,6 +154,7 @@ function Appointment(){
                     orderId: null,
                     status: 0,
                     source: platformArray.find(x => x.name === "Carringo")?.id,
+                    workItemId: selectedArray
                 }
 
                 let servicePhone = provider?.form?.garage?.phone;
