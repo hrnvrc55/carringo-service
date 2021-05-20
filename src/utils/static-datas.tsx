@@ -3,6 +3,7 @@ import BrushIcon from "@material-ui/icons/Brush";
 import ViewAgendaIcon from "@material-ui/icons/ViewAgenda";
 import GroupWorkIcon from "@material-ui/icons/GroupWork";
 import LocalCarWashIcon from "@material-ui/icons/LocalCarWash";
+import LibraryAddCheckIcon from '@material-ui/icons/LibraryAddCheck';
 import React from "react";
 
 export const services = [
@@ -172,6 +173,14 @@ export const services = [
         id: 1,
         name: "Yedek Parça",
         icon: <GroupWorkIcon className="icon"/>,
+        selected: false,
+        details: []
+    },
+
+    {
+        id: 1,
+        name: "Check Up",
+        icon: <LibraryAddCheckIcon className="icon" />,
         selected: false,
         details: []
     },

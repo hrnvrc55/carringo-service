@@ -90,19 +90,30 @@ function ServiceCard({data, onClick} : ServiceCardProps) {
 
                 <div className="position-relative">
                     <Card onClick={() => onClickCard()}
-                          className={"service-card m-2 animate__animated animate__backInLeft" + (data.selectedDetails || data.selected ? " active" : " ")}>
+                          className={"service-card m-2 animate__animated animate__backInLeft" + (data.selectedDetails || data.selected ? " active" : " ")}
+                          style={{backgroundColor: data?.name === "Check Up" ? "#FE8C04" : ""}}
+                    >
                         <CardContent>
                             <div className={"d-flex justify-content-center"}>
                                 <div className="d-flex flex-column justify-content-center align-items-center  title">
                                     {data.selected && (
                                         <CheckCircleIcon className="selected-icon text-success"/>
                                     )}
-                                    <div>
+                                    <div className={data?.name === "Check Up" ? "text-white" : " "}>
                                         {services.find(x => x.name === data.name)?.icon}
-
                                     </div>
                                     <div>
-                                        <span className="mt-2">{data?.name}</span>
+                                        {data?.name === "Check Up" ? (
+                                                <div>
+                                                    <span><span className="badge badge-success">Ücretsiz</span> <strong className="text-white">{data?.name}</strong></span>
+                                                </div>
+
+                                        ) : (
+                                            <span>
+                                            {data?.name}
+                                            </span>
+                                        )}
+
                                     </div>
                                 </div>
                             </div>
