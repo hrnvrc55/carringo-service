@@ -86,7 +86,6 @@ function ServiceCard({data, onClick} : ServiceCardProps) {
 
     return (
         <>
-            <HideAt breakpoint={"mediumAndBelow"}>
 
                 <div className="position-relative">
                     <Card onClick={() => onClickCard()}
@@ -132,14 +131,14 @@ function ServiceCard({data, onClick} : ServiceCardProps) {
                         />
                     )}
                 </div>
-            </HideAt>
+            {/*
             <ShowAt breakpoint={"mediumAndBelow"}>
                 <div className=" mb-3 w-100">
                     {data.details.length > 0 ? (
                         <Accordion className={"" + (data.selected ? " border border-success rounded" : " ")}
                                    onClick={() => onClickCollapse()}>
                             <CardB>
-                                <CardB.Header className="bg-white">
+                                <CardB.Header className={data.name === "Check Up" ? "custom-mobil-bg" : "bg-white"}>
                                     <Accordion.Toggle as={Button} variant="link" eventKey={data.id + "accordion"}
                                                       className="w-100">
                                     <span className="text-dark ">{data.icon} <span
@@ -172,6 +171,7 @@ function ServiceCard({data, onClick} : ServiceCardProps) {
 
                 </div>
             </ShowAt>
+            */}
         </>
     );
 }
