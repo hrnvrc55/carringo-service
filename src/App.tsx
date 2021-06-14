@@ -17,6 +17,8 @@ import Home from "./pages/Home";
 import MapArea from "./components/MapArea";
 import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
 import {Simulate} from "react-dom/test-utils";
+import WhatsappIcon from "./components/Whatsapp";
+
 
 function App() {
 
@@ -50,6 +52,7 @@ function App() {
                )}
             </Switch>
           </BrowserRouter>
+            <WhatsappIcon/>
 
         </AppProvider>
   );
