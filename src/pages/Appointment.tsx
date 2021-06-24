@@ -25,6 +25,8 @@ import FullLoader from "../components/FullLoader";
 import {faPhone, faUser} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {platformArray} from "../utils/appointment-status";
+import SelectBox from "../components/SelectBox";
+import {campaigns} from "../utils/campaigns";
 
 
 function Appointment(){
@@ -124,6 +126,7 @@ function Appointment(){
                 }
 
                 let message = "Sayın " + currentForm?.first_name + " " + currentForm?.last_name + "; " + moment(currentForm.date).format("DD/MM/YYYY") + " tarihinde saat " + currentForm.time + " 'de " + currentForm?.garage.name + " için randevunuz oluşturulmuştur. Adres: " + currentForm?.garage?.address + ", Telefon: " + currentForm?.garage?.phone +". Konum: "+ "http://maps.google.com/maps?q="+currentForm?.garage?.lat +"," + currentForm?.garage?.lng;
+                let carringoInfoMessage = currentForm?.first_name + " " + currentForm?.last_name + "adına; " + moment(currentForm.date).format("DD/MM/YYYY") + " tarihinde saat " + currentForm.time + " 'de " + currentForm?.garage.name + " için randevu oluşturulmuştur. Kişi Email:"+currentForm?.email+" Kişi Telefon:"+currentPhone+" Servis Adres: " + currentForm?.garage?.address + ", Servis Telefon: " + currentForm?.garage?.phone;
 
                 let serviceMessage = currentForm?.first_name + " " + currentForm?.last_name + " adına servisinizden "+moment(currentForm.date).format("DD/MM/YYYY")+" ("+currentForm.time +") tarihinde randevu alınmıştır.Telefon: " + currentPhone +",Email: " + currentForm?.email + ". Hizmetler: " + hizmetler + " Araç: " + vehicle + plate;
 
@@ -140,13 +143,15 @@ function Appointment(){
                    description:  provider?.form?.description
                 }
 
+                let campaign =provider?.form?.campaign ? "[" + provider?.form?.campaign?.name + "]" : "";
+
                 let params = {
                     plate: provider?.form?.plate,
                     companyPropertyId: provider?.form?.garage?.id,
                     caption: currentForm?.first_name + " " + currentForm?.last_name,
                     startDate: selectedStartDate,
                     endDate: selectedEndDate,
-                    description: provider?.form?.description + "--" + vehicle,
+                    description: provider?.form?.description +" "+ campaign + "--" + vehicle,
                     firstName: currentForm?.first_name,
                     lastName: currentForm?.last_name,
                     eMailAddress: currentForm?.email,
@@ -205,6 +210,7 @@ function Appointment(){
 
         })
     }
+
 
     return (
         <Layout title={"Randevu"} stepper={true}>
@@ -369,9 +375,12 @@ function Appointment(){
                         <TextInput errors={errors} defaultValue={provider?.form?.email} label={"Eposta"} onChange={onChange} name={"email"}/>
                         <PhoneInput errors={errors} defaultValue={provider?.form?.phone} label={"Telefon"} onChange={onChange} name={"phone"}/>
                         <TextArea errors={errors} defaultValue={provider?.form?.description} label={"Açıklama"} onChange={onChange} name={"description"}/>
+                        <hr/>
+                        <SelectBox label={"Kampanyalar"} onChange={onChange} name={"campaign"} value={provider?.form?.campaign} list={campaigns}/>
                         <div className="d-flex justify-content-end">
                             <Button onClick={() => submit()} color={"primary"} variant={"contained"} className="text-white custom-button">Randevu Al</Button>
                         </div>
+
                     </div>
                 </div>
             </div>
