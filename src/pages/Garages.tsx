@@ -83,19 +83,35 @@ function Garages(){
         load(selectedCity);
     },[])
 
+    function getQueryVariable(variable: string)
+    {
+        let query = window.location.search.substring(1);
+        console.log(query)//"app=article&act=news_content&aid=160990"
+        let vars = query.split("&");
+        console.log(vars) //[ 'app=article', 'act=news_content', 'aid=160990' ]
+        for (let i=0;i<vars.length;i++) {
+            let pair = vars[i].split("=");
+            console.log(pair)//[ 'app', 'article' ][ 'act', 'news_content' ][ 'aid', '160990' ]
+            if(pair[0] == variable){return pair[1];}
+        }
+        return false;
+    }
+
     async function load(city?: string){
+        let query = getQueryVariable('serviceId');
+
         setLoading(true);
         await axios({
             method: 'get',
-            url: apiUrl + '/' + 'services/app/CompanyProperty/GetServices?brandId=' + provider?.form?.brand?.id + (city ? "&city=" + city : "") ,
+            url: apiUrl + '/' + 'services/app/CompanyProperty/GetServices' + (city ? "?city=" + city : "") ,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 //"Authorization" : isLogin() ? "Bearer " + user.token : null
             },
         }).then(resp => {
-            let respData = resp.data.result;
-
+            let response= resp.data.result;
+            let respData = response.filter((x: any) => x.serviceTypeId !== 13);
             let newRespData = respData.map((item: any, idx: number) => {
                 let splitted = item.coordinate.split(",");
 
@@ -115,12 +131,21 @@ function Garages(){
             })
 
             setGarages(newRespData);
+            if(query !== false){
+                let found = newRespData.find((x :any)=> x.id === Number(query));
+                handleChange(found);
+            }
             setLoading(false);
         }).finally(() => setLoading(false))
     }
 
     const handleChange = (value: any) => {
+        let newurl = window.location.protocol + "//" + window.location.host + '?serviceId=' + value.id;
+
+        window.history.pushState({path:newurl},'',newurl);
         provider?.onChange("garage", value);
+
+        //history.push({search: '?serviceId=' + value.id})
     };
 
     const tableChange = (event: React.ChangeEvent<{}>, newValue: number) => {
@@ -147,7 +172,7 @@ function Garages(){
             setOpenAlertDialog({open: true, title: 'Dikkat!', description: "Lütfen servis seçiniz", alertType: "danger"});
             return false;
         }else{
-            history.push('/services');
+            history.push('/vehicle');
         }
     }
 

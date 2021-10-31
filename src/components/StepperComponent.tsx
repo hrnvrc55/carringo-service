@@ -7,9 +7,9 @@ import StepLabel from '@material-ui/core/StepLabel';
 import StepConnector from '@material-ui/core/StepConnector';
 import { StepIconProps } from '@material-ui/core/StepIcon';
 import DriveEtaIcon from '@material-ui/icons/DriveEta';
-import RedeemIcon from '@material-ui/icons/Redeem';
 import EmojiTransportationIcon from '@material-ui/icons/EmojiTransportation';
 import DateRangeIcon from '@material-ui/icons/DateRange';
+import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
 import {useHistory} from "react-router-dom";
 import getStepsData from "../utils/steps";
 import {themeData} from "../utils/theme";
@@ -63,8 +63,9 @@ function ColorlibStepIcon(props: StepIconProps) {
     const { active, completed } = props;
 
     const icons: { [index: string]: React.ReactElement } = {
-        1: <DriveEtaIcon />,
-        2: <RedeemIcon />,
+
+        1: <SettingsApplicationsIcon />,
+        2: <DriveEtaIcon />,
         3: <EmojiTransportationIcon />,
         4: <DateRangeIcon/>
     };

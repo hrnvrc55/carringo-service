@@ -58,15 +58,21 @@ function Home(){
     useEffect(() => {
         axios({
             method: 'get',
-            url: apiUrl + '/' + 'services/app/ServiceBrand/GetBrands' ,
+            url: apiUrl + '/' + 'services/app/ServiceBrand/GetAll?CompanyPropertyId=' + provider?.form?.garage?.id ,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 //"Authorization" : isLogin() ? "Bearer " + user.token : null
             },
         }).then(async resp => {
-            let respBrands = resp.data.result;
-            setBrands(respBrands);
+            let response = resp.data.result.items;
+            let vehicleBrands = response.map((item: any) => {
+                return {
+                    id: item.vehicleBrand.id,
+                    name: item.vehicleBrand.name
+                }
+            })
+            setBrands(vehicleBrands);
         }).catch(error => {
 
         });
@@ -197,7 +203,7 @@ function Home(){
             setErrors(validateError);
             return false;
         }else{
-            history.push("/garages");
+            history.push("/services");
         }
 
         //console.log(provider?.form, 'form');
