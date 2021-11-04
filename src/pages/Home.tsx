@@ -58,7 +58,11 @@ function Home(){
     useEffect(() => {
         axios({
             method: 'get',
-            url: apiUrl + '/' + 'services/app/ServiceBrand/GetAll?CompanyPropertyId=' + provider?.form?.garage?.id ,
+            url: apiUrl + '/' + 'services/app/ServiceBrand/GetAll',
+            params:{
+                CompanyPropertyId:provider?.form?.garage?.id,
+                MaxResultCount: 100
+            },
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
